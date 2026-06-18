@@ -1,0 +1,6 @@
+{
+  "name": "Free Online Video Downloader",
+  "description": "Free Online Video Downloader - Download videos from YouTube, Instagram, Facebook, TikTok, and other platforms in High Definition (HD). No installation required.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
