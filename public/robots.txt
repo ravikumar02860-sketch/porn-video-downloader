@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+# Host & Sitemap Location
+Host: pornsave.vercel.app
+Sitemap: https://pornsave.vercel.app/sitemap.xml

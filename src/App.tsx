@@ -98,7 +98,7 @@ export default function App() {
 
   // Trigger cookie display on load
   useEffect(() => {
-    const choice = localStorage.getItem('loadjet-cookie-consent');
+    const choice = localStorage.getItem('pornsave-cookie-consent');
     if (!choice) {
       const timer = setTimeout(() => {
         setIsCookieVisible(true);
@@ -226,11 +226,11 @@ export default function App() {
         // Generate mock local file download
         setTimeout(() => {
           try {
-            const fileText = `LoadJet Video Downloader output file content. Original platform source: ${urlInput} quality setting: ${format.label}.`;
+            const fileText = `Porn Save Downloader output file content. Original platform source: ${urlInput} quality setting: ${format.label}.`;
             const blob = new Blob([fileText], { type: 'application/octet-stream' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
-            link.download = `LoadJet_${platform}_${format.label.replace(' ', '_')}.${format.extension}`;
+            link.download = `PornSave_${platform}_${format.label.replace(' ', '_')}.${format.extension}`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -289,11 +289,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-rose-600 flex items-center justify-center font-bold text-white shadow-lg shadow-orange-500/20">
-              LJ
+              PS
             </div>
             <div>
               <span className={`font-bold text-xl tracking-tight bg-gradient-to-r ${isDarkMode ? 'from-orange-400 to-white' : 'from-orange-500 to-slate-800'} bg-clip-text text-transparent`}>
-                LoadJet
+                Porn Save
               </span>
               <span className="hidden sm:inline-block ml-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 bg-white/5 dark:bg-white/5 border border-white/10 px-1.5 py-0.5 rounded">
                 Beta v2.1
@@ -347,7 +347,7 @@ export default function App() {
           </div>
 
           <h1 className={`text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            Free Online <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Video Downloader</span>
+            Free <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Porn Video Downloader</span>
           </h1>
 
           <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
@@ -936,10 +936,10 @@ export default function App() {
           <div className="md:col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center font-bold text-white shadow">
-                LJ
+                PS
               </div>
               <span className={`font-bold tracking-tight text-base ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                LoadJet Downloader
+                Porn Save Downloader
               </span>
             </div>
             <p className="text-slate-400 max-w-sm leading-relaxed mb-4 text-xs">
@@ -973,7 +973,7 @@ export default function App() {
         </div>
 
         <div className="max-w-6xl mx-auto border-t border-slate-200 dark:border-white/[0.04] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
-          <p>© 2026 LoadJet Video Helper. All rights reserved. Code licensed for production deployment.</p>
+          <p>© 2026 Porn Save Video Helper. All rights reserved. Code licensed for production deployment.</p>
           <div className="flex gap-4">
             <span className="hover:underline cursor-pointer">DMCA Notice</span>
             <span className="hover:underline cursor-pointer">Terms of Service</span>
@@ -999,13 +999,13 @@ export default function App() {
                 🛡️ GDPR Cookies & Privacy Notice
               </h4>
               <p className="text-[11px] text-slate-450 leading-normal">
-                LoadJet utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
+                Porn Save utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
               </p>
             </div>
             
             <div className="flex gap-2 justify-end mt-2">
               <button 
-                onClick={() => { localStorage.setItem('loadjet-cookie-consent', 'declined'); setIsCookieVisible(false); }}
+                onClick={() => { localStorage.setItem('pornsave-cookie-consent', 'declined'); setIsCookieVisible(false); }}
                 className={`px-3 py-1.5 text-[10px] uppercase tracking-wider font-bold rounded-lg transition-colors cursor-pointer ${
                   isDarkMode ? 'bg-slate-950 text-slate-400 hover:text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                 }`}
@@ -1013,7 +1013,7 @@ export default function App() {
                 Decline
               </button>
               <button 
-                onClick={() => { localStorage.setItem('loadjet-cookie-consent', 'accepted'); setIsCookieVisible(false); }}
+                onClick={() => { localStorage.setItem('pornsave-cookie-consent', 'accepted'); setIsCookieVisible(false); }}
                 className="px-4 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-[10px] uppercase tracking-wider font-bold rounded-lg transition-colors cursor-pointer shadow-md shadow-orange-500/10"
               >
                 Accept Cookies

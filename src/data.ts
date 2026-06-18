@@ -86,13 +86,13 @@ export const SUPPORTED_PLATFORMS: PlatformConfig[] = [
 export const SEO_FAQS: FAQItem[] = [
   {
     id: 'faq-1',
-    question: 'How do I download high-quality videos online via LoadJet?',
-    answer: 'Downloading videos is incredibly simple. Just copy the URL of the video you want from platforms like YouTube, Facebook, or Vimeo. Paste the URL into the input field at the top of this page, and hit the orange "Download" button. The link analyzer will fetch format choices ranging from 144p up to 1085p crystal-clear Full HD, as well as MP3 soundtrack separation options.'
+    question: 'How do I download high-quality videos online via Porn Save?',
+    answer: 'Downloading videos is incredibly simple. Just copy the URL of the video you want from platforms like adult sites, YouTube, Facebook, or Vimeo. Paste the URL into the input field at the top of this page, and hit the orange "Download" button. The link analyzer will fetch format choices ranging from 144p up to 1085p crystal-clear Full HD, as well as MP3 soundtrack separation options.'
   },
   {
     id: 'faq-2',
     question: 'Can I do an anonymous porn video download using this service?',
-    answer: 'Absolutely. Many users utilize our platform for securely retrieving adult streams. If you configure a fast porn video download through our tool, your incoming queries, IP logs, and file downloads are strictly protected. LoadJet processes links entirely serverless or through premium proxy layers, ensuring no history trace remains.'
+    answer: 'Absolutely. Many users utilize our platform for securely retrieving adult streams. If you configure a fast porn video download through our tool, your incoming queries, IP logs, and file downloads are strictly protected. Porn Save processes links entirely serverless or through premium proxy layers, ensuring no history trace remains.'
   },
   {
     id: 'faq-3',
@@ -112,7 +112,7 @@ export const SEO_FAQS: FAQItem[] = [
   {
     id: 'faq-6',
     question: 'Does this platform offer the best porn videos download speed on mobile?',
-    answer: 'LoadJet is fully responsive and optimized for mobile devices. It is acknowledged as one of the best porn videos download systems on standard iOS, tablet, and Android browsers. No specialized software or root apps are necessary; simply tap, select quality, and save.'
+    answer: 'Porn Save is fully responsive and optimized for mobile devices. It is acknowledged as one of the best porn videos download systems on standard iOS, tablet, and Android browsers. No specialized software or root apps are necessary; simply tap, select quality, and save.'
   },
   {
     id: 'faq-7',
@@ -142,7 +142,7 @@ export const SEO_FAQS: FAQItem[] = [
   {
     id: 'faq-12',
     question: 'Can I download the latest porn videos download files from any device?',
-    answer: 'Yes, LoadJet is platform-independent. To download the latest porn videos download files, use any modern browser (Chrome, Safari, Firefox, Opera, Edge) on Windows, macOS, Linux, Android, or iOS to convert and fetch links for free.'
+    answer: 'Yes, Porn Save is platform-independent. To download the latest porn videos download files, use any modern browser (Chrome, Safari, Firefox, Opera, Edge) on Windows, macOS, Linux, Android, or iOS to convert and fetch links for free.'
   }
 ];
 
