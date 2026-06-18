@@ -206,7 +206,7 @@ export default function App() {
     setMetadata(null);
     setProgress(prev => ({ ...prev, isActive: false }));
 
-    // Simulate link decryption
+    // Simulate link decryption with a highly premium analytical delay
     setTimeout(() => {
       setIsLoading(false);
       const conf = SUPPORTED_PLATFORMS.find(p => p.id === platform) || SUPPORTED_PLATFORMS[SUPPORTED_PLATFORMS.length - 1];
@@ -222,15 +222,15 @@ export default function App() {
         platform: platform,
         sourceUrl: trimmed
       });
-    }, 1200);
+    }, 1800);
   };
 
   // Simulated download process
   const triggerSimulation = (format: DownloadFormat) => {
     setProgress({
       percent: 0,
-      speed: 'Initializing session...',
-      status: 'Validating server handshake...',
+      speed: 'Connecting...',
+      status: 'Establishing high-bandwidth proxy tunnels...',
       title: `Preparing ${format.type === 'video' ? 'MP4 Video' : 'MP3 Audio'} (${format.label})`,
       isActive: true
     });
@@ -244,7 +244,24 @@ export default function App() {
 
     let currentPercent = 0;
     const interval = setInterval(() => {
-      currentPercent += Math.floor(Math.random() * 8) + 4;
+      // Slow, systematic non-linear progression intervals to maximize user focus and authenticity
+      let increment = 1;
+      if (currentPercent < 15) {
+        increment = Math.floor(Math.random() * 3) + 2; // 2-4%
+      } else if (currentPercent < 45) {
+        increment = Math.floor(Math.random() * 2) + 1.5; // 1.5-2.5%
+      } else if (currentPercent < 75) {
+        increment = Math.floor(Math.random() * 1.5) + 1; // 1-2%
+      } else if (currentPercent < 90) {
+        increment = Math.floor(Math.random() * 1) + 0.5; // 0.5-1%
+      } else if (currentPercent < 98) {
+        increment = Math.floor(Math.random() * 0.6) + 0.3; // 0.3-0.6%
+      } else {
+        increment = 0.2; // Crawl to final step
+      }
+
+      currentPercent = parseFloat((currentPercent + increment).toFixed(1));
+
       if (currentPercent >= 100) {
         currentPercent = 100;
         clearInterval(interval);
@@ -252,8 +269,8 @@ export default function App() {
         setProgress(prev => ({
           ...prev,
           percent: 100,
-          speed: 'Finished',
-          status: 'Triggering local file store...'
+          speed: 'Muxing complete',
+          status: 'Directing local file attachment streams...'
         }));
 
         // Generate mock local file download
@@ -270,22 +287,39 @@ export default function App() {
           } catch(err) {
             console.error('Simulated blob triggers browser block', err);
           }
-          setProgress(prev => ({ ...prev, status: 'Completed! File compiled and delivered safely.' }));
-        }, 500);
+          setProgress(prev => ({ ...prev, status: 'Completed! Clean and verified media file delivered successfully.' }));
+        }, 1200);
 
       } else {
+        // Shifting status logs based on standard file download timelines
+        let currentStatus = 'Accessing high-bandwidth media streams...';
+        if (currentPercent < 12) {
+          currentStatus = 'Initializing premium multi-threaded socket pools...';
+        } else if (currentPercent < 28) {
+          currentStatus = 'Connecting to high-bandwidth streaming mirror CDN...';
+        } else if (currentPercent < 45) {
+          currentStatus = 'Resolving SSL certificates and handshaking content block nodes...';
+        } else if (currentPercent < 62) {
+          currentStatus = `Downloading and decryption segment [${Math.floor(currentPercent / 4)}/25] chunk...`;
+        } else if (currentPercent < 78) {
+          currentStatus = 'Fusing high-fidelity visual streams with audio tracks...';
+        } else if (currentPercent < 92) {
+          currentStatus = 'Formulating MP4 structural container index and metadata layers...';
+        } else {
+          currentStatus = 'Checking binary package integrity for user environment...';
+        }
+
+        // Simulating highly organic fluctuating download speed
+        const dynamicSpeed = (24 + Math.sin(currentPercent / 5) * 8 + Math.random() * 4).toFixed(1);
+
         setProgress(prev => ({
           ...prev,
           percent: currentPercent,
-          speed: `Speed: ${(28 + Math.random() * 24).toFixed(1)} MB/s`,
-          status: currentPercent < 35 
-            ? 'Accessing high-bandwidth proxy...' 
-            : currentPercent < 75 
-              ? 'Parsing stream chunks and audio signals...' 
-              : 'Assembling muxed file blocks...'
+          speed: `Speed: ${dynamicSpeed} MB/s`,
+          status: currentStatus
         }));
       }
-    }, 150);
+    }, 280);
   };
 
   // Copy dynamic single page HTML code template to user

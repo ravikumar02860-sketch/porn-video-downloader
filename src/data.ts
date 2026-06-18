@@ -159,27 +159,19 @@ export const DEFAULT_FORMATS: DownloadFormat[] = [
 // Helper to extract mock video metadata from standard URLs
 export function getMockMetadata(url: string, platform: PlatformConfig): { title: string, author: string, thumbnail: string, duration: string, views: string } {
   // If youtube, let's extract YouTube ID if possible
+  let videoId: string | null = null;
   if (platform.id === 'youtube') {
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     const match = url.match(regExp);
-    const videoId = (match && match[7].length === 11) ? match[7] : null;
-    if (videoId) {
-      return {
-        title: 'Complete Web Development Live Masterclass Video',
-        author: 'EducateOnline',
-        thumbnail: `https://images.unsplash.com/photo-1618401471353-b98aedd07871?auto=format&fit=crop&w=800&q=80`, // Use a beautiful splash background
-        duration: '14:25',
-        views: '1.2M views'
-      };
+    if (match && match[7] && match[7].length === 11) {
+      videoId = match[7];
     }
   }
 
   // Pre-generate nice random mock parameters
-  const categories = ['Tech', 'Vlog', 'Music', 'Trending Stories', 'Educational', 'Entertainment'];
-  const authors = ['CreatorHub', 'ContentX', 'DailyVibe', 'MediaPro', 'StreamHQ', 'WebPioneer'];
-  const min = Math.floor(Math.random() * 59) + 1;
+  const min = Math.floor(Math.random() * 45) + 5;
   const sec = String(Math.floor(Math.random() * 59)).padStart(2, '0');
-  const viewCount = (Math.random() * 5).toFixed(1) + 'M views';
+  const viewCount = (Math.random() * 4 + 1).toFixed(1) + 'M views';
 
   let title = platform.placeholderTitle;
   let author = platform.placeholderAuthor;
@@ -187,14 +179,26 @@ export function getMockMetadata(url: string, platform: PlatformConfig): { title:
   // Enhance adult niche names if they paste an adult site
   if (platform.id === 'porn') {
     const lowerUrl = url.toLowerCase();
-    if (lowerUrl.includes('stepmom')) {
+    if (lowerUrl.includes('stepmom') || lowerUrl.includes('step-mom')) {
       title = 'Exclusive Stepmom Relationship Drama Special';
-      author = 'NicheStudios';
+      author = 'NicheStudios Stepmom';
     } else if (lowerUrl.includes('brazzers')) {
-      title = 'Premium Studio Collection Highlight Scene';
+      title = 'Premium Studio Collection Exclusive Scene';
       author = 'BrazzersOfficial';
+    } else if (lowerUrl.includes('massage') || lowerUrl.includes('spa')) {
+      title = 'Relaxing Deep Tissue Massage Therapy & Wellness';
+      author = 'SpaAesthetic';
+    } else if (lowerUrl.includes('office') || lowerUrl.includes('secretary')) {
+      title = 'Late Night Office Overtime Assignments';
+      author = 'ExecutiveNiche';
+    } else if (lowerUrl.includes('gym') || lowerUrl.includes('workout')) {
+      title = 'Intense Private Gym Cardio Workout Session';
+      author = 'FitNetwork';
+    } else if (lowerUrl.includes('party') || lowerUrl.includes('club')) {
+      title = 'VIP Nightclub Lounge Celebration Video';
+      author = 'NeonVibe';
     } else if (lowerUrl.includes('xxx')) {
-      title = 'Ultimate Ultra HD 4K Highlight Reel';
+      title = 'Ultimate Ultra HD 4K Premium Collection';
       author = 'XXXProNetwork';
     } else {
       title = 'Trending Adult Premium Highlight Video Clip';
@@ -208,7 +212,7 @@ export function getMockMetadata(url: string, platform: PlatformConfig): { title:
       const cleanPath = pathname.replace(/[/-]/g, ' ').trim();
       if (cleanPath.length > 10) {
         // use words from pathname as a nice title
-        const words = cleanPath.split(' ').filter(w => w.length > 2).slice(0, 7);
+        const words = cleanPath.split(' ').filter(w => w.length > 2 && !w.startsWith('watch') && w !== 'video').slice(0, 7);
         if (words.length > 0) {
           title = words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
         }
@@ -220,29 +224,48 @@ export function getMockMetadata(url: string, platform: PlatformConfig): { title:
 
   // Choose rich modern abstract patterns or royalty free images for beautiful looks
   let thumbnail = '';
-  switch (platform.id) {
-    case 'youtube':
-      thumbnail = 'https://images.unsplash.com/photo-1618401471353-b98aedd07871?auto=format&fit=crop&w=700&q=80';
-      break;
-    case 'instagram':
-      thumbnail = 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=700&q=80';
-      break;
-    case 'facebook':
-      thumbnail = 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?auto=format&fit=crop&w=700&q=80';
-      break;
-    case 'tiktok':
-      thumbnail = 'https://images.unsplash.com/photo-1601972599720-36938d4ecd31?auto=format&fit=crop&w=700&q=80';
-      break;
-    case 'vimeo':
-      thumbnail = 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=80';
-      break;
-    case 'porn':
-      // A stylishly dark abstract gradient thumbnail using Unsplash to look very clean and professional
-      thumbnail = 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=700&q=80';
-      break;
-    default:
-      thumbnail = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=700&q=80';
-      break;
+  if (platform.id === 'youtube' && videoId) {
+    thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+  } else {
+    switch (platform.id) {
+      case 'youtube':
+        thumbnail = 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=700&q=80';
+        break;
+      case 'instagram':
+        thumbnail = 'https://images.unsplash.com/photo-1611162191179-1143f4b3bf47?auto=format&fit=crop&w=700&q=80';
+        break;
+      case 'facebook':
+        thumbnail = 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=700&q=80';
+        break;
+      case 'tiktok':
+        thumbnail = 'https://images.unsplash.com/photo-1598128558393-70ff21433be0?auto=format&fit=crop&w=700&q=80';
+        break;
+      case 'vimeo':
+        thumbnail = 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=80';
+        break;
+      case 'porn': {
+        const lowerUrl = url.toLowerCase();
+        if (lowerUrl.includes('stepmom') || lowerUrl.includes('step-mom')) {
+          thumbnail = 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=700&q=80'; // Domestic Villa
+        } else if (lowerUrl.includes('brazzers') || lowerUrl.includes('studio')) {
+          thumbnail = 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=700&q=80'; // Studio Lights
+        } else if (lowerUrl.includes('massage') || lowerUrl.includes('spa')) {
+          thumbnail = 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=700&q=80'; // Spa wellness
+        } else if (lowerUrl.includes('office') || lowerUrl.includes('secretary')) {
+          thumbnail = 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=700&q=80'; // Boardroom
+        } else if (lowerUrl.includes('gym') || lowerUrl.includes('workout')) {
+          thumbnail = 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80'; // Gym
+        } else if (lowerUrl.includes('party') || lowerUrl.includes('club')) {
+          thumbnail = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=700&q=80'; // Party Neon
+        } else {
+          thumbnail = 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=700&q=80'; // Elegant Bedroom
+        }
+        break;
+      }
+      default:
+        thumbnail = 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=700&q=80';
+        break;
+    }
   }
 
   return {
