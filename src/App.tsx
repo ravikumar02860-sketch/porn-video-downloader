@@ -32,6 +32,7 @@ import { SUPPORTED_PLATFORMS, SEO_FAQS, DEFAULT_FORMATS, getMockMetadata } from 
 import { PlatformType, VideoMetadata, DownloadFormat } from './types.ts';
 import { generateSingleFileHtml } from './exporter.ts';
 import { SEO_BLOG_POST } from './data_blog.ts';
+import { SEO_PAGES_DATA } from './pages_data.ts';
 
 function highlightKeywords(text: string) {
   const keywords = [
@@ -80,6 +81,40 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'video' | 'audio'>('video');
   const [isDarkMode, setIsDarkMode] = useState(true);
+  
+  // Active SEO Page state routing
+  const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom'>('home');
+
+  // Sync hash routing
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#hd-download') {
+        setCurrentPage('hd');
+        document.title = "HD Porn Video Downloader – Ultra HD 1080p & 4K | Porn Save";
+      } else if (hash === '#short-video') {
+        setCurrentPage('short');
+        document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | Porn Save";
+      } else if (hash === '#brazzers') {
+        setCurrentPage('brazzers');
+        document.title = "Brazzers Porn Video Downloader – Premium Studios | Porn Save";
+      } else if (hash === '#stepmom') {
+        setCurrentPage('stepmom');
+        document.title = "Stepmom Porter – Family Fantasy & Regional Downloader | Porn Save";
+      } else {
+        setCurrentPage('home');
+        document.title = "Porn Save – Free Online Porn Video Downloader | Best Adult Downloader 2025";
+      }
+      // Scroll smoothly to top when switching page
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    // Initialize
+    handleHashChange();
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
   
   // Simulated Progress State
   const [progress, setProgress] = useState({
@@ -276,6 +311,7 @@ export default function App() {
   };
 
   const activePlatformConfig = SUPPORTED_PLATFORMS.find(p => p.id === platform);
+  const activePageData = SEO_PAGES_DATA[currentPage] || SEO_PAGES_DATA.home;
 
   return (
     <div className={`min-h-screen font-sans transition-colors duration-300 ${isDarkMode ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-900'}`}>
@@ -301,11 +337,12 @@ export default function App() {
             </div>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <a href="#tool-hero" className="hover:text-orange-500 transition">Extractor</a>
-            <a href="#how" className="hover:text-orange-500 transition">How It Works</a>
-            <a href="#seo-info" className="hover:text-orange-500 transition">SEO Strategy</a>
-            <a href="#accordion-faqs" className="hover:text-orange-500 transition">FAQs</a>
+          <nav className="hidden md:flex items-center gap-5 text-sm font-semibold">
+            <a href="#" className={`pb-1 border-b-2 transition-all ${currentPage === 'home' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Home</a>
+            <a href="#hd-download" className={`pb-1 border-b-2 transition-all ${currentPage === 'hd' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>HD 4K</a>
+            <a href="#short-video" className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Shorts</a>
+            <a href="#brazzers" className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
+            <a href="#stepmom" className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -346,12 +383,80 @@ export default function App() {
             <span>Fast Multi-Thread Video and Audio Downloader 2026</span>
           </div>
 
+          {/* Internal Link/Page Switched Navigation Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 max-w-2xl mx-auto">
+            <a 
+              href="#"
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'home' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🏠 Home
+            </a>
+            <a 
+              href="#hd-download"
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'hd' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              📺 HD & 4K
+            </a>
+            <a 
+              href="#short-video"
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'short' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🎥 Shorts
+            </a>
+            <a 
+              href="#brazzers"
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'brazzers' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              ✨ Premium Studios
+            </a>
+            <a 
+              href="#stepmom"
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'stepmom' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🔥 Stepmom & Category
+            </a>
+          </div>
+
           <h1 className={`text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            Free <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Porn Video Downloader</span>
+            {activePageData.id === 'home' && <>Free <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Porn Video Downloader</span></>}
+            {activePageData.id === 'hd' && <>HD & 4K <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Porn Video Downloader</span></>}
+            {activePageData.id === 'short' && <>Porn <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Short Video Downloader</span></>}
+            {activePageData.id === 'brazzers' && <>Premium <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Studio Downloader</span></>}
+            {activePageData.id === 'stepmom' && <>Stepmom <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Category Downloader</span></>}
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
-            Convert dynamic video files directly into physical <strong>1080p MP4</strong> and premium standalone <strong>320kbps MP3</strong> audio structures. Paste key streams below for free link resolution.
+          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            {activePageData.subheadline}. Convert dynamic streams directly into physical formats. Paste key sharing links below to resolve.
           </p>
 
           {/* DYNAMIC URL FORM INPUT WRAPPER */}
@@ -734,34 +839,37 @@ export default function App() {
         isDarkMode ? 'bg-slate-900/10 border-white/[0.04]' : 'bg-slate-50 border-slate-200'
       }`}>
         <div className="max-w-4xl mx-auto px-4 leading-relaxed">
-          <div className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-500/10 to-rose-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md mb-4 border border-orange-500/15">
+          <div className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-500/10 to-rose-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md mb-6 border border-orange-500/15">
             <Info className="w-3 h-3" />
-            <span>Complete Downloader Guide & Core SEO Article</span>
+            <span>{activePageData.title} • Channel Content Guides</span>
           </div>
 
-          {/* Blog Meta Data Header */}
           <div className="mb-8 pb-6 border-b border-dashed border-slate-200 dark:border-white/[0.06]">
             <h1 className={`text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 leading-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-              {SEO_BLOG_POST.title}
+              {activePageData.headline}
             </h1>
             <p className={`text-sm sm:text-base font-medium mb-4 ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
-              {SEO_BLOG_POST.subtitle}
+              {activePageData.subheadline}
             </p>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
               <span className="flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>{SEO_BLOG_POST.author}</strong>
+                By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>Porn Save Editor</strong>
               </span>
               <span>•</span>
-              <span>Published: {SEO_BLOG_POST.date}</span>
+              <span>Active Period: 2025 - 2026</span>
               <span>•</span>
-              <span className="bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full font-semibold">{SEO_BLOG_POST.readTime}</span>
+              <span className="bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full font-semibold">6 min read</span>
             </div>
           </div>
 
-          {/* Dynamic Content Sections */}
+          {/* Dynamic Page Content Generation */}
           <div className="space-y-6 text-sm sm:text-base">
-            {SEO_BLOG_POST.sections.map((section, idx) => {
+            <p className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+              {highlightKeywords(activePageData.intro)}
+            </p>
+
+            {activePageData.sections.map((section, idx) => {
               switch (section.type) {
                 case 'paragraph':
                   return (
@@ -787,98 +895,123 @@ export default function App() {
                     <h3 
                       key={idx} 
                       className={`text-lg font-bold tracking-tight mt-8 mb-3 ${
-                        isDarkMode ? 'text-slate-200' : 'text-slate-800'
+                        isDarkMode ? 'text-slate-205' : 'text-slate-800'
                       }`}
                     >
                       {section.title}
                     </h3>
                   );
-                
-                case 'internal-link':
+
+                case 'list':
                   return (
                     <div key={idx} className="my-6">
-                      <a 
-                        href={section.linkUrl || '#'} 
-                        className="inline-flex items-center gap-2 text-orange-500 hover:text-orange-400 font-bold text-sm bg-orange-500/5 hover:bg-orange-500/10 border border-orange-500/10 px-4 py-2.5 rounded-xl transition duration-250 cursor-pointer"
-                      >
-                        <span>{section.anchorText}</span>
-                        <ArrowRight className="w-4 h-4 animate-pulse" />
-                      </a>
+                      {section.title && (
+                        <h4 className={`font-bold text-sm sm:text-base mb-2.5 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                          {section.title}
+                        </h4>
+                      )}
+                      <ul className="list-disc pl-5 space-y-1.5 text-sm">
+                        {section.items?.map((item, iIdx) => (
+                          <li key={iIdx} className={isDarkMode ? 'text-slate-350' : 'text-slate-600'}>
+                            {highlightKeywords(item)}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   );
                 
-                case 'table':
+                case 'internal-links-grid':
                   return (
-                    <div key={idx} className="my-8 overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.06] shadow-sm">
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse text-xs sm:text-sm">
-                          <thead>
-                            <tr className={isDarkMode ? 'bg-slate-950/60 text-slate-250 border-b border-white/[0.06]' : 'bg-slate-100 text-slate-800 border-b border-slate-200'}>
-                              {section.tableHeaders?.map((header, hIdx) => (
-                                <th key={hIdx} className="p-3 sm:p-4 font-bold">{header}</th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
-                            {section.tableRows?.map((row, rIdx) => (
-                              <tr 
-                                key={rIdx} 
-                                className={`${
-                                  isDarkMode 
-                                    ? 'hover:bg-white/[0.02] text-slate-300' 
-                                    : 'hover:bg-slate-50 text-slate-600'
-                                } ${rIdx % 2 === 1 ? (isDarkMode ? 'bg-white/[0.01]' : 'bg-slate-50/50') : ''}`}
-                              >
-                                {row.map((cell, cIdx) => (
-                                  <td key={cIdx} className="p-3 sm:p-4 max-w-[200px] sm:max-w-xs truncate-none whitespace-normal leading-relaxed">
-                                    {cell.includes('LoadJet') ? (
-                                      <span className="font-bold text-orange-500">{cell}</span>
-                                    ) : (
-                                      cell
-                                    )}
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+                    <div key={idx} className="grid sm:grid-cols-2 gap-4 my-8">
+                      {Object.values(SEO_PAGES_DATA)
+                        .filter(page => page.id !== currentPage)
+                        .map(page => (
+                          <a
+                            key={page.id}
+                            href={page.url}
+                            className={`p-5 rounded-2xl border transition-all hover:scale-[1.01] flex flex-col justify-between cursor-pointer ${
+                              isDarkMode 
+                                ? 'bg-slate-950/40 border-white/[0.05] hover:border-orange-500/40 hover:bg-slate-900/40' 
+                                : 'bg-white border-slate-250/70 hover:border-orange-500/40 hover:shadow-sm'
+                            }`}
+                          >
+                            <div>
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                                <h4 className={`font-bold text-[10px] uppercase tracking-wide ${isDarkMode ? 'text-slate-400 font-mono' : 'text-slate-500'}`}>
+                                  {page.title}
+                                </h4>
+                              </div>
+                              <h3 className={`font-extrabold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                                {page.headline}
+                              </h3>
+                              <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                                {page.metaDesc}
+                              </p>
+                            </div>
+                            <span className="text-[11px] font-bold text-orange-400 flex items-center gap-1 mt-4">
+                              Open Channel Tool <ArrowRight className="w-3 h-3" />
+                            </span>
+                          </a>
+                        ))}
                     </div>
                   );
                 
-                case 'faq-list':
-                  return (
-                    <div key={idx} className="space-y-4 my-8">
-                      {section.faqItems?.map((faq, fIdx) => (
-                        <div 
-                          key={fIdx} 
-                          className={`p-5 rounded-2xl border transition-colors ${
-                            isDarkMode 
-                              ? 'bg-slate-950/30 border-white/[0.04] hover:border-white/[0.08]' 
-                              : 'bg-white border-slate-250/60 hover:bg-slate-50'
-                          }`}
-                        >
-                          <h4 className={`font-bold text-sm sm:text-base mb-2 flex items-start gap-2 ${
-                            isDarkMode ? 'text-slate-100' : 'text-slate-900'
-                          }`}>
-                            <span className="text-orange-500 mt-0.5">Q:</span>
-                            <span>{faq.q}</span>
-                          </h4>
-                          <p className={`text-xs sm:text-sm leading-relaxed pl-6 ${
-                            isDarkMode ? 'text-slate-400' : 'text-slate-650'
-                          }`}>
-                            {faq.a}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  );
-
                 default:
                   return null;
               }
             })}
           </div>
+
+          {/* Append default tables & comparisons on Home tab */}
+          {currentPage === 'home' && (
+            <div className="mt-12 pt-8 border-t border-slate-200 dark:border-white/[0.06] space-y-6">
+              <h2 className={`text-xl sm:text-2xl font-extrabold tracking-tight mb-4 border-l-4 border-orange-500 pl-3.5 ${
+                isDarkMode ? 'text-white' : 'text-slate-900'
+              }`}>
+                Platform Comparison Matrix
+              </h2>
+              {/* Blog Table Section */}
+              {SEO_BLOG_POST.sections.filter(s => s.type === 'table').map((section, idx) => (
+                <div key={idx} className="my-8 overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.06] shadow-sm">
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                      <thead>
+                        <tr className={isDarkMode ? 'bg-slate-950/60 text-slate-250 border-b border-white/[0.06]' : 'bg-slate-100 text-slate-800 border-b border-slate-200'}>
+                          {section.tableHeaders?.map((header, hIdx) => (
+                            <th key={hIdx} className="p-3 sm:p-4 font-bold">{header}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
+                        {section.tableRows?.map((row, rIdx) => (
+                          <tr 
+                            key={rIdx} 
+                            className={`${
+                              isDarkMode 
+                                ? 'hover:bg-white/[0.02] text-slate-300' 
+                                : 'hover:bg-slate-50 text-slate-600'
+                            } ${rIdx % 2 === 1 ? (isDarkMode ? 'bg-white/[0.01]' : 'bg-slate-50/50') : ''}`}
+                          >
+                            {row.map((cell, cIdx) => (
+                              <td key={cIdx} className="p-3 sm:p-4 max-w-[200px] sm:max-w-xs truncate-none whitespace-normal leading-relaxed text-xs">
+                                {cell.includes('Porn Save') || cell.includes('LoadJet') ? (
+                                  <span className="font-bold text-orange-500">Porn Save Downloader</span>
+                                ) : (
+                                  cell
+                                )}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
         </div>
       </section>
 

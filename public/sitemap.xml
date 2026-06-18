@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main Home Downloader -->
   <url>
     <loc>https://pornsave.vercel.app/</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+  </url>
+  <!-- HD 4K Downloader Segment -->
+  <url>
+    <loc>https://pornsave.vercel.app/#hd-download</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Short Videos Clip Downloader -->
+  <url>
+    <loc>https://pornsave.vercel.app/#short-video</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Brazzers Studio Downloader -->
+  <url>
+    <loc>https://pornsave.vercel.app/#brazzers</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Stepmom Category Video Downloader -->
+  <url>
+    <loc>https://pornsave.vercel.app/#stepmom</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 </urlset>
