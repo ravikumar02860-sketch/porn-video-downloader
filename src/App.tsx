@@ -11,9 +11,7 @@ import {
   Tv, 
   MonitorPlay, 
   Lock, 
-  Sun, 
-  Moon, 
-  Copy, 
+  Copy,  
   CheckCircle, 
   Info, 
   FileCode, 
@@ -80,7 +78,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'video' | 'audio'>('video');
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const isDarkMode = true;
   
   // Active SEO Page state routing
   const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom'>('home');
@@ -346,22 +344,10 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-3">
-            {/* Theme Toggle Button */}
-            <button 
-              onClick={() => setIsDarkMode(!isDarkMode)} 
-              className={`p-2 rounded-lg transition-colors cursor-pointer ${
-                isDarkMode ? 'bg-slate-900 hover:bg-slate-800 text-yellow-400' : 'bg-slate-100 hover:bg-slate-200 text-indigo-600'
-              }`}
-              id="theme-toggler"
-              aria-label="Toggle layout theme color"
-            >
-              {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            
             {/* Embedded Source Downloader Badge */}
             <a 
               href="#developer-code-hub"
-              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 hover:bg-orange-500/25 transition cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 hover:bg-orange-500/25 transition cursor-pointer"
             >
               <FileCode className="w-3.5 h-3.5" />
               <span>Get Static HTML</span>
