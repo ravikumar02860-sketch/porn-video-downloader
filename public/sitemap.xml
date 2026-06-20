@@ -35,4 +35,32 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  <!-- About Us Portal -->
+  <url>
+    <loc>https://pornsave.vercel.app/?page=about</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Help Desk Support -->
+  <url>
+    <loc>https://pornsave.vercel.app/?page=contact</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Privacy Guarantee and Safety Policy -->
+  <url>
+    <loc>https://pornsave.vercel.app/?page=privacy</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <!-- Terms and Fair Use Conditions -->
+  <url>
+    <loc>https://pornsave.vercel.app/?page=terms</loc>
+    <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
