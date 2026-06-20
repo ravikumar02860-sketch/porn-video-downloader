@@ -81,20 +81,23 @@ export default function App() {
   // Active SEO Page state routing
   const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom'>('home');
 
-  // Sync hash routing
+  // Sync hash and query parameters routing to support direct search engine indexing
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleRoute = () => {
       const hash = window.location.hash;
-      if (hash === '#hd-download') {
+      const params = new URLSearchParams(window.location.search);
+      const pageParam = params.get('page');
+
+      if (hash === '#hd-download' || pageParam === 'hd') {
         setCurrentPage('hd');
         document.title = "HD Porn Video Downloader – Ultra HD 1080p & 4K | Porn Save";
-      } else if (hash === '#short-video') {
+      } else if (hash === '#short-video' || pageParam === 'short') {
         setCurrentPage('short');
         document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | Porn Save";
-      } else if (hash === '#brazzers') {
+      } else if (hash === '#brazzers' || pageParam === 'brazzers') {
         setCurrentPage('brazzers');
         document.title = "Brazzers Porn Video Downloader – Premium Studios | Porn Save";
-      } else if (hash === '#stepmom') {
+      } else if (hash === '#stepmom' || pageParam === 'stepmom') {
         setCurrentPage('stepmom');
         document.title = "Stepmom Porter – Family Fantasy & Regional Downloader | Porn Save";
       } else {
@@ -105,11 +108,15 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('popstate', handleRoute);
     // Initialize
-    handleHashChange();
+    handleRoute();
 
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleRoute);
+      window.removeEventListener('popstate', handleRoute);
+    };
   }, []);
   
   // Simulated Progress State
