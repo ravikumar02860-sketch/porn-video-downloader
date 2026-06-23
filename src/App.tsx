@@ -81,35 +81,36 @@ export default function App() {
   // Active SEO Page state routing
   const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom' | 'about' | 'contact' | 'privacy' | 'terms'>('home');
 
-  // Sync hash and query parameters routing to support direct search engine indexing
+  // Sync hash, custom pathnames and query parameters routing to support direct search engine indexing
   useEffect(() => {
     const handleRoute = () => {
       const hash = window.location.hash;
       const params = new URLSearchParams(window.location.search);
       const pageParam = params.get('page');
+      const pathClean = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
 
-      if (hash === '#hd-download' || pageParam === 'hd') {
+      if (hash === '#hd-download' || pageParam === 'hd' || pathClean === 'hd') {
         setCurrentPage('hd');
         document.title = "HD Video Downloader – Ultra HD 1080p & 4K | Porn Save";
-      } else if (hash === '#short-video' || pageParam === 'short') {
+      } else if (hash === '#short-video' || pageParam === 'short' || pathClean === 'short') {
         setCurrentPage('short');
         document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | Porn Save";
-      } else if (hash === '#brazzers' || pageParam === 'brazzers') {
+      } else if (hash === '#brazzers' || pageParam === 'brazzers' || pathClean === 'brazzers') {
         setCurrentPage('brazzers');
         document.title = "Brazzers Video Downloader – Premium Studios | Porn Save";
-      } else if (hash === '#stepmom' || pageParam === 'stepmom') {
+      } else if (hash === '#stepmom' || pageParam === 'stepmom' || pathClean === 'stepmom') {
         setCurrentPage('stepmom');
         document.title = "Stepmom Porter – Family Fantasy & Regional Downloader | Porn Save";
-      } else if (hash === '#about' || pageParam === 'about') {
+      } else if (hash === '#about' || pageParam === 'about' || pathClean === 'about') {
         setCurrentPage('about');
         document.title = "About Us – Core Technology & Streaming Advocates | Porn Save";
-      } else if (hash === '#contact' || pageParam === 'contact') {
+      } else if (hash === '#contact' || pageParam === 'contact' || pathClean === 'contact') {
         setCurrentPage('contact');
         document.title = "Contact Support – Ticket Submission & User Help Desk | Porn Save";
-      } else if (hash === '#privacy' || pageParam === 'privacy') {
+      } else if (hash === '#privacy' || pageParam === 'privacy' || pathClean === 'privacy') {
         setCurrentPage('privacy');
         document.title = "Privacy Policy – Double-Shield Transient Safe Encryption | Porn Save";
-      } else if (hash === '#terms' || pageParam === 'terms') {
+      } else if (hash === '#terms' || pageParam === 'terms' || pathClean === 'terms') {
         setCurrentPage('terms');
         document.title = "Terms of Service – Fair Use & Content Platform Policy | Porn Save";
       } else {
@@ -198,6 +199,10 @@ export default function App() {
   // Autodetect on manual paste triggered from button
   const handleClipboardPaste = async () => {
     try {
+      if (!navigator?.clipboard?.readText) {
+        setError('Clipboard translation is blocked or unsupported in this browser sandbox. Please paste directly (Ctrl+V or Command+V) into the input field above.');
+        return;
+      }
       const clipboardText = await navigator.clipboard.readText();
       if (clipboardText) {
         setUrlInput(clipboardText);
@@ -1361,11 +1366,11 @@ export default function App() {
             <h4 className={`font-extrabold mb-4 uppercase tracking-widest text-xs ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Legal Policies
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
-              <li>Privacy Policies</li>
-              <li>Terms of Service</li>
-              <li>DMCA Takedown Compliance</li>
-              <li>Google Analytics integration</li>
+            <ul className="space-y-2 text-xs">
+              <li><a href="#privacy" className="text-slate-400 hover:text-orange-500 transition">Privacy Policies</a></li>
+              <li><a href="#terms" className="text-slate-400 hover:text-orange-500 transition">Terms of Service</a></li>
+              <li><a href="#contact" className="text-slate-400 hover:text-orange-500 transition">DMCA Compliance & Contact</a></li>
+              <li><a href="#about" className="text-slate-400 hover:text-orange-500 transition">About Our Platform</a></li>
             </ul>
           </div>
         </div>
@@ -1373,9 +1378,9 @@ export default function App() {
         <div className="max-w-6xl mx-auto border-t border-slate-200 dark:border-white/[0.04] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
           <p>© 2026 Porn Save Video Helper. All rights reserved. Code licensed for production deployment.</p>
           <div className="flex gap-4">
-            <span className="hover:underline cursor-pointer">DMCA Notice</span>
-            <span className="hover:underline cursor-pointer">Terms of Service</span>
-            <span className="hover:underline cursor-pointer font-semibold text-orange-500">GDPR Compliance</span>
+            <a href="#contact" className="hover:underline cursor-pointer">DMCA Notice</a>
+            <a href="#terms" className="hover:underline cursor-pointer">Terms of Service</a>
+            <a href="#privacy" className="hover:underline cursor-pointer font-semibold text-orange-500">GDPR Compliance</a>
           </div>
         </div>
       </footer>
