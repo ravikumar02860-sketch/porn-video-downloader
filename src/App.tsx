@@ -68,6 +68,24 @@ function highlightKeywords(text: string) {
   });
 }
 
+const safeLocalStorage = {
+  getItem: (key: string): string | null => {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      console.warn('Storage get item blocked:', e);
+      return null;
+    }
+  },
+  setItem: (key: string, value: string): void => {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      console.warn('Storage set item blocked:', e);
+    }
+  }
+};
+
 export default function App() {
   // Base State
   const [urlInput, setUrlInput] = useState('');
@@ -118,7 +136,15 @@ export default function App() {
         document.title = "Porn Save – Secure & Free Online Video Downloader";
       }
       // Scroll smoothly to top when switching page
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      try {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (e) {
+        try {
+          window.scrollTo(0, 0);
+        } catch (err) {
+          console.warn("Smooth scroll to top failed:", err);
+        }
+      }
     };
 
     window.addEventListener('hashchange', handleRoute);
@@ -156,7 +182,7 @@ export default function App() {
 
   // Trigger cookie display on load
   useEffect(() => {
-    const choice = localStorage.getItem('pornsave-cookie-consent');
+    const choice = safeLocalStorage.getItem('pornsave-cookie-consent');
     if (!choice) {
       const timer = setTimeout(() => {
         setIsCookieVisible(true);
@@ -1408,7 +1434,7 @@ export default function App() {
             
             <div className="flex gap-2 justify-end mt-2">
               <button 
-                onClick={() => { localStorage.setItem('pornsave-cookie-consent', 'declined'); setIsCookieVisible(false); }}
+                onClick={() => { safeLocalStorage.setItem('pornsave-cookie-consent', 'declined'); setIsCookieVisible(false); }}
                 className={`px-3 py-1.5 text-[10px] uppercase tracking-wider font-bold rounded-lg transition-colors cursor-pointer ${
                   isDarkMode ? 'bg-slate-950 text-slate-400 hover:text-white' : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
                 }`}
@@ -1416,7 +1442,7 @@ export default function App() {
                 Decline
               </button>
               <button 
-                onClick={() => { localStorage.setItem('pornsave-cookie-consent', 'accepted'); setIsCookieVisible(false); }}
+                onClick={() => { safeLocalStorage.setItem('pornsave-cookie-consent', 'accepted'); setIsCookieVisible(false); }}
                 className="px-4 py-1.5 bg-orange-500 hover:bg-orange-600 text-white text-[10px] uppercase tracking-wider font-bold rounded-lg transition-colors cursor-pointer shadow-md shadow-orange-500/10"
               >
                 Accept Cookies
