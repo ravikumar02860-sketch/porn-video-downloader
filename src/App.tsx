@@ -121,12 +121,12 @@ export default function App() {
       } else if (hash === '#short-video' || pageParam === 'short' || pathClean === 'short') {
         setCurrentPage('short');
         document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | Porn Save";
-      } else if (hash === '#brazzers' || pageParam === 'brazzers' || pathClean === 'brazzers') {
+      } else if (hash === '#brazzers' || pageParam === 'brazzers' || pathClean === 'brazzers' || pathClean === 'studios') {
         setCurrentPage('brazzers');
-        document.title = "Brazzers Video Downloader – Premium Studios | Porn Save";
-      } else if (hash === '#stepmom' || pageParam === 'stepmom' || pathClean === 'stepmom') {
+        document.title = "Premium Studios Porn Video Downloader – Save Studio Content | Porn Save";
+      } else if (hash === '#stepmom' || pageParam === 'stepmom' || pathClean === 'stepmom' || pathClean === 'categories') {
         setCurrentPage('stepmom');
-        document.title = "Stepmom Porter – Family Fantasy & Regional Downloader | Porn Save";
+        document.title = "Categories & Stepmom Porn Video Downloader | Porn Save";
       } else if (hash === '#about' || pageParam === 'about' || pathClean === 'about') {
         setCurrentPage('about');
         document.title = "About Us – Core Technology & Streaming Advocates | Porn Save";
@@ -480,8 +480,8 @@ export default function App() {
             <a href="/" onClick={(e) => navigateTo('/', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'home' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Home</a>
             <a href="/hd" onClick={(e) => navigateTo('/hd', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'hd' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>HD 4K</a>
             <a href="/short" onClick={(e) => navigateTo('/short', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Shorts</a>
-            <a href="/brazzers" onClick={(e) => navigateTo('/brazzers', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
-            <a href="/stepmom" onClick={(e) => navigateTo('/stepmom', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
+            <a href="/studios" onClick={(e) => navigateTo('/studios', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
+            <a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -548,8 +548,8 @@ export default function App() {
               🎥 Shorts
             </a>
             <a 
-              href="/brazzers"
-              onClick={(e) => navigateTo('/brazzers', e)}
+              href="/studios"
+              onClick={(e) => navigateTo('/studios', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'brazzers' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -561,8 +561,8 @@ export default function App() {
               ✨ Premium Studios
             </a>
             <a 
-              href="/stepmom"
-              onClick={(e) => navigateTo('/stepmom', e)}
+              href="/categories"
+              onClick={(e) => navigateTo('/categories', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'stepmom' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -1106,17 +1106,22 @@ export default function App() {
                   🛡️ About Our Platform
                 </span>
                 <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white font-sans">
-                  Uncompromising Privacy, Universal Media Utilities
+                  About Porn Save: Premium Engineering for Uncompromising Privacy
                 </h1>
                 <p className="text-slate-350 text-sm sm:text-base mb-6 leading-relaxed">
-                  We are a dedicated collective of open-source programmers, systems architects, and streaming advocates who believe in building accessible, secure, and intuitive browser utilities. We created <strong>Porn Save</strong> out of a core tenet: users deserve a transparent, malware-free, and anonymous avenue to cache public streaming media for personal educational study, offline curation, and data conservation.
+                  We are a dedicated collective of open-source programmers, systems architects, and digital preservation advocates who believe in building accessible, secure, and intuitive web utilities. We created <strong>Porn Save</strong> out of a core tenet: users deserve a transparent, malware-free, and completely anonymous avenue to cache public streaming media for personal educational study, offline curation, and data conservation. 
                 </p>
                 
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-8 font-sans">Our Development Philosophy</h2>
+                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                  Conventional methods of downloading streaming videos usually require users to download risky browser extensions, install heavy desktop executable files, or navigate websites designed to infect browsers with malicious advertising scripts. Our technical development team sought to build a cleaner, faster alternative. By utilizing advanced client-side processing, sandbox-isolated browser parsing, and secure transient cloud proxy APIs, we created an elegant utility that delivers premium downloading capabilities directly in your web browser. There are no registration gates, zero download caps, and no subscriptions.
+                </p>
+
                 <div className="grid sm:grid-cols-2 gap-6 my-10">
                   <div className="p-6 rounded-2xl bg-slate-900 border border-white/[0.06]">
                     <h3 className="font-bold text-orange-400 text-base mb-2">Preserving Browsing Rights</h3>
                     <p className="text-slate-400 text-xs leading-relaxed">
-                      Streaming identical high-definition files repeatedly increases user footprint trails and consumes immense bandwidth. Downloading media offline safeguards file perpetuity and minimizes tracker tracking loops.
+                      Streaming identical high-definition files repeatedly increases your footprint trail and consumes immense network bandwidth. Downloading media offline safeguards file perpetuity and minimizes tracker tracking loops.
                     </p>
                   </div>
                   <div className="p-6 rounded-2xl bg-slate-900 border border-white/[0.06]">
@@ -1127,133 +1132,165 @@ export default function App() {
                   </div>
                 </div>
 
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-10 font-sans">Experience and Technical Expertise</h2>
+                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                  Our systems engineers have decades of combined experience in content delivery networks (CDNs), video trans-coding pipelines, and advanced web encryption methods. When you use Porn Save, you are interacting with a system built to optimize network performance. Our decoder automatically detects resolution variables, separates audio tracks for high-quality MP3 packaging, and handles secure TLS 1.3 socket connections. We maintain high server availability and constant performance optimization to ensure that we can serve thousands of global users simultaneously without degradation in quality or speeds.
+                </p>
+
                 <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-10 font-sans">Our Core Principles</h2>
                 <ul className="list-disc pl-5 space-y-3 text-slate-355 text-sm">
                   <li><strong>Zero-Log Transient Flow</strong>: All stream decoders inside our framework are transactional. We do not store files, log URL hashes, or profile browser cookies on our servers.</li>
                   <li><strong>E-E-A-T Compliance</strong>: Operating high-fidelity media scrapers requires verified transparency. We maintain clear legal notices, responsive DMCA help desks, and clear GDPR adherence tools.</li>
                   <li><strong>Pure Standards</strong>: No account logs, credit cards, or premium upgrade limits exist inside Porn Save. Every tool feature is 100% free of charge for everybody.</li>
                 </ul>
+
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-10 font-sans">Transparent Operations and Compliance</h2>
+                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+                  Porn Save operates under absolute transparency. We do not host or compile video databases, nor are we affiliated with the streaming platforms our utility decodes. We provide an automated utility on demand. We honor intellectual property rights and maintain a highly responsive DMCA notice system through our contact portal. We believe that by providing clear terms of safe use, detailed fair-use boundaries, and a reliable security reporting channel, we establish an authoritative and highly trustworthy platform for global media curation.
+                </p>
               </>
             )}
 
             {currentPage === 'contact' && (
-              <div className="max-w-xl mx-auto">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
-                  📧 Help Desk Portal
-                </span>
-                <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-white font-sans text-center md:text-left font-bold">
-                  Contact Tech Support
-                </h1>
-                <p className="text-slate-400 text-xs sm:text-sm mb-8 leading-relaxed text-center md:text-left">
-                  Facing stream extraction timeouts or want to submit a formal security report? Create an encrypted support ticket below.
-                </p>
+              <div className="max-w-3xl mx-auto space-y-12">
+                <div className="max-w-xl mx-auto">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
+                    📧 Help Desk Portal
+                  </span>
+                  <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-white font-sans text-center md:text-left font-bold">
+                    Contact Tech Support & Takedown Desk
+                  </h1>
+                  <p className="text-slate-400 text-xs sm:text-sm mb-8 leading-relaxed text-center md:text-left">
+                    Facing stream extraction timeouts or want to submit a formal security report? Create an encrypted support ticket below.
+                  </p>
 
-                {ticketNumber ? (
-                  <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="p-8 rounded-2xl bg-green-500/10 border border-green-500/20 text-center space-y-4 font-sans"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mx-auto text-2xl font-bold">
-                      ✓
-                    </div>
-                    <h3 className="font-extrabold text-white text-lg">Ticket Created Successfully!</h3>
-                    <p className="text-slate-305 text-slate-300 text-xs leading-relaxed max-w-sm mx-auto">
-                      Your message has been encrypted and securely dispatched as <span className="font-mono font-bold text-orange-405 text-orange-400">{ticketNumber}</span>. We will review and respond within 24 business hours.
-                    </p>
-                    <button 
-                      onClick={() => {
-                        setTicketNumber(null);
-                        setContactName('');
-                        setContactEmail('');
-                        setContactMessage('');
-                      }}
-                      className="px-5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/15 text-white transition-all cursor-pointer"
+                  {ticketNumber ? (
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="p-8 rounded-2xl bg-green-500/10 border border-green-500/20 text-center space-y-4 font-sans"
                     >
-                      Create New Ticket
-                    </button>
-                  </motion.div>
-                ) : (
-                  <form 
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      if (!contactName || !contactEmail || !contactMessage) return;
-                      setIsSubmittingTicket(true);
-                      setTimeout(() => {
-                        setTicketNumber('PS-' + Math.floor(100000 + Math.random() * 900000));
-                        setIsSubmittingTicket(false);
-                      }, 1200);
-                    }}
-                    className="space-y-5"
-                  >
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Your Full Name</label>
-                      <input 
-                        type="text" 
-                        required
-                        value={contactName}
-                        onChange={(e) => setContactName(e.target.value)}
-                        placeholder="Enter your name"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Email Address</label>
-                      <input 
-                        type="email" 
-                        required
-                        value={contactEmail}
-                        onChange={(e) => setContactEmail(e.target.value)}
-                        placeholder="name@example.com"
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Subject Category</label>
-                      <select 
-                        value={contactSubject}
-                        onChange={(e) => setContactSubject(e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-905 bg-slate-900 border border-white/[0.08] text-slate-300 focus:border-orange-500 focus:outline-none text-sm transition cursor-pointer"
+                      <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mx-auto text-2xl font-bold">
+                        ✓
+                      </div>
+                      <h3 className="font-extrabold text-white text-lg">Ticket Created Successfully!</h3>
+                      <p className="text-slate-305 text-slate-300 text-xs leading-relaxed max-w-sm mx-auto">
+                        Your message has been encrypted and securely dispatched as <span className="font-mono font-bold text-orange-405 text-orange-400">{ticketNumber}</span>. We will review and respond within 24 business hours.
+                      </p>
+                      <button 
+                        onClick={() => {
+                          setTicketNumber(null);
+                          setContactName('');
+                          setContactEmail('');
+                          setContactMessage('');
+                        }}
+                        className="px-5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/15 text-white transition-all cursor-pointer"
                       >
-                        <option>Media decode issue</option>
-                        <option>General performance feedback</option>
-                        <option>DMCA takedown notice</option>
-                        <option>Security/bug disclosure</option>
-                        <option>Partner Inquiry</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Message / Details</label>
-                      <textarea 
-                        required
-                        rows={4}
-                        value={contactMessage}
-                        onChange={(e) => setContactMessage(e.target.value)}
-                        placeholder="Describe your issue or feedback in detail..."
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition resize-none"
-                      />
-                    </div>
-
-                    <div className="text-slate-500 text-[11px] leading-relaxed select-text">
-                      Support Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
-                    </div>
-
-                    <button 
-                      type="submit"
-                      disabled={isSubmittingTicket}
-                      className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-orange-500 to-rose-600 transition-all shadow-lg hover:shadow-orange-500/10 cursor-pointer flex items-center justify-center gap-2 border-none"
+                        Create New Ticket
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <form 
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (!contactName || !contactEmail || !contactMessage) return;
+                        setIsSubmittingTicket(true);
+                        setTimeout(() => {
+                          setTicketNumber('PS-' + Math.floor(100000 + Math.random() * 900000));
+                          setIsSubmittingTicket(false);
+                        }, 1200);
+                      }}
+                      className="space-y-5"
                     >
-                      {isSubmittingTicket ? (
-                        <span className="flex items-center gap-1.5 justify-center">
-                          <span className="w-4 h-4 rounded-full border-2 border-white/25 border-t-white animate-spin"></span>
-                          <span>Creating Secure Ticket...</span>
-                        </span>
-                      ) : (
-                        <span>Submit Secured Support Ticket</span>
-                      )}
-                    </button>
-                  </form>
-                )}
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Your Full Name</label>
+                        <input 
+                          type="text" 
+                          required
+                          value={contactName}
+                          onChange={(e) => setContactName(e.target.value)}
+                          placeholder="Enter your name"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Email Address</label>
+                        <input 
+                          type="email" 
+                          required
+                          value={contactEmail}
+                          onChange={(e) => setContactEmail(e.target.value)}
+                          placeholder="name@example.com"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Subject Category</label>
+                        <select 
+                          value={contactSubject}
+                          onChange={(e) => setContactSubject(e.target.value)}
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] text-slate-300 focus:border-orange-500 focus:outline-none text-sm transition cursor-pointer"
+                        >
+                          <option>Media decode issue</option>
+                          <option>General performance feedback</option>
+                          <option>DMCA takedown notice</option>
+                          <option>Security/bug disclosure</option>
+                          <option>Partner Inquiry</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Message / Details</label>
+                        <textarea 
+                          required
+                          rows={4}
+                          value={contactMessage}
+                          onChange={(e) => setContactMessage(e.target.value)}
+                          placeholder="Describe your issue or feedback in detail..."
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition resize-none"
+                        />
+                      </div>
+
+                      <div className="text-slate-500 text-[11px] leading-relaxed select-text">
+                        Support Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
+                      </div>
+
+                      <button 
+                        type="submit"
+                        disabled={isSubmittingTicket}
+                        className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-orange-500 to-rose-600 transition-all shadow-lg hover:shadow-orange-500/10 cursor-pointer flex items-center justify-center gap-2 border-none"
+                      >
+                        {isSubmittingTicket ? (
+                          <span className="flex items-center gap-1.5 justify-center">
+                            <span className="w-4 h-4 rounded-full border-2 border-white/25 border-t-white animate-spin"></span>
+                            <span>Creating Secure Ticket...</span>
+                          </span>
+                        ) : (
+                          <span>Submit Secured Support Ticket</span>
+                        )}
+                      </button>
+                    </form>
+                  )}
+                </div>
+
+                <div className="border-t border-white/[0.06] pt-10 text-left text-xs sm:text-sm text-slate-400 space-y-6">
+                  <h2 className="text-xl font-bold text-white font-sans">Support SLA and Operational Guidelines</h2>
+                  <p className="leading-relaxed">
+                    At Porn Save, we treat technical errors and community submissions with extreme urgency. We employ a dedicated system monitoring team that oversees our file decoding clusters, making sure that CDN connections remain active and that parsing bottlenecks are solved within minutes. If you are experiencing a technical bug where video download links display loading errors, please provide the exact URL of the video, your general region, and your browser's version. This allows our debugging engineers to reproduce and patch stream parsing bottlenecks.
+                  </p>
+                  
+                  <h3 className="font-bold text-slate-200">DMCA Takedown and Intellectual Property Notices</h3>
+                  <p className="leading-relaxed">
+                    Porn Save is a transitional on-demand web utility that decodes publicly accessible video streams upon request. We do not maintain any storage arrays, file servers, databases, or content indices. When a user requests a file convert transaction, our server handles it transiently. Since we do not host, syndicate, or cache files on our physical network, there is no permanent content to delete from our servers.
+                  </p>
+                  <p className="leading-relaxed">
+                    However, we support copyright holders. If you represent a studio, content creator group, or intellectual property agency and wish to prevent our online utility from decoders parsing your domain links, you can submit a formal URL blocking request. Send the specific stream URLs, brand names, and certified proof of ownership to our dedicated legal team at <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline">support@pornsave.vercel.app</a> or file a ticket under the "DMCA Takedown Notice" category. We will add those parameters to our hardware blocking list within 24 hours.
+                  </p>
+
+                  <h3 className="font-bold text-slate-200">Encrypted Communication Protocols</h3>
+                  <p className="leading-relaxed">
+                    All correspondence transmitted through our encrypted support ticketing portal or via email is fully protected by TLS 1.3 socket protocols. We never share user identities, email addresses, or ticket histories with third-party tracking corporations, making sure that your communications are strictly kept inside a private environment.
+                  </p>
+                </div>
               </div>
             )}
 
@@ -1266,26 +1303,41 @@ export default function App() {
                   Privacy Policy and Data Protection Manifesto
                 </h1>
                 <p className="text-slate-400 text-xs sm:text-sm mb-6 uppercase tracking-wider font-semibold">
-                  Effective Date: June 20, 2026 • Verified Zero Log Policy
+                  Effective Date: June 24, 2026 • Verified Zero Log Policy
                 </p>
                 
                 <p className="text-slate-350 text-sm sm:text-base mb-6 font-sans">
-                  Porn Save holds absolute user privacy as our foundational tenet. We do not require accounts, sign-ups, subscriptions, or cookies. We do not track or persist the video links you search, convert, or archive. Your interactions remain entirely local and confidential.
+                  Porn Save holds absolute user privacy as our foundational, non-negotiable tenet. We do not require account registration, email sign-ups, payment subscriptions, or commercial tracking cookies. We do not track or persist the video links you search, convert, or archive. Your interactions remain entirely local, transient, and strictly confidential.
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">1. Transient Data Tunneling</h2>
-                <p className="text-slate-404 text-slate-400 text-sm mb-4">
-                  When processing a download link, our transient proxy acts solely as an intermediary decoding server. We extract and pipeline raw file buffers on-the-fly directly to your browser's downloading stream. At no point is the media file written or cloned onto our server hard drives.
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">1. Transient Data Tunneling (No Network Caching)</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                  When processing a download link, our transient extraction proxy acts solely as an intermediary decoding utility. We extract and pipeline raw binary file buffers on-the-fly directly to your browser's local downloading socket. At no point is the media file written, cached, or cloned onto our server hard drives. Our memory registers clear immediately upon the completion of your download socket, ensuring complete digital data containment.
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">2. Zero Analytics profiling</h2>
-                <p className="text-slate-404 text-slate-400 text-sm mb-4 font-sans">
-                  We do not integrate surveillance frameworks, deep browser-fingerprinting scripts, or profiling cookies. Standard localized variables (such as theme choice and GDPR acceptance checks) are stored in your own device's `localStorage` state, keeping you in complete custody of your metadata.
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">2. Zero Analytics Profiling and Tracker Elimination</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                  We do not integrate heavy surveillance trackers, deep browser-fingerprinting scripts, or user behavior profiling tools. Unlike other downloaders that monetize your data by selling browsing trends to marketing agencies, we have constructed Porn Save to operate with zero profiling. Standard localized variables (such as light/dark theme preference and GDPR acceptance checks) are stored strictly on your own device's `localStorage` state, leaving you in complete custody of your metadata.
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">3. SSL Shielded Encrypted Traffic</h2>
-                <p className="text-slate-404 text-slate-404 text-slate-400 text-sm mb-4">
-                  Every connection to Porn Save is fully wrapped in active TLS 1.3 encryption. This prevents local internet providers (ISPs), public network sniffers, or third-party corporate gateways from intercepting your queries.
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">3. SSL Shielded Encrypted Traffic Protocols</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Every connection, request, and stream processed on Porn Save is fully wrapped in active TLS 1.3 socket encryption. This robust encryption prevents local internet service providers (ISPs), public Wi-Fi network sniffers, or commercial corporate gateways from intercepting or reading your URL queries. Your browsing journey remains safe from third-party interception, providing an essential layer of digital security.
+                </p>
+
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">4. Compliance with GDPR, CCPA, and CCPA Regulations</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Porn Save is fully engineered to satisfy global privacy frameworks, including the General Data Protection Regulation (GDPR) in the European Union and the California Consumer Privacy Act (CCPA) in the United States. Because our architecture does not collect, record, transmit, or process any Personally Identifiable Information (PII), we do not maintain "user databases" for deletion. If you wish to wipe any localized preferences, you can do so instantly by clearing your browser's application cache.
+                </p>
+
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">5. Client-Side Sandboxing and LocalStorage Usage</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Porn Save implements a secure client-side sandbox inside your web browser. Any video parsing, DOM traversal, and page state rendering happen strictly within your device's memory context. We do not use third-party marketing cookies. Our local storage usage is purely operational, non-persistent, and isolated from external access, ensuring that no corporate entity can track your download habits over time.
+                </p>
+
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">6. Third-Party Content Delivery Networks</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  We use trusted, globally distributed cloud hosting platforms and content delivery networks (CDNs) to serve our website assets. These systems may log basic operational metadata (such as IP addresses and request headers) strictly to prevent denial-of-service (DDoS) attacks and ensure system stability. These operational logs are automated, isolated, and permanently deleted according to industry-standard rotation cycles.
                 </p>
               </>
             )}
@@ -1299,22 +1351,37 @@ export default function App() {
                   Terms of Service and Safe-Use Agreement
                 </h1>
                 <p className="text-slate-400 text-xs sm:text-sm mb-6 uppercase tracking-wider font-semibold">
-                  Updated: June 20, 2026 • Code License Notice
+                  Updated: June 24, 2026 • Code License Notice
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">1. Non-Commercial Personal Carriage</h2>
-                <p className="text-slate-404 text-slate-400 text-sm mb-4 font-sans">
-                  Porn Save provides this browser toolkit solely for downloading public streams and loops for local personal fair-use, study, and off-network preservation. The user represents and warrants that they will not use this platform to re-syndicate, commercially exploit, or syndicate copyright infringed works.
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">1. Non-Commercial Personal Carriage and Fair Use</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Porn Save provides this browser-based toolkit solely for decoding public stream allocations and portrait video loops for local personal fair-use, study, and off-network preservation. The user represents, warrants, and agrees that they will not use this platform to re-syndicate, commercially exploit, redistribute, or pirate copyright protected works. It is the user's sole responsibility to understand their local laws regarding fair-use, content curation, and media ownership before utilizing our parsing engine.
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">2. Respect of Intellectual Property</h2>
-                <p className="text-slate-404 text-slate-400 text-sm mb-4 font-sans">
-                  Porn Save operates as an on-demand protocol decoder. We do not host or store streaming files on our network, and we are not affiliated with any supported streaming portals. All trademarked logos and copyrights remain the exclusive property of their respective creators and studios.
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">2. Respect of Intellectual Property and Non-Affiliation Disclosures</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Porn Save operates exclusively as an on-demand protocol interpreter. We do not host, catalog, store, index, or index streaming files on our network servers, nor do we run databases of digital works. We are entirely independent and maintain no affiliation, partnership, or sponsorship with any supported streaming portals or studios mentioned on this platform. All trademarked brand logos, studio names, and media content remain the exclusive property of their respective creators, publishers, and studios.
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">3. Automated Bot Abuse Restriction</h2>
-                <p className="text-slate-404 text-slate-400 text-sm mb-4 font-sans">
-                  Users must not launch scraping scripts, continuous request bots, or raw server queries against the Porn Save website APIs. This preserves system availability, CDN bandwidth ratios, and equal service speeds for human users.
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">3. Automated Bot Abuse, API Constraints, and Scraping Restrictions</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Users must not launch automated scraping scripts, continuous request bots, spiders, or raw server-side queries against Porn Save's frontend endpoints or underlying decoder APIs. Abuse of server bandwidth, network infrastructure overload, or denial-of-service attempts degrades quality for other human users. We reserve the right to deploy automated rate limiters, firewalls, and hardware blocklists to restrict access to any IP address found violating these operational parameters.
+                </p>
+
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">4. Warranty Disclaimers and Operational Limitations of Liability</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  Porn Save is provided on an "as-is" and "as-available" basis without warranties of any kind, whether express, statutory, or implied. We do not guarantee that our stream extractor will be continuously online, free from technical bottlenecks, or capable of decoding every URL indefinitely. Streaming portals frequently change their underlying delivery structures, which may render parts of our tool temporarily non-functional. Porn Save, its contributors, and developers shall not be liable for any damages, data losses, or network costs arising from the use or inability to use this platform.
+                </p>
+
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">5. Indemnification and Prohibited Content Usage</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  By accessing and using this tool, you agree to indemnify and hold harmless Porn Save, its volunteer developers, server providers, and affiliates from and against any claims, losses, liabilities, costs, and legal fees resulting from your misuse of decoded materials. You are strictly forbidden from utilizing this tool to process or download any content that is illegal, non-consensual, or violates child exploitation laws in any jurisdiction. We maintain a zero-tolerance stance toward illegal content extraction.
+                </p>
+
+                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">6. Revisions, Updates, and Platform Continuity</h2>
+                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
+                  We reserve the right to modify, adapt, or update these Terms of Service at any time without prior individual notification. Any modifications will be made public directly on this page, accompanied by a revised "Updated" date. Continued access and utilization of the Porn Save web application following any structural revisions constitutes your active and binding acceptance of the updated terms. If you do not agree to abide by these clauses, you must cease using our downloader immediately.
                 </p>
               </>
             )}
@@ -1374,8 +1441,8 @@ export default function App() {
       <footer className={`border-t py-12 px-4 transition-colors ${
         isDarkMode ? 'bg-slate-950 border-white/[0.06] text-slate-500' : 'bg-slate-100 border-slate-200 text-slate-600'
       }`}>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 mb-8 text-left text-xs sm:text-sm">
-          <div className="md:col-span-2">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 text-left text-xs sm:text-sm">
+          <div>
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center font-bold text-white shadow">
                 PS
@@ -1385,19 +1452,20 @@ export default function App() {
               </span>
             </div>
             <p className="text-slate-400 max-w-sm leading-relaxed mb-4 text-xs">
-              Secure, free, and unrestricted online video downloader helper. Instantly rip high bandwidth streaming clips to direct storage on your computer. Please check local fair-use policies.
+              Porn Save is a premium open-source online video utility engineered for safe, high-speed, and secure media downloads. Our tool acts as an isolation gateway, giving users total control over their data footprint and digital media custody.
             </p>
           </div>
 
           <div>
             <h4 className={`font-extrabold mb-4 uppercase tracking-widest text-xs ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-              Platform links
+              Important Links
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="#tool-hero" className="hover:text-orange-500 transition">Video Downloader</a></li>
-              <li><a href="#how" className="hover:text-orange-500 transition">How It Works</a></li>
-              <li><a href="#seo-info" className="hover:text-orange-500 transition">SEO Strategy</a></li>
-              <li><a href="#accordion-faqs" className="hover:text-orange-500 transition">FAQ Guide</a></li>
+              <li><a href="/" onClick={(e) => navigateTo('/', e)} className="text-slate-400 hover:text-orange-500 transition">Home Downloader</a></li>
+              <li><a href="/hd" onClick={(e) => navigateTo('/hd', e)} className="text-slate-400 hover:text-orange-500 transition">HD 4K Downloader</a></li>
+              <li><a href="/short" onClick={(e) => navigateTo('/short', e)} className="text-slate-400 hover:text-orange-500 transition">Shorts Downloader</a></li>
+              <li><a href="/studios" onClick={(e) => navigateTo('/studios', e)} className="text-slate-400 hover:text-orange-500 transition">Premium Studios</a></li>
+              <li><a href="/categories" onClick={(e) => navigateTo('/categories', e)} className="text-slate-400 hover:text-orange-500 transition">Niche Categories</a></li>
             </ul>
           </div>
 
@@ -1411,6 +1479,21 @@ export default function App() {
               <li><a href="/contact" onClick={(e) => navigateTo('/contact', e)} className="text-slate-400 hover:text-orange-500 transition">DMCA Compliance & Contact</a></li>
               <li><a href="/about" onClick={(e) => navigateTo('/about', e)} className="text-slate-400 hover:text-orange-500 transition">About Our Platform</a></li>
             </ul>
+          </div>
+
+          <div>
+            <h4 className={`font-extrabold mb-4 uppercase tracking-widest text-xs ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+              Contact Info
+            </h4>
+            <p className="text-slate-400 leading-relaxed mb-3 text-xs">
+              Need technical assistance, file removal requests, or support? Contact our help desk directly.
+            </p>
+            <p className="text-xs font-semibold text-slate-300">
+              Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
+            </p>
+            <p className="text-[10px] text-slate-500 mt-2">
+              Our legal desk responds to secure DMCA tickets and notices within 24 business hours.
+            </p>
           </div>
         </div>
 
