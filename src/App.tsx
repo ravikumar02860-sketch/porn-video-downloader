@@ -99,6 +99,14 @@ export default function App() {
   // Active SEO Page state routing
   const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom' | 'about' | 'contact' | 'privacy' | 'terms'>('home');
 
+  const navigateTo = (path: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
+    window.history.pushState(null, '', path);
+    window.dispatchEvent(new Event('popstate'));
+  };
+
   // Sync hash, custom pathnames and query parameters routing to support direct search engine indexing
   useEffect(() => {
     const handleRoute = () => {
@@ -469,11 +477,11 @@ export default function App() {
           </div>
 
           <nav className="hidden md:flex items-center gap-5 text-sm font-semibold">
-            <a href="#" className={`pb-1 border-b-2 transition-all ${currentPage === 'home' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Home</a>
-            <a href="#hd-download" className={`pb-1 border-b-2 transition-all ${currentPage === 'hd' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>HD 4K</a>
-            <a href="#short-video" className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Shorts</a>
-            <a href="#brazzers" className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
-            <a href="#stepmom" className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
+            <a href="/" onClick={(e) => navigateTo('/', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'home' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Home</a>
+            <a href="/hd" onClick={(e) => navigateTo('/hd', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'hd' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>HD 4K</a>
+            <a href="/short" onClick={(e) => navigateTo('/short', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Shorts</a>
+            <a href="/brazzers" onClick={(e) => navigateTo('/brazzers', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
+            <a href="/stepmom" onClick={(e) => navigateTo('/stepmom', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -501,7 +509,8 @@ export default function App() {
           {/* Internal Link/Page Switched Navigation Pills */}
           <div className="flex flex-wrap items-center justify-center gap-2 mb-8 max-w-2xl mx-auto">
             <a 
-              href="#"
+              href="/"
+              onClick={(e) => navigateTo('/', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'home' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -513,7 +522,8 @@ export default function App() {
               🏠 Home
             </a>
             <a 
-              href="#hd-download"
+              href="/hd"
+              onClick={(e) => navigateTo('/hd', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'hd' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -525,7 +535,8 @@ export default function App() {
               📺 HD & 4K
             </a>
             <a 
-              href="#short-video"
+              href="/short"
+              onClick={(e) => navigateTo('/short', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'short' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -537,7 +548,8 @@ export default function App() {
               🎥 Shorts
             </a>
             <a 
-              href="#brazzers"
+              href="/brazzers"
+              onClick={(e) => navigateTo('/brazzers', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'brazzers' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -549,7 +561,8 @@ export default function App() {
               ✨ Premium Studios
             </a>
             <a 
-              href="#stepmom"
+              href="/stepmom"
+              onClick={(e) => navigateTo('/stepmom', e)}
               className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
                 currentPage === 'stepmom' 
                   ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
@@ -1393,10 +1406,10 @@ export default function App() {
               Legal Policies
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="#privacy" className="text-slate-400 hover:text-orange-500 transition">Privacy Policies</a></li>
-              <li><a href="#terms" className="text-slate-400 hover:text-orange-500 transition">Terms of Service</a></li>
-              <li><a href="#contact" className="text-slate-400 hover:text-orange-500 transition">DMCA Compliance & Contact</a></li>
-              <li><a href="#about" className="text-slate-400 hover:text-orange-500 transition">About Our Platform</a></li>
+              <li><a href="/privacy" onClick={(e) => navigateTo('/privacy', e)} className="text-slate-400 hover:text-orange-500 transition">Privacy Policies</a></li>
+              <li><a href="/terms" onClick={(e) => navigateTo('/terms', e)} className="text-slate-400 hover:text-orange-500 transition">Terms of Service</a></li>
+              <li><a href="/contact" onClick={(e) => navigateTo('/contact', e)} className="text-slate-400 hover:text-orange-500 transition">DMCA Compliance & Contact</a></li>
+              <li><a href="/about" onClick={(e) => navigateTo('/about', e)} className="text-slate-400 hover:text-orange-500 transition">About Our Platform</a></li>
             </ul>
           </div>
         </div>
@@ -1404,9 +1417,9 @@ export default function App() {
         <div className="max-w-6xl mx-auto border-t border-slate-200 dark:border-white/[0.04] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
           <p>© 2026 Porn Save Video Helper. All rights reserved. Code licensed for production deployment.</p>
           <div className="flex gap-4">
-            <a href="#contact" className="hover:underline cursor-pointer">DMCA Notice</a>
-            <a href="#terms" className="hover:underline cursor-pointer">Terms of Service</a>
-            <a href="#privacy" className="hover:underline cursor-pointer font-semibold text-orange-500">GDPR Compliance</a>
+            <a href="/contact" onClick={(e) => navigateTo('/contact', e)} className="hover:underline cursor-pointer">DMCA Notice</a>
+            <a href="/terms" onClick={(e) => navigateTo('/terms', e)} className="hover:underline cursor-pointer">Terms of Service</a>
+            <a href="/privacy" onClick={(e) => navigateTo('/privacy', e)} className="hover:underline cursor-pointer font-semibold text-orange-500">GDPR Compliance</a>
           </div>
         </div>
       </footer>

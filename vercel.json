@@ -18,5 +18,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/((?!sitemap\\.xml|robots\\.txt|assets/.*|favicon\\.ico).*)",
+      "destination": "/index.html"
+    }
   ]
 }
