@@ -1,5 +1,5 @@
 export interface SEOPage {
-  id: 'home' | 'hd' | 'short' | 'brazzers' | 'stepmom';
+  id: 'home' | 'hd' | 'short' | 'brazzers' | 'stepmom' | 'guides' | 'supported';
   url: string;
   title: string;
   metaTitle: string;
@@ -399,6 +399,136 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       {
         type: 'paragraph',
         content: 'Often, regional movies and adult music sequences feature incredible, energetic soundtracks and dance numbers. Connoisseurs frequently want to extract these songs as standalone audio files. Porn Save includes an advanced, real-time MP3 extraction converter. When parsing a link, you can choose to convert the target into a high-fidelity 320kbps MP3 audio file. This is perfect for custom musical playlists, offline travel listening, or building acoustic collections with absolute ease.'
+      },
+      {
+        type: 'h2',
+        title: 'Explore Our Complete Core Routing Network'
+      },
+      {
+        type: 'internal-links-grid'
+      }
+    ]
+  },
+  guides: {
+    id: 'guides',
+    url: '/guides',
+    title: 'Download Guides',
+    metaTitle: 'Adult Video Downloading Guides & Step-by-Step Tutorials | Porn Save',
+    metaDesc: 'Master adult video downloading with our expert tutorials. Learn how to download porn videos in HD, convert to MP3, and save private streaming loops safely.',
+    keywords: [
+      'how to download porn videos',
+      'porn downloader guide',
+      'save adult videos offline',
+      'download xxx videos mobile',
+      'porn mp3 converter guide',
+      'safest adult downloader tutorial',
+      'free adult video downloader guides'
+    ],
+    headline: 'Step-by-Step Adult Video Downloading Guides',
+    subheadline: 'Master Stream Extraction, Offline Caching, and Format Conversions Safely',
+    intro: 'Welcome to the official Porn Save guides hub. Downloading streaming media can sometimes feel complicated due to varying host protocols, geo-restrictions, and browser configurations. Our systems engineering team has compiled these expert tutorials and step-by-step walk-throughs to help you master offline caching, format conversion, and private library curation with absolute ease and maximum security.',
+    sections: [
+      {
+        type: 'h2',
+        title: 'How to Download Porn Videos on Any Device'
+      },
+      {
+        type: 'paragraph',
+        content: 'Whether you are using a Windows desktop, macOS laptop, Android phone, or iPhone (iOS), Porn Save works natively without installing third-party software. Here is the universal method to extract public streaming links: 1. Locate the video you wish to download in your web browser. 2. Copy the absolute web address from your browser\'s search bar. 3. Navigate back to Porn Save and paste the link into our secure input field. 4. Our engine parses the stream coordinates and presents downloadable MP4 files. 5. Click the resolution you prefer to start saving the file directly to your device storage.'
+      },
+      {
+        type: 'h2',
+        title: 'Downloading 1080p and 4K Ultra HD Adult Videos'
+      },
+      {
+        type: 'paragraph',
+        content: 'Many high-resolution streaming portals deliver video and audio tracks in separate stream wrappers (adaptive streaming) to optimize bandwidth. Standard downloaders will only grab a silent video file. Porn Save\'s advanced cloud decoder solves this by automatically multiplexing (merging) the high-definition video layer with the raw audio layer on-the-fly. To download 4K porn or 1080p content, simply paste the source link, select the \'HD/4K\' download option, and let our engine compile the master file for you.'
+      },
+      {
+        type: 'h2',
+        title: 'Safely Converting Video Streams to High-Bitrate MP3 Audio'
+      },
+      {
+        type: 'paragraph',
+        content: 'If you prefer to capture only the audio soundtrack, dialogue, or adult podcast episode, you don\'t need to download gigabytes of video data. Porn Save includes a high-speed MP3 audio converter. Simply paste the video link and select the \'Extract MP3 Audio\' option. Our system intercepts the stream, discards the video frames, demuxes the core audio layer, and transcodes it into a pristine 320kbps MP3 file. This is highly suitable for building portable sound libraries for travel or private listening.'
+      },
+      {
+        type: 'h2',
+        title: 'Troubleshooting Failed Downloads and Link Rot'
+      },
+      {
+        type: 'paragraph',
+        content: 'Streaming portals frequently change their underlying video delivery servers, which can temporarily disrupt decoder parses. If a URL fails to download: 1. Confirm the video is fully public and playable in a standard incognito browser tab. 2. Verify that the URL does not require a premium subscription or password login to access. 3. Check for regional or geo-blocks on the source video. If the source site is blocked in your region, try using a virtual private network (VPN) and then paste the link into Porn Save again.'
+      },
+      {
+        type: 'h2',
+        title: 'Explore Our Complete Core Routing Network'
+      },
+      {
+        type: 'internal-links-grid'
+      }
+    ]
+  },
+  supported: {
+    id: 'supported',
+    url: '/supported-sites',
+    title: 'Supported Sites',
+    metaTitle: 'Supported Sites & Video Extraction Compatibility Directory | Porn Save',
+    metaDesc: 'Explore the complete list of compatible websites, adult tube networks, and video streaming protocols supported by Porn Save. High-speed extraction for major platforms.',
+    keywords: [
+      'porn save supported sites',
+      'adult downloader compatible websites',
+      'download from brazzers babes',
+      'download from xvideos pornhub',
+      'adult video stream extraction list',
+      'safe download sites',
+      'adult sites video downloader compatibility'
+    ],
+    headline: 'Porn Save Supported Sites & Compatibility Directory',
+    subheadline: 'A Comprehensive Overview of Compatible Adult Portals and Media Stream Protocols',
+    intro: 'Porn Save is engineered to parse and extract video files from a wide range of global adult networks, streaming tube sites, and professional studio preview feeds. Our development team continuously updates our extraction parameters to stay ahead of layout changes and media wrapper upgrades, ensuring consistent downloading speeds across all compatible platforms listed below.',
+    sections: [
+      {
+        type: 'h2',
+        title: 'Supported Premium Adult Studios and Video Formats'
+      },
+      {
+        type: 'paragraph',
+        content: 'We specialize in decoding high-bitrate previews, trailers, and official content releases from leading professional adult studios. Our compatibility index covers top networks including Brazzers, Babes, Stepmom series, and regional South Asian productions. No matter which brand or network you prefer, our engine isolates the raw video files from complex javascript wraps so you can download them securely in standard MP4 formats.'
+      },
+      {
+        type: 'h2',
+        title: 'Compatible Media Protocols and Stream Containers'
+      },
+      {
+        type: 'paragraph',
+        content: 'Rather than restricting downloads to a fixed set of domains, Porn Save\'s backend parser is built on generalized protocol decoders. This means our engine is highly capable of parsing standard streaming delivery formats across the entire web:'
+      },
+      {
+        type: 'list',
+        title: 'Universal Media Delivery Formats Handled:',
+        items: [
+          'HLS (HTTP Live Streaming): Decodes dynamic .m3u8 index playlists and merges the fragmented TS segments into a solid, playable MP4 file.',
+          'MPEG-DASH: Parses XML manifest definitions and synchronizes separate audio and video streams instantly.',
+          'Progressive MP4: Pulls raw, direct media files from cloud storage buckets with maximum speed.',
+          'WebM & Ogg: Extracts open-source modern formats for low-profile browser compatibility.'
+        ]
+      },
+      {
+        type: 'h2',
+        title: 'Why Certain Sites May Require Sandbox Parsing'
+      },
+      {
+        type: 'paragraph',
+        content: 'Some highly secured adult platforms employ advanced session tokens, browser cookies, and custom encryption signatures to prevent downloads. In these cases, Porn Save utilizes client-side sandbox parsing. This secure script executes entirely within your browser tab, simulating a normal viewport scroll to discover the underlying video media address without exposing your identity or sending your session credentials to external servers. This keeps your downloading activities 100% private, anonymous, and local.'
+      },
+      {
+        type: 'h2',
+        title: 'Requesting Support for New Adult Platforms'
+      },
+      {
+        type: 'paragraph',
+        content: 'Our goal is to build the most comprehensive, safe, and robust adult media downloader on the web. If you attempt to process a link from an adult portal that our system does not currently support, our interface will display a friendly notification. You can submit a platform support request to our engineering team through our dedicated Help Desk Ticket System on the Contact page. We regularly review these requests and deploy custom parser updates for popular new platforms within 48 to 72 hours.'
       },
       {
         type: 'h2',

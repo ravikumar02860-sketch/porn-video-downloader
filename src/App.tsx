@@ -97,7 +97,7 @@ export default function App() {
   const isDarkMode = true;
   
   // Active SEO Page state routing
-  const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom' | 'about' | 'contact' | 'privacy' | 'terms'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom' | 'about' | 'contact' | 'privacy' | 'terms' | 'guides' | 'supported'>('home');
 
   const navigateTo = (path: string, e?: React.MouseEvent) => {
     if (e) {
@@ -127,6 +127,12 @@ export default function App() {
       } else if (hash === '#stepmom' || pageParam === 'stepmom' || pathClean === 'stepmom' || pathClean === 'categories') {
         setCurrentPage('stepmom');
         document.title = "Categories & Stepmom Porn Video Downloader | Porn Save";
+      } else if (hash === '#guides' || pageParam === 'guides' || pathClean === 'guides') {
+        setCurrentPage('guides');
+        document.title = "Adult Video Downloading Guides & Step-by-Step Tutorials | Porn Save";
+      } else if (hash === '#supported' || hash === '#supported-sites' || pageParam === 'supported' || pathClean === 'supported' || pathClean === 'supported-sites') {
+        setCurrentPage('supported');
+        document.title = "Supported Sites & Video Extraction Compatibility Directory | Porn Save";
       } else if (hash === '#about' || pageParam === 'about' || pathClean === 'about') {
         setCurrentPage('about');
         document.title = "About Us – Core Technology & Streaming Advocates | Porn Save";
@@ -482,6 +488,8 @@ export default function App() {
             <a href="/short" onClick={(e) => navigateTo('/short', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Shorts</a>
             <a href="/studios" onClick={(e) => navigateTo('/studios', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
             <a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
+            <a href="/guides" onClick={(e) => navigateTo('/guides', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'guides' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Guides</a>
+            <a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'supported' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Supported Sites</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -573,6 +581,32 @@ export default function App() {
             >
               🔥 Stepmom & Category
             </a>
+            <a 
+              href="/guides"
+              onClick={(e) => navigateTo('/guides', e)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'guides' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              📖 Download Guides
+            </a>
+            <a 
+              href="/supported-sites"
+              onClick={(e) => navigateTo('/supported-sites', e)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'supported' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🌐 Supported Sites
+            </a>
           </div>
 
           <h1 className={`text-4xl sm:text-6xl font-extrabold tracking-tight mb-4 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
@@ -581,6 +615,8 @@ export default function App() {
             {activePageData.id === 'short' && <>Porn <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Short Video Downloader</span></>}
             {activePageData.id === 'brazzers' && <>Premium <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Studio Downloader</span></>}
             {activePageData.id === 'stepmom' && <>Stepmom <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Category Downloader</span></>}
+            {activePageData.id === 'guides' && <>Video <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Downloading Guides</span></>}
+            {activePageData.id === 'supported' && <>Supported <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Sites & Protocols</span></>}
           </h1>
 
           <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -914,7 +950,7 @@ export default function App() {
 
 
       {/* SEO HIGH QUALITY SPECIFIC RICH-TEXT FOR INDEXING */}
-      {['home', 'hd', 'short', 'brazzers', 'stepmom'].includes(currentPage) && (
+      {['home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported'].includes(currentPage) && (
         <section id="seo-info" className={`py-16 border-t border-b transition-colors ${
           isDarkMode ? 'bg-slate-900/10 border-white/[0.04]' : 'bg-slate-50 border-slate-200'
         }`}>
@@ -1097,7 +1133,7 @@ export default function App() {
       )}
 
       {/* RENDER DYNAMIC E-E-A-T PAGES (ABOUT, CONTACT, PRIVACY, TERMS) */}
-      {!['home', 'hd', 'short', 'brazzers', 'stepmom'].includes(currentPage) && (
+      {!['home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported'].includes(currentPage) && (
         <section className="py-16 px-4 bg-slate-950 border-t border-b border-white/[0.04] text-left">
           <div className="max-w-4xl mx-auto leading-relaxed">
             {currentPage === 'about' && (
@@ -1390,7 +1426,7 @@ export default function App() {
       )}
 
       {/* FAQ SYSTEM WITH ACCORDIONS */}
-      {['home', 'hd', 'short', 'brazzers', 'stepmom'].includes(currentPage) && (
+      {['home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported'].includes(currentPage) && (
         <section id="accordion-faqs" className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
@@ -1466,6 +1502,8 @@ export default function App() {
               <li><a href="/short" onClick={(e) => navigateTo('/short', e)} className="text-slate-400 hover:text-orange-500 transition">Shorts Downloader</a></li>
               <li><a href="/studios" onClick={(e) => navigateTo('/studios', e)} className="text-slate-400 hover:text-orange-500 transition">Premium Studios</a></li>
               <li><a href="/categories" onClick={(e) => navigateTo('/categories', e)} className="text-slate-400 hover:text-orange-500 transition">Niche Categories</a></li>
+              <li><a href="/guides" onClick={(e) => navigateTo('/guides', e)} className="text-slate-400 hover:text-orange-500 transition">Downloading Guides</a></li>
+              <li><a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className="text-slate-400 hover:text-orange-500 transition">Supported Sites Directory</a></li>
             </ul>
           </div>
 
