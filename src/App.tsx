@@ -27,7 +27,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { SUPPORTED_PLATFORMS, SEO_FAQS, DEFAULT_FORMATS, getMockMetadata } from './data.ts';
 import { PlatformType, VideoMetadata, DownloadFormat } from './types.ts';
-import { SEO_BLOG_POST } from './data_blog.ts';
+import { SEO_BLOG_POST, SEO_BLOG_POSTS } from './data_blog.ts';
 import { SEO_PAGES_DATA } from './pages_data.ts';
 
 function highlightKeywords(text: string) {
@@ -97,7 +97,14 @@ export default function App() {
   const isDarkMode = true;
   
   // Active SEO Page state routing
-  const [currentPage, setCurrentPage] = useState<'home' | 'hd' | 'short' | 'brazzers' | 'stepmom' | 'about' | 'contact' | 'privacy' | 'terms' | 'guides' | 'supported'>('home');
+  const [currentPage, setCurrentPage] = useState<string>('home');
+  const [activeBlogSlug, setActiveBlogSlug] = useState<string | null>(null);
+
+  const TOOL_PAGES = [
+    'home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported',
+    'pornhub', 'xvideos', 'xhamster', 'spankbang', 'redtube', 'youporn', 'tube8', 'eporner',
+    'android', 'iphone', 'pc', 'mp4', 'hd1080p'
+  ];
 
   const navigateTo = (path: string, e?: React.MouseEvent) => {
     if (e) {
@@ -115,40 +122,100 @@ export default function App() {
       const pageParam = params.get('page');
       const pathClean = window.location.pathname.replace(/^\/|\/$/g, '').toLowerCase();
 
+      // Map specific routes
       if (hash === '#hd-download' || pageParam === 'hd' || pathClean === 'hd') {
         setCurrentPage('hd');
-        document.title = "HD Video Downloader – Ultra HD 1080p & 4K | Porn Save";
+        document.title = "HD Video Downloader – Ultra HD 1080p & 4K | VaultRip";
       } else if (hash === '#short-video' || pageParam === 'short' || pathClean === 'short') {
         setCurrentPage('short');
-        document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | Porn Save";
+        document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | VaultRip";
       } else if (hash === '#brazzers' || pageParam === 'brazzers' || pathClean === 'brazzers' || pathClean === 'studios') {
         setCurrentPage('brazzers');
-        document.title = "Premium Studios Porn Video Downloader – Save Studio Content | Porn Save";
+        document.title = "Premium Studios Porn Video Downloader – Save Studio Content | VaultRip";
       } else if (hash === '#stepmom' || pageParam === 'stepmom' || pathClean === 'stepmom' || pathClean === 'categories') {
         setCurrentPage('stepmom');
-        document.title = "Categories & Stepmom Porn Video Downloader | Porn Save";
+        document.title = "Categories & Stepmom Porn Video Downloader | VaultRip";
       } else if (hash === '#guides' || pageParam === 'guides' || pathClean === 'guides') {
         setCurrentPage('guides');
-        document.title = "Adult Video Downloading Guides & Step-by-Step Tutorials | Porn Save";
+        document.title = "Adult Video Downloading Guides & Step-by-Step Tutorials | VaultRip";
       } else if (hash === '#supported' || hash === '#supported-sites' || pageParam === 'supported' || pathClean === 'supported' || pathClean === 'supported-sites') {
         setCurrentPage('supported');
-        document.title = "Supported Sites & Video Extraction Compatibility Directory | Porn Save";
+        document.title = "Supported Sites & Video Extraction Compatibility Directory | VaultRip";
       } else if (hash === '#about' || pageParam === 'about' || pathClean === 'about') {
         setCurrentPage('about');
-        document.title = "About Us – Core Technology & Streaming Advocates | Porn Save";
+        document.title = "About Us – Core Technology & Streaming Advocates | VaultRip";
       } else if (hash === '#contact' || pageParam === 'contact' || pathClean === 'contact') {
         setCurrentPage('contact');
-        document.title = "Contact Support – Ticket Submission & User Help Desk | Porn Save";
+        document.title = "Contact Support – Ticket Submission & User Help Desk | VaultRip";
       } else if (hash === '#privacy' || pageParam === 'privacy' || pathClean === 'privacy') {
         setCurrentPage('privacy');
-        document.title = "Privacy Policy – Double-Shield Transient Safe Encryption | Porn Save";
+        document.title = "Privacy Policy – Double-Shield Transient Safe Encryption | VaultRip";
       } else if (hash === '#terms' || pageParam === 'terms' || pathClean === 'terms') {
         setCurrentPage('terms');
-        document.title = "Terms of Service – Fair Use & Content Platform Policy | Porn Save";
+        document.title = "Terms of Service – Fair Use & Content Platform Policy | VaultRip";
+      } else if (pathClean === 'download-pornhub-videos') {
+        setCurrentPage('pornhub');
+        document.title = "Pornhub Video Downloader – Save Pornhub Videos Free to MP4 | VaultRip";
+      } else if (pathClean === 'download-xvideos') {
+        setCurrentPage('xvideos');
+        document.title = "Xvideos Video Downloader – Extract XVideos to MP4/MP3 | VaultRip";
+      } else if (pathClean === 'xhamster-downloader') {
+        setCurrentPage('xhamster');
+        document.title = "xHamster Video Downloader – Download xHamster Free Online | VaultRip";
+      } else if (pathClean === 'spankbang-downloader') {
+        setCurrentPage('spankbang');
+        document.title = "SpankBang Video Downloader – Free Online Adult Downloader | VaultRip";
+      } else if (pathClean === 'redtube-downloader') {
+        setCurrentPage('redtube');
+        document.title = "RedTube Video Downloader – Save RedTube Videos to MP4 | VaultRip";
+      } else if (pathClean === 'youporn-downloader') {
+        setCurrentPage('youporn');
+        document.title = "YouPorn Video Downloader – Save YouPorn Free Online | VaultRip";
+      } else if (pathClean === 'tube8-downloader') {
+        setCurrentPage('tube8');
+        document.title = "Tube8 Video Downloader – Download Tube8 Clips Free | VaultRip";
+      } else if (pathClean === 'eporner-downloader') {
+        setCurrentPage('eporner');
+        document.title = "Eporner Video Downloader – Save Eporner Videos in 4K | VaultRip";
+      } else if (pathClean === 'download-adult-videos-android') {
+        setCurrentPage('android');
+        document.title = "Download Adult Videos on Android Without App (Free Guide) | VaultRip";
+      } else if (pathClean === 'download-adult-videos-iphone') {
+        setCurrentPage('iphone');
+        document.title = "Adult Video Downloader iOS Shortcut & iPhone Guide | VaultRip";
+      } else if (pathClean === 'download-adult-videos-pc') {
+        setCurrentPage('pc');
+        document.title = "Best Adult Downloader for PC – Windows, Mac & Linux | VaultRip";
+      } else if (pathClean === 'download-adult-video-mp4') {
+        setCurrentPage('mp4');
+        document.title = "Download Adult Video MP4 – Universal File Compatibility | VaultRip";
+      } else if (pathClean === 'download-adult-video-1080p') {
+        setCurrentPage('hd1080p');
+        document.title = "Download Adult Video 1080p HD & 4K UHD Guide | VaultRip";
+      } else if (pathClean === 'blog') {
+        setCurrentPage('blog');
+        document.title = "VaultRip Resource Blog – Curation Insights & Tutorials";
+      } else if (pathClean.startsWith('blog/')) {
+        const slug = pathClean.substring(5).replace(/^\/|\/$/g, '');
+        if (slug) {
+          const post = SEO_BLOG_POSTS.find(p => p.slug === slug);
+          if (post) {
+            setCurrentPage('blog-post');
+            setActiveBlogSlug(slug);
+            document.title = `${post.title} | VaultRip`;
+          } else {
+            setCurrentPage('blog');
+            document.title = "VaultRip Resource Blog – Curation Insights & Tutorials";
+          }
+        } else {
+          setCurrentPage('blog');
+          document.title = "VaultRip Resource Blog – Curation Insights & Tutorials";
+        }
       } else {
         setCurrentPage('home');
-        document.title = "Porn Save – Secure & Free Online Video Downloader";
+        document.title = "VaultRip – Secure & Free Online Video Downloader";
       }
+
       // Scroll smoothly to top when switching page
       try {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -469,12 +536,12 @@ export default function App() {
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-rose-600 flex items-center justify-center font-bold text-white shadow-lg shadow-orange-500/20">
-              PS
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500 to-rose-600 flex items-center justify-center font-extrabold text-white shadow-lg shadow-orange-500/20">
+              VR
             </div>
             <div>
-              <span className={`font-bold text-xl tracking-tight bg-gradient-to-r ${isDarkMode ? 'from-orange-400 to-white' : 'from-orange-500 to-slate-800'} bg-clip-text text-transparent`}>
-                Porn Save
+              <span className={`font-black text-xl tracking-tight bg-gradient-to-r ${isDarkMode ? 'from-orange-400 to-white' : 'from-orange-500 to-slate-800'} bg-clip-text text-transparent`}>
+                VaultRip
               </span>
               <span className="hidden sm:inline-block ml-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 bg-white/5 dark:bg-white/5 border border-white/10 px-1.5 py-0.5 rounded">
                 Beta v2.1
@@ -490,6 +557,7 @@ export default function App() {
             <a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
             <a href="/guides" onClick={(e) => navigateTo('/guides', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'guides' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Guides</a>
             <a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'supported' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Supported Sites</a>
+            <a href="/blog" onClick={(e) => navigateTo('/blog', e)} className={`pb-1 border-b-2 transition-all ${['blog', 'blog-post'].includes(currentPage) ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Blog</a>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -950,7 +1018,7 @@ export default function App() {
 
 
       {/* SEO HIGH QUALITY SPECIFIC RICH-TEXT FOR INDEXING */}
-      {['home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported'].includes(currentPage) && (
+      {TOOL_PAGES.includes(currentPage) && (
         <section id="seo-info" className={`py-16 border-t border-b transition-colors ${
           isDarkMode ? 'bg-slate-900/10 border-white/[0.04]' : 'bg-slate-50 border-slate-200'
         }`}>
@@ -1132,8 +1200,8 @@ export default function App() {
       </section>
       )}
 
-      {/* RENDER DYNAMIC E-E-A-T PAGES (ABOUT, CONTACT, PRIVACY, TERMS) */}
-      {!['home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported'].includes(currentPage) && (
+      {/* RENDER DYNAMIC E-E-A-T PAGES (ABOUT, CONTACT, PRIVACY, TERMS, BLOG, BLOG-POST) */}
+      {!TOOL_PAGES.includes(currentPage) && (
         <section className="py-16 px-4 bg-slate-950 border-t border-b border-white/[0.04] text-left">
           <div className="max-w-4xl mx-auto leading-relaxed">
             {currentPage === 'about' && (
@@ -1421,12 +1489,166 @@ export default function App() {
                 </p>
               </>
             )}
+
+            {currentPage === 'blog' && (
+              <div className="py-8">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
+                  📰 Curation Insights & Tutorials
+                </span>
+                <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 text-white font-sans">
+                  The VaultRip Resource Blog
+                </h1>
+                <p className="text-slate-400 text-sm sm:text-base mb-10 leading-relaxed">
+                  Discover professional guides, technical breakdowns, cybersecurity tips, and media preservation tutorials written by expert compression engineers.
+                </p>
+
+                <div className="grid sm:grid-cols-2 gap-8">
+                  {SEO_BLOG_POSTS.map((post) => (
+                    <article 
+                      key={post.slug} 
+                      onClick={() => navigateTo(`/blog/${post.slug}`)}
+                      className="group p-6 rounded-3xl bg-slate-900 border border-white/[0.06] hover:border-orange-500/30 hover:bg-slate-850 transition-all cursor-pointer flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center gap-3 text-xs text-slate-400 mb-4">
+                          <span>{post.date}</span>
+                          <span>•</span>
+                          <span>{post.readTime}</span>
+                        </div>
+                        <h2 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors mb-3">
+                          {post.title}
+                        </h2>
+                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                      <div className="text-orange-400 text-xs font-bold uppercase tracking-wider flex items-center gap-1">
+                        Read Article <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {currentPage === 'blog-post' && (() => {
+              const post = SEO_BLOG_POSTS.find(p => p.slug === activeBlogSlug) || SEO_BLOG_POSTS[0];
+              return (
+                <article className="py-8">
+                  <button 
+                    onClick={() => navigateTo('/blog')}
+                    className="inline-flex items-center gap-1.5 text-xs text-orange-400 hover:text-orange-500 font-bold uppercase tracking-widest mb-8 transition cursor-pointer"
+                  >
+                    ← Back to Resource Blog
+                  </button>
+
+                  <div className="mb-8 pb-6 border-b border-white/[0.06]">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase bg-orange-500/15 text-orange-400 border border-orange-500/10 mb-4">
+                      {post.readTime} • Tutorial Guide
+                    </span>
+                    <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white leading-tight font-black">
+                      {post.title}
+                    </h1>
+                    <p className="text-slate-300 text-sm sm:text-lg font-medium leading-relaxed mb-4">
+                      {post.subtitle}
+                    </p>
+                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
+                      <span>By <strong>{post.author}</strong></span>
+                      <span>•</span>
+                      <span>Published: {post.date}</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6 text-sm sm:text-base leading-relaxed text-slate-300">
+                    {post.sections.map((section, sIdx) => {
+                      if (section.type === 'paragraph') {
+                        return <p key={sIdx} className="leading-relaxed">{highlightKeywords(section.content || '')}</p>;
+                      }
+                      if (section.type === 'h2') {
+                        return (
+                          <h2 key={sIdx} className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-10 mb-4 border-l-4 border-orange-500 pl-3">
+                            {section.title}
+                          </h2>
+                        );
+                      }
+                      if (section.type === 'h3') {
+                        return (
+                          <h3 key={sIdx} className="text-lg font-semibold text-slate-200 mt-8 mb-3">
+                            {section.title}
+                          </h3>
+                        );
+                      }
+                      if (section.type === 'table') {
+                        return (
+                          <div key={sIdx} className="my-8 overflow-hidden rounded-xl border border-white/[0.06] shadow-sm">
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                                <thead>
+                                  <tr className="bg-slate-950/60 text-slate-200 border-b border-white/[0.06]">
+                                    {section.tableHeaders?.map((header, hIdx) => (
+                                      <th key={hIdx} className="p-3 font-bold">{header}</th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/[0.04]">
+                                  {section.tableRows?.map((row, rIdx) => (
+                                    <tr key={rIdx} className="hover:bg-white/[0.01] transition-colors">
+                                      {row.map((cell, cIdx) => (
+                                        <td key={cIdx} className="p-3 text-slate-450">{cell}</td>
+                                      ))}
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        );
+                      }
+                      if (section.type === 'faq-list') {
+                        return (
+                          <div key={sIdx} className="my-8 space-y-4">
+                            {section.faqItems?.map((faq, fIdx) => (
+                              <div key={fIdx} className="p-5 rounded-2xl bg-slate-900 border border-white/[0.06]">
+                                <h4 className="font-bold text-white mb-2">{faq.q}</h4>
+                                <p className="text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+                              </div>
+                            ))}
+                          </div>
+                        );
+                      }
+                      if (section.type === 'internal-link') {
+                        return (
+                          <div key={sIdx} className="my-8 text-center">
+                            <a 
+                              href={section.linkUrl}
+                              onClick={(e) => {
+                                if (section.linkUrl?.startsWith('#')) {
+                                  e.preventDefault();
+                                  const el = document.getElementById(section.linkUrl.substring(1));
+                                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                                } else if (section.linkUrl) {
+                                  navigateTo(section.linkUrl, e);
+                                }
+                              }}
+                              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-rose-600 hover:from-orange-600 hover:to-rose-700 text-white text-sm font-bold uppercase tracking-wider rounded-xl transition shadow-lg shadow-orange-500/10 cursor-pointer"
+                            >
+                              {section.anchorText}
+                            </a>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })}
+                  </div>
+                </article>
+              );
+            })()}
           </div>
         </section>
       )}
 
       {/* FAQ SYSTEM WITH ACCORDIONS */}
-      {['home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported'].includes(currentPage) && (
+      {TOOL_PAGES.includes(currentPage) && (
         <section id="accordion-faqs" className="py-16 px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
@@ -1481,14 +1703,14 @@ export default function App() {
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <div className="w-8 h-8 rounded-lg bg-orange-500 flex items-center justify-center font-bold text-white shadow">
-                PS
+                VR
               </div>
               <span className={`font-bold tracking-tight text-base ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                Porn Save Downloader
+                VaultRip Downloader
               </span>
             </div>
             <p className="text-slate-400 max-w-sm leading-relaxed mb-4 text-xs">
-              Porn Save is a premium open-source online video utility engineered for safe, high-speed, and secure media downloads. Our tool acts as an isolation gateway, giving users total control over their data footprint and digital media custody.
+              VaultRip is a premium open-source online video utility engineered for safe, high-speed, and secure media downloads. Our tool acts as an isolation gateway, giving users total control over their data footprint and digital media custody.
             </p>
           </div>
 
@@ -1527,7 +1749,7 @@ export default function App() {
               Need technical assistance, file removal requests, or support? Contact our help desk directly.
             </p>
             <p className="text-xs font-semibold text-slate-300">
-              Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
+              Email: <a href="mailto:support@vaultrip.vercel.app" className="text-orange-400 hover:underline font-bold">support@vaultrip.vercel.app</a>
             </p>
             <p className="text-[10px] text-slate-500 mt-2">
               Our legal desk responds to secure DMCA tickets and notices within 24 business hours.
@@ -1536,7 +1758,7 @@ export default function App() {
         </div>
 
         <div className="max-w-6xl mx-auto border-t border-slate-200 dark:border-white/[0.04] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
-          <p>© 2026 Porn Save Video Helper. All rights reserved. Code licensed for production deployment.</p>
+          <p>© 2026 VaultRip Video Helper. All rights reserved. Code licensed for production deployment.</p>
           <div className="flex gap-4">
             <a href="/contact" onClick={(e) => navigateTo('/contact', e)} className="hover:underline cursor-pointer">DMCA Notice</a>
             <a href="/terms" onClick={(e) => navigateTo('/terms', e)} className="hover:underline cursor-pointer">Terms of Service</a>
@@ -1562,7 +1784,7 @@ export default function App() {
                 🛡️ GDPR Cookies & Privacy Notice
               </h4>
               <p className="text-[11px] text-slate-450 leading-normal">
-                Porn Save utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
+                VaultRip utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
               </p>
             </div>
             
