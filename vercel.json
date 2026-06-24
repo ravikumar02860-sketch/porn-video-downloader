@@ -5,7 +5,11 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "application/xml;charset=UTF-8"
+          "value": "text/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     },
@@ -14,14 +18,18 @@
       "headers": [
         {
           "key": "Content-Type",
-          "value": "text/plain;charset=UTF-8"
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
         }
       ]
     }
   ],
   "rewrites": [
     {
-      "source": "/((?!sitemap\\.xml|robots\\.txt|assets/.*|favicon\\.ico).*)",
+      "source": "/((?!sitemap\\.xml|robots\\.txt|assets/.*|favicon\\.ico|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.svg|.*\\.webp|.*\\.json).*)",
       "destination": "/index.html"
     }
   ]
