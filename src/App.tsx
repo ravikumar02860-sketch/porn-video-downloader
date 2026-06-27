@@ -129,7 +129,7 @@ export default function App() {
   
   useEffect(() => {
     // Generate JSON-LD Schema
-    const schemaId = 'vaultrip-jsonld-schema';
+    const schemaId = 'pornsave-jsonld-schema';
     let scriptTag = document.getElementById(schemaId) as HTMLScriptElement;
     if (!scriptTag) {
       scriptTag = document.createElement('script');
@@ -154,7 +154,7 @@ export default function App() {
     const websiteSchema = {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "VaultRip",
+      "name": "Porn Save",
       "url": "https://pornsave.vercel.app",
       "potentialAction": {
         "@type": "SearchAction",
@@ -166,7 +166,7 @@ export default function App() {
     const webAppSchema = {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "VaultRip - Secure Adult Video Downloader",
+      "name": "Porn Save - Secure Adult Video Downloader",
       "operatingSystem": "All",
       "applicationCategory": "MultimediaApplication",
       "offers": {
@@ -204,6 +204,99 @@ export default function App() {
 
   // Sync hash, custom pathnames and query parameters routing to support direct search engine indexing
   useEffect(() => {
+    const updateMetaTags = (title: string, description: string) => {
+      document.title = title;
+      
+      // Update meta description
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', description);
+      } else {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        metaDesc.setAttribute('content', description);
+        document.head.appendChild(metaDesc);
+      }
+
+      // Update Canonical URL
+      const canonicalUrl = `https://pornsave.vercel.app${window.location.pathname === '/' ? '' : window.location.pathname}`;
+      let canonicalLink = document.querySelector('link[rel="canonical"]');
+      if (canonicalLink) {
+        canonicalLink.setAttribute('href', canonicalUrl);
+      } else {
+        canonicalLink = document.createElement('link');
+        canonicalLink.setAttribute('rel', 'canonical');
+        canonicalLink.setAttribute('href', canonicalUrl);
+        document.head.appendChild(canonicalLink);
+      }
+
+      // Update OpenGraph Title
+      let ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute('content', title);
+      } else {
+        ogTitle = document.createElement('meta');
+        ogTitle.setAttribute('property', 'og:title');
+        ogTitle.setAttribute('content', title);
+        document.head.appendChild(ogTitle);
+      }
+
+      // Update OpenGraph Description
+      let ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) {
+        ogDesc.setAttribute('content', description);
+      } else {
+        ogDesc = document.createElement('meta');
+        ogDesc.setAttribute('property', 'og:description');
+        ogDesc.setAttribute('content', description);
+        document.head.appendChild(ogDesc);
+      }
+
+      // Update OpenGraph URL
+      let ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) {
+        ogUrl.setAttribute('content', canonicalUrl);
+      } else {
+        ogUrl = document.createElement('meta');
+        ogUrl.setAttribute('property', 'og:url');
+        ogUrl.setAttribute('content', canonicalUrl);
+        document.head.appendChild(ogUrl);
+      }
+
+      // Update Twitter Title
+      let twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitle) {
+        twitterTitle.setAttribute('content', title);
+      } else {
+        twitterTitle = document.createElement('meta');
+        twitterTitle.setAttribute('name', 'twitter:title');
+        twitterTitle.setAttribute('content', title);
+        document.head.appendChild(twitterTitle);
+      }
+
+      // Update Twitter Description
+      let twitterDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twitterDesc) {
+        twitterDesc.setAttribute('content', description);
+      } else {
+        twitterDesc = document.createElement('meta');
+        twitterDesc.setAttribute('name', 'twitter:description');
+        twitterDesc.setAttribute('content', description);
+        document.head.appendChild(twitterDesc);
+      }
+
+      // Update Twitter URL
+      let twitterUrl = document.querySelector('meta[name="twitter:url"]');
+      if (twitterUrl) {
+        twitterUrl.setAttribute('content', canonicalUrl);
+      } else {
+        twitterUrl = document.createElement('meta');
+        twitterUrl.setAttribute('name', 'twitter:url');
+        twitterUrl.setAttribute('content', canonicalUrl);
+        document.head.appendChild(twitterUrl);
+      }
+    };
+
     const handleRoute = () => {
       const hash = window.location.hash;
       const params = new URLSearchParams(window.location.search);
@@ -213,79 +306,154 @@ export default function App() {
       // Map specific routes
       if (hash === '#hd-download' || pageParam === 'hd' || pathClean === 'hd') {
         setCurrentPage('hd');
-        document.title = "HD Video Downloader – Ultra HD 1080p & 4K | VaultRip";
+        updateMetaTags(
+          "HD Video Downloader – Ultra HD 1080p & 4K | Porn Save",
+          "Download adult videos in crisp HD, 1080p, and 4K UHD resolutions. Keep original high-definition frame rates with zero compression using our secure extraction tool."
+        );
       } else if (hash === '#short-video' || pageParam === 'short' || pathClean === 'short') {
         setCurrentPage('short');
-        document.title = "Porn Short Video Downloader – Fast Portrait Loop Saver | VaultRip";
+        updateMetaTags(
+          "Porn Short Video Downloader – Fast Portrait Loop Saver | Porn Save",
+          "Fast, secure online porn shorts downloader. Download portrait reels, short clips, and loop streams in high resolution directly to your phone or computer."
+        );
       } else if (hash === '#brazzers' || pageParam === 'brazzers' || pathClean === 'brazzers' || pathClean === 'studios') {
         setCurrentPage('brazzers');
-        document.title = "Premium Studios Porn Video Downloader – Save Studio Content | VaultRip";
+        updateMetaTags(
+          "Premium Studios Porn Video Downloader – Save Studio Content | Porn Save",
+          "Easily download high-quality videos from premium adult studios. Our online extractor decodes direct video sources in full HD and MP4 formats securely."
+        );
       } else if (hash === '#stepmom' || pageParam === 'stepmom' || pathClean === 'stepmom' || pathClean === 'categories') {
         setCurrentPage('stepmom');
-        document.title = "Categories & Stepmom Porn Video Downloader | VaultRip";
+        updateMetaTags(
+          "Categories & Stepmom Porn Video Downloader | Porn Save",
+          "Download videos across popular adult categories including stepmom, amateur, teen, and milf. Extract and save files anonymously with full media format options."
+        );
       } else if (hash === '#guides' || pageParam === 'guides' || pathClean === 'guides') {
         setCurrentPage('guides');
-        document.title = "Adult Video Downloading Guides & Step-by-Step Tutorials | VaultRip";
+        updateMetaTags(
+          "Adult Video Downloading Guides & Step-by-Step Tutorials | Porn Save",
+          "Learn how to download adult videos on iPhone, Android, PC, and Mac with ease. Follow our comprehensive tutorial guides for secure, offline media preservation."
+        );
       } else if (hash === '#supported' || hash === '#supported-sites' || pageParam === 'supported' || pathClean === 'supported' || pathClean === 'supported-sites') {
         setCurrentPage('supported');
-        document.title = "Supported Sites & Video Extraction Compatibility Directory | VaultRip";
+        updateMetaTags(
+          "Supported Sites & Video Extraction Compatibility Directory | Porn Save",
+          "Check our verified list of supported adult video platforms. Learn about compatible stream endpoints, download speeds, and supported file resolutions."
+        );
       } else if (hash === '#about' || pageParam === 'about' || pathClean === 'about') {
         setCurrentPage('about');
-        document.title = "About Us – Core Technology & Streaming Advocates | VaultRip";
+        updateMetaTags(
+          "About Us – Core Technology & Streaming Advocates | Porn Save",
+          "Porn Save is a secure, client-contained web utility developed to democratize digital media access, helping users preserve favorite clips against link rot."
+        );
       } else if (hash === '#contact' || pageParam === 'contact' || pathClean === 'contact') {
         setCurrentPage('contact');
-        document.title = "Contact Support – Ticket Submission & User Help Desk | VaultRip";
+        updateMetaTags(
+          "Contact Support – Ticket Submission & User Help Desk | Porn Save",
+          "Have a question, feedback, or DMCA compliance query? Reach out to our technical support desk and submit a ticket. We typically respond within 24 hours."
+        );
       } else if (hash === '#privacy' || pageParam === 'privacy' || pathClean === 'privacy') {
         setCurrentPage('privacy');
-        document.title = "Privacy Policy – Double-Shield Transient Safe Encryption | VaultRip";
+        updateMetaTags(
+          "Privacy Policy – Double-Shield Transient Safe Encryption | Porn Save",
+          "Our Zero-Log privacy policy ensures no files, IP addresses, or browser data are ever registered or stored. Learn about our double-shield encryption standards."
+        );
       } else if (hash === '#terms' || pageParam === 'terms' || pathClean === 'terms') {
         setCurrentPage('terms');
-        document.title = "Terms of Service – Fair Use & Content Platform Policy | VaultRip";
+        updateMetaTags(
+          "Terms of Service – Fair Use & Content Platform Policy | Porn Save",
+          "Review the terms of service governing Porn Save. Understand our fair use policies, user guidelines, and safe offline media curation standards."
+        );
       } else if (hash === '#disclaimer' || pageParam === 'disclaimer' || pathClean === 'disclaimer') {
         setCurrentPage('disclaimer');
-        document.title = "Disclaimer & Legal Notice – Platform Operations | VaultRip";
+        updateMetaTags(
+          "Disclaimer & Legal Notice – Platform Operations | Porn Save",
+          "Legal disclaimer regarding the usage of Porn Save's extraction utility. Learn about platform accountability, third-party rights, and fair use guidelines."
+        );
       } else if (pathClean === 'download-pornhub-videos') {
         setCurrentPage('pornhub');
-        document.title = "Pornhub Video Downloader – Save Pornhub Videos Free to MP4 | VaultRip";
+        updateMetaTags(
+          "Pornhub Video Downloader – Save Pornhub Videos Free to MP4 | Porn Save",
+          "100% free and secure Pornhub video downloader. Download high-resolution videos in 1080p HD, 720p, or convert to MP3 audio files with total anonymity."
+        );
       } else if (pathClean === 'download-xvideos') {
         setCurrentPage('xvideos');
-        document.title = "Xvideos Video Downloader – Extract XVideos to MP4/MP3 | VaultRip";
+        updateMetaTags(
+          "Xvideos Video Downloader – Extract XVideos to MP4/MP3 | Porn Save",
+          "Download XVideos content in high resolution for free. Securely extract and save XVideos clips to MP4 and high-bitrate MP3 formats in one click."
+        );
       } else if (pathClean === 'xhamster-downloader') {
         setCurrentPage('xhamster');
-        document.title = "xHamster Video Downloader – Download xHamster Free Online | VaultRip";
+        updateMetaTags(
+          "xHamster Video Downloader – Download xHamster Free Online | Porn Save",
+          "Convert and save xHamster videos to your local disk easily. No installations required, fully mobile compatible, supporting 1080p, 720p, and MP3 formats."
+        );
       } else if (pathClean === 'spankbang-downloader') {
         setCurrentPage('spankbang');
-        document.title = "SpankBang Video Downloader – Free Online Adult Downloader | VaultRip";
+        updateMetaTags(
+          "SpankBang Video Downloader – Free Online Adult Downloader | Porn Save",
+          "Secure online SpankBang video downloader. Paste the link, select video resolutions from 480p up to 4K UHD, and download your favorite loops instantly."
+        );
       } else if (pathClean === 'redtube-downloader') {
         setCurrentPage('redtube');
-        document.title = "RedTube Video Downloader – Save RedTube Videos to MP4 | VaultRip";
+        updateMetaTags(
+          "RedTube Video Downloader – Save RedTube Videos to MP4 | Porn Save",
+          "Quickly download RedTube videos to MP4 and MP3 files. Enjoy secure, encrypted, fast extraction speeds with zero daily limits or server registration."
+        );
       } else if (pathClean === 'youporn-downloader') {
         setCurrentPage('youporn');
-        document.title = "YouPorn Video Downloader – Save YouPorn Free Online | VaultRip";
+        updateMetaTags(
+          "YouPorn Video Downloader – Save YouPorn Free Online | Porn Save",
+          "Free online YouPorn video downloader. Easily extract high-quality video files from YouPorn and save them securely on Windows, Mac, Android, and iOS."
+        );
       } else if (pathClean === 'tube8-downloader') {
         setCurrentPage('tube8');
-        document.title = "Tube8 Video Downloader – Download Tube8 Clips Free | VaultRip";
+        updateMetaTags(
+          "Tube8 Video Downloader – Download Tube8 Clips Free | Porn Save",
+          "Directly download high-quality videos from Tube8 for free. Clean MP4 downloads in all major resolutions (1080p, 720p, 480p) and high-quality MP3 audio."
+        );
       } else if (pathClean === 'eporner-downloader') {
         setCurrentPage('eporner');
-        document.title = "Eporner Video Downloader – Save Eporner Videos in 4K | VaultRip";
+        updateMetaTags(
+          "Eporner Video Downloader – Save Eporner Videos in 4K | Porn Save",
+          "Securely download and save premium Eporner videos in 4K UHD and 1080p HD formats. Fast multi-threaded stream parsing with total user confidentiality."
+        );
       } else if (pathClean === 'download-adult-videos-android') {
         setCurrentPage('android');
-        document.title = "Download Adult Videos on Android Without App (Free Guide) | VaultRip";
+        updateMetaTags(
+          "Download Adult Videos on Android Without App (Free Guide) | Porn Save",
+          "Discover how to save adult videos on your Android phone or tablet without installing third-party apps. Step-by-step Chrome and browser download guide."
+        );
       } else if (pathClean === 'download-adult-videos-iphone') {
         setCurrentPage('iphone');
-        document.title = "Adult Video Downloader iOS Shortcut & iPhone Guide | VaultRip";
+        updateMetaTags(
+          "Adult Video Downloader iOS Shortcut & iPhone Guide | Porn Save",
+          "Learn how to download adult videos onto your iPhone or iPad using iOS Safari and secure Apple Shortcuts. A step-by-step mobile curation tutorial."
+        );
       } else if (pathClean === 'download-adult-videos-pc') {
         setCurrentPage('pc');
-        document.title = "Best Adult Downloader for PC – Windows, Mac & Linux | VaultRip";
+        updateMetaTags(
+          "Best Adult Downloader for PC – Windows, Mac & Linux | Porn Save",
+          "A complete guide on downloading high-resolution adult videos to your personal computer. Save media to local drives for long-term secure curation."
+        );
       } else if (pathClean === 'download-adult-video-mp4') {
         setCurrentPage('mp4');
-        document.title = "Download Adult Video MP4 – Universal File Compatibility | VaultRip";
+        updateMetaTags(
+          "Download Adult Video MP4 – Universal File Compatibility | Porn Save",
+          "Download videos in the standard MP4 container. Ensure high compatibility across all media players, smart TVs, tablets, and smartphones."
+        );
       } else if (pathClean === 'download-adult-video-1080p') {
         setCurrentPage('hd1080p');
-        document.title = "Download Adult Video 1080p HD & 4K UHD Guide | VaultRip";
+        updateMetaTags(
+          "Download Adult Video 1080p HD & 4K UHD Guide | Porn Save",
+          "Learn how to access high-bitrate full HD 1080p and ultra HD 4K video files for premium offline playback. Explore high-fidelity audio options."
+        );
       } else if (pathClean === 'blog') {
         setCurrentPage('blog');
-        document.title = "VaultRip Resource Blog – Curation Insights & Tutorials";
+        updateMetaTags(
+          "Porn Save Resource Blog – Curation Insights & Tutorials",
+          "Stay updated with deep curation insights, streaming technology guides, and step-by-step adult media preservation tutorials on our blog."
+        );
       } else if (pathClean.startsWith('blog/')) {
         const slug = pathClean.substring(5).replace(/^\/|\/$/g, '');
         if (slug) {
@@ -293,18 +461,30 @@ export default function App() {
           if (post) {
             setCurrentPage('blog-post');
             setActiveBlogSlug(slug);
-            document.title = `${post.title} | VaultRip`;
+            updateMetaTags(
+              `${post.title} | Porn Save`,
+              post.excerpt
+            );
           } else {
             setCurrentPage('blog');
-            document.title = "VaultRip Resource Blog – Curation Insights & Tutorials";
+            updateMetaTags(
+              "Porn Save Resource Blog – Curation Insights & Tutorials",
+              "Stay updated with deep curation insights, streaming technology guides, and step-by-step adult media preservation tutorials on our blog."
+            );
           }
         } else {
           setCurrentPage('blog');
-          document.title = "VaultRip Resource Blog – Curation Insights & Tutorials";
+          updateMetaTags(
+            "Porn Save Resource Blog – Curation Insights & Tutorials",
+            "Stay updated with deep curation insights, streaming technology guides, and step-by-step adult media preservation tutorials on our blog."
+          );
         }
       } else {
         setCurrentPage('home');
-        document.title = "VaultRip – Secure & Free Online Video Downloader";
+        updateMetaTags(
+          "Porn Save – Secure & Free Online Video Downloader",
+          "Porn Save is a secure, fast, and 100% free online porn video downloader. Easily download porn video in HD, 4K, or MP3. Secure video downloads from your favorite platforms now."
+        );
       }
 
       // Scroll smoothly to top when switching page
@@ -634,7 +814,7 @@ export default function App() {
             </div>
             <div>
               <span className={`font-black text-xl tracking-tight bg-gradient-to-r ${isDarkMode ? 'from-orange-400 to-white' : 'from-orange-500 to-slate-800'} bg-clip-text text-transparent`}>
-                VaultRip
+                Porn Save
               </span>
               <span className="hidden sm:inline-block ml-2 text-[10px] uppercase font-bold tracking-wider text-slate-400 bg-white/5 dark:bg-white/5 border border-white/10 px-1.5 py-0.5 rounded">
                 Beta v2.1
@@ -1064,7 +1244,7 @@ export default function App() {
                     Designed to Outperform in Every Category
                   </h2>
                   <p className="text-slate-400 text-xs sm:text-sm mt-2">
-                    VaultRip represents a total rewrite of classic downloader utilities. Zero tracking scripts, maximum multi-threaded performance.
+                    Porn Save represents a total rewrite of classic downloader utilities. Zero tracking scripts, maximum multi-threaded performance.
                   </p>
                 </div>
 
@@ -1202,7 +1382,7 @@ export default function App() {
                 <div className="text-center max-w-2xl mx-auto mb-16">
                   <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Seamless Flow</span>
                   <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
-                    How VaultRip Operates in 4 Steps
+                    How Porn Save Operates in 4 Steps
                   </h2>
                   <p className="text-slate-400 text-xs sm:text-sm mt-2">
                     Our simplified client-side stream parser compiles raw multimedia elements directly inside your native web browser environment.
@@ -1234,7 +1414,7 @@ export default function App() {
                         <Cpu className="w-6 h-6" />
                       </div>
                       <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Analyze Stream</h3>
-                      <p className="text-slate-400 text-xs leading-relaxed">VaultRip intercepts the active media manifests, decoupling resolution tags, subtitles, and codec configurations.</p>
+                      <p className="text-slate-400 text-xs leading-relaxed">Porn Save intercepts the active media manifests, decoupling resolution tags, subtitles, and codec configurations.</p>
                     </div>
                   </div>
 
@@ -1276,7 +1456,7 @@ export default function App() {
                     Supported Protocols & Platforms
                   </h2>
                   <p className="text-slate-400 text-xs sm:text-sm mt-2">
-                    VaultRip provides custom decoding wrappers optimized to intercept high-speed stream buffers across all major channels.
+                    Porn Save provides custom decoding wrappers optimized to intercept high-speed stream buffers across all major channels.
                   </p>
                 </div>
 
@@ -1310,10 +1490,10 @@ export default function App() {
                 <div className="text-center max-w-2xl mx-auto mb-12">
                   <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Head-To-Head</span>
                   <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
-                    VaultRip vs. Standard Downloaders
+                    Porn Save vs. Standard Downloaders
                   </h2>
                   <p className="text-slate-400 text-xs sm:text-sm mt-2">
-                    See how VaultRip completely bypasses standard adware traps, paywalls, and connection bottlenecks.
+                    See how Porn Save completely bypasses standard adware traps, paywalls, and connection bottlenecks.
                   </p>
                 </div>
 
@@ -1323,7 +1503,7 @@ export default function App() {
                       <thead>
                         <tr className={`border-b ${isDarkMode ? 'bg-slate-950 border-white/[0.06]' : 'bg-slate-100 border-slate-200'}`}>
                           <th className="p-4 sm:p-5 font-black uppercase text-slate-500 text-[10px] tracking-wider">Features</th>
-                          <th className="p-4 sm:p-5 font-black text-orange-400 flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500" /> VaultRip</th>
+                          <th className="p-4 sm:p-5 font-black text-orange-400 flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500" /> Porn Save</th>
                           <th className="p-4 sm:p-5 font-medium text-slate-400">SavePorn.net / .cc</th>
                           <th className="p-4 sm:p-5 font-medium text-slate-400">Standard Loaders</th>
                         </tr>
@@ -1396,7 +1576,7 @@ export default function App() {
                         {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                       </div>
                       <p className={`text-xs sm:text-sm italic mb-4 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
-                        "VaultRip is a masterpiece of clean web engineering. I compiled my local media server using this site. Speeds hit my maximum ISP download limits!"
+                        "Porn Save is a masterpiece of clean web engineering. I compiled my local media server using this site. Speeds hit my maximum ISP download limits!"
                       </p>
                       <h4 className={`font-extrabold text-xs uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Sarah M. (Media Historian)</h4>
                     </div>
@@ -1542,7 +1722,7 @@ export default function App() {
                       Your Privacy is Fully Protected by Law & Engineering
                     </h2>
                     <p className="text-slate-350 text-xs sm:text-sm leading-relaxed mb-6">
-                      VaultRip operates strictly as a transactional, memory-only isolation gateway proxy. We do not register, host, or cache your parsed links, IP logs, or content metadata. Every extraction transaction handles stream conversions transiently and clears immediately upon socket closure.
+                      Porn Save operates strictly as a transactional, memory-only isolation gateway proxy. We do not register, host, or cache your parsed links, IP logs, or content metadata. Every extraction transaction handles stream conversions transiently and clears immediately upon socket closure.
                     </p>
                     <div className="flex flex-wrap gap-4 text-xs">
                       <a href="/privacy" onClick={(e) => navigateTo('/privacy', e)} className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold transition shadow-lg shadow-orange-500/10 cursor-pointer">
@@ -1564,7 +1744,7 @@ export default function App() {
                     Start Preserving Content Securely Today
                   </h2>
                   <p className="text-white/90 text-sm max-w-xl mx-auto mb-8">
-                    Bypass lagging web streams and dangerous ad loops. Compile your private media vault with VaultRip in 4K resolution.
+                    Bypass lagging web streams and dangerous ad loops. Compile your private media vault with Porn Save in 4K resolution.
                   </p>
                   <button 
                     onClick={() => {
@@ -1602,7 +1782,7 @@ export default function App() {
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
                     <span className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                      By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>VaultRip Technical Team</strong>
+                      By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>Porn Save Technical Team</strong>
                     </span>
                     <span>•</span>
                     <span>Active Period: 2026</span>
@@ -1731,7 +1911,7 @@ export default function App() {
                   🛡️ About Our Platform
                 </span>
                 <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-8 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                  VaultRip: Premium Engineering for Uncompromising Privacy
+                  Porn Save: Premium Engineering for Uncompromising Privacy
                 </h1>
                 
                 <div className="space-y-8">
@@ -1866,7 +2046,7 @@ export default function App() {
                       </div>
 
                       <div className="text-slate-500 text-[11px] leading-relaxed select-text">
-                        Support Email: <a href="mailto:support@vaultrip.vercel.app" className="text-orange-400 hover:underline font-bold">support@vaultrip.vercel.app</a>
+                        Support Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
                       </div>
 
                       <button 
@@ -1890,15 +2070,15 @@ export default function App() {
                 <div className="border-t border-white/[0.06] pt-10 text-left text-xs sm:text-sm text-slate-400 space-y-6">
                   <h2 className={`text-xl font-bold font-sans ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Support SLA and Operational Guidelines</h2>
                   <p className="leading-relaxed">
-                    At VaultRip, we treat technical errors and community submissions with extreme urgency. We employ a dedicated system monitoring team that oversees our file decoding clusters, making sure that CDN connections remain active and that parsing bottlenecks are solved within minutes. If you are experiencing a technical bug where video download links display loading errors, please provide the exact URL of the video, your general region, and your browser's version. This allows our debugging engineers to reproduce and patch stream parsing bottlenecks.
+                    At Porn Save, we treat technical errors and community submissions with extreme urgency. We employ a dedicated system monitoring team that oversees our file decoding clusters, making sure that CDN connections remain active and that parsing bottlenecks are solved within minutes. If you are experiencing a technical bug where video download links display loading errors, please provide the exact URL of the video, your general region, and your browser's version. This allows our debugging engineers to reproduce and patch stream parsing bottlenecks.
                   </p>
                   
                   <h3 className={`font-bold font-sans ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>DMCA Takedown and Intellectual Property Notices</h3>
                   <p className="leading-relaxed">
-                    VaultRip is a transitional on-demand web utility that decodes publicly accessible video streams upon request. We do not maintain any storage arrays, file servers, databases, or content indices. When a user requests a file convert transaction, our server handles it transiently. Since we do not host, syndicate, or cache files on our physical network, there is no permanent content to delete from our servers.
+                    Porn Save is a transitional on-demand web utility that decodes publicly accessible video streams upon request. We do not maintain any storage arrays, file servers, databases, or content indices. When a user requests a file convert transaction, our server handles it transiently. Since we do not host, syndicate, or cache files on our physical network, there is no permanent content to delete from our servers.
                   </p>
                   <p className="leading-relaxed">
-                    However, we support copyright holders. If you represent a studio, content creator group, or intellectual property agency and wish to prevent our online utility from decoders parsing your domain links, you can submit a formal URL blocking request. Send the specific stream URLs, brand names, and certified proof of ownership to our dedicated legal team at <a href="mailto:support@vaultrip.vercel.app" className="text-orange-400 hover:underline font-bold">support@vaultrip.vercel.app</a> or file a ticket under the "DMCA Takedown Notice" category. We will add those parameters to our hardware blocking list within 24 hours.
+                    However, we support copyright holders. If you represent a studio, content creator group, or intellectual property agency and wish to prevent our online utility from decoders parsing your domain links, you can submit a formal URL blocking request. Send the specific stream URLs, brand names, and certified proof of ownership to our dedicated legal team at <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a> or file a ticket under the "DMCA Takedown Notice" category. We will add those parameters to our hardware blocking list within 24 hours.
                   </p>
 
                   <h3 className={`font-bold font-sans ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Encrypted Communication Protocols</h3>
@@ -1996,7 +2176,7 @@ export default function App() {
                   📰 Curation Insights & Tutorials
                 </span>
                 <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 text-white font-sans">
-                  The VaultRip Resource Blog
+                  The Porn Save Resource Blog
                 </h1>
                 <p className="text-slate-400 text-sm sm:text-base mb-10 leading-relaxed">
                   Discover professional guides, technical breakdowns, cybersecurity tips, and media preservation tutorials written by expert compression engineers.
@@ -2206,11 +2386,11 @@ export default function App() {
                 VR
               </div>
               <span className={`font-bold tracking-tight text-base ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                VaultRip Downloader
+                Porn Save Downloader
               </span>
             </div>
             <p className="text-slate-400 max-w-sm leading-relaxed mb-4 text-xs">
-              VaultRip is a premium open-source online video utility engineered for safe, high-speed, and secure media downloads. Our tool acts as an isolation gateway, giving users total control over their data footprint and digital media custody.
+              Porn Save is a premium open-source online video utility engineered for safe, high-speed, and secure media downloads. Our tool acts as an isolation gateway, giving users total control over their data footprint and digital media custody.
             </p>
           </div>
 
@@ -2249,7 +2429,7 @@ export default function App() {
               Need technical assistance, file removal requests, or support? Contact our help desk directly.
             </p>
             <p className="text-xs font-semibold text-slate-300">
-              Email: <a href="mailto:support@vaultrip.vercel.app" className="text-orange-400 hover:underline font-bold">support@vaultrip.vercel.app</a>
+              Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
             </p>
             <p className="text-[10px] text-slate-500 mt-2">
               Our legal desk responds to secure DMCA tickets and notices within 24 business hours.
@@ -2258,7 +2438,7 @@ export default function App() {
         </div>
 
         <div className="max-w-6xl mx-auto border-t border-slate-200 dark:border-white/[0.04] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px]">
-          <p>© 2026 VaultRip Video Helper. All rights reserved. Code licensed for production deployment.</p>
+          <p>© 2026 Porn Save Video Helper. All rights reserved. Code licensed for production deployment.</p>
           <div className="flex gap-4">
             <a href="/contact" onClick={(e) => navigateTo('/contact', e)} className="hover:underline cursor-pointer">DMCA Notice</a>
             <a href="/terms" onClick={(e) => navigateTo('/terms', e)} className="hover:underline cursor-pointer">Terms of Service</a>
@@ -2284,7 +2464,7 @@ export default function App() {
                 🛡️ GDPR Cookies & Privacy Notice
               </h4>
               <p className="text-[11px] text-slate-450 leading-normal">
-                VaultRip utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
+                Porn Save utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
               </p>
             </div>
             
