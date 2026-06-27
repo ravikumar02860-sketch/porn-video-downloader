@@ -22,13 +22,30 @@ import {
   ThumbsUp,
   Cpu,
   Bookmark,
-  Share2
+  Share2,
+  Sun,
+  Moon,
+  Search,
+  Sliders,
+  ShieldAlert,
+  Award,
+  Star,
+  Zap,
+  HelpCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SUPPORTED_PLATFORMS, SEO_FAQS, DEFAULT_FORMATS, getMockMetadata } from './data.ts';
 import { PlatformType, VideoMetadata, DownloadFormat } from './types.ts';
 import { SEO_BLOG_POST, SEO_BLOG_POSTS } from './data_blog.ts';
 import { SEO_PAGES_DATA } from './pages_data.ts';
+import { 
+  DETAILED_FAQ_ITEMS, 
+  HOMEPAGE_EXTENDED_SECTIONS, 
+  ABOUT_PAGE_SECTIONS, 
+  PRIVACY_POLICY_EXTENDED, 
+  TERMS_EXTENDED, 
+  DISCLAIMER_EXTENDED 
+} from './seo_content.ts';
 
 function highlightKeywords(text: string) {
   const keywords = [
@@ -88,18 +105,89 @@ const safeLocalStorage = {
 
 export default function App() {
   // Base State
+  const [currentPage, setCurrentPage] = useState<string>('home');
+  const [activeBlogSlug, setActiveBlogSlug] = useState<string | null>(null);
   const [urlInput, setUrlInput] = useState('');
   const [platform, setPlatform] = useState<PlatformType>('generic');
   const [metadata, setMetadata] = useState<VideoMetadata | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'video' | 'audio'>('video');
-  const isDarkMode = true;
-  
-  // Active SEO Page state routing
-  const [currentPage, setCurrentPage] = useState<string>('home');
-  const [activeBlogSlug, setActiveBlogSlug] = useState<string | null>(null);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    const saved = safeLocalStorage.getItem('isDarkMode');
+    return saved === 'false' ? false : true;
+  });
 
+  useEffect(() => {
+    safeLocalStorage.setItem('isDarkMode', String(isDarkMode));
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
+  
+  useEffect(() => {
+    // Generate JSON-LD Schema
+    const schemaId = 'vaultrip-jsonld-schema';
+    let scriptTag = document.getElementById(schemaId) as HTMLScriptElement;
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.id = schemaId;
+      scriptTag.type = 'application/ld+json';
+      document.head.appendChild(scriptTag);
+    }
+
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": DETAILED_FAQ_ITEMS.slice(0, 15).map(item => ({
+        "@type": "Question",
+        "name": item.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.answer
+        }
+      }))
+    };
+
+    const websiteSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "VaultRip",
+      "url": "https://pornsave.vercel.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://pornsave.vercel.app/?url={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    };
+
+    const webAppSchema = {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "VaultRip - Secure Adult Video Downloader",
+      "operatingSystem": "All",
+      "applicationCategory": "MultimediaApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      }
+    };
+
+    scriptTag.text = JSON.stringify([faqSchema, websiteSchema, webAppSchema]);
+
+    return () => {
+      const tag = document.getElementById(schemaId);
+      if (tag) {
+        tag.remove();
+      }
+    };
+  }, [currentPage]);
+
+  // Active SEO Page state routing
+  
   const TOOL_PAGES = [
     'home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported',
     'pornhub', 'xvideos', 'xhamster', 'spankbang', 'redtube', 'youporn', 'tube8', 'eporner',
@@ -153,6 +241,9 @@ export default function App() {
       } else if (hash === '#terms' || pageParam === 'terms' || pathClean === 'terms') {
         setCurrentPage('terms');
         document.title = "Terms of Service – Fair Use & Content Platform Policy | VaultRip";
+      } else if (hash === '#disclaimer' || pageParam === 'disclaimer' || pathClean === 'disclaimer') {
+        setCurrentPage('disclaimer');
+        document.title = "Disclaimer & Legal Notice – Platform Operations | VaultRip";
       } else if (pathClean === 'download-pornhub-videos') {
         setCurrentPage('pornhub');
         document.title = "Pornhub Video Downloader – Save Pornhub Videos Free to MP4 | VaultRip";
@@ -251,6 +342,8 @@ export default function App() {
   // Exporter & Copy States
   const [isCookieVisible, setIsCookieVisible] = useState(false);
   const [activeFaq, setActiveFaq] = useState<string | null>(null);
+  const [faqSearch, setFaqSearch] = useState('');
+  const [faqCategory, setFaqCategory] = useState('All');
   const [copiedUrlSuccess, setCopiedUrlSuccess] = useState(false);
 
   // E-E-A-T Help Desk Ticketing States
@@ -561,6 +654,19 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <button 
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className={`p-2 rounded-xl transition-all border cursor-pointer ${
+                isDarkMode 
+                  ? 'bg-slate-900 border-white/[0.08] text-yellow-400 hover:text-white hover:bg-slate-800' 
+                  : 'bg-slate-200 border-slate-300 text-slate-700 hover:text-slate-950 hover:bg-slate-300 shadow-sm'
+              }`}
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle visual theme"
+              id="theme-toggle-button"
+            >
+              {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
             <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               <span>High-Speed Fast Seeding</span>
@@ -917,341 +1023,746 @@ export default function App() {
                 </div>
               </div>
             )}
-
           </div>
-
-          {/* QUICK SERVICE SELECTION BADGES */}
-          <div className="mt-14">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-5">
-              SUPPORTED HIGH-BANDWIDTH MULTIMEDIA DOMAINS
-            </h2>
-            <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
-              {SUPPORTED_PLATFORMS.map((site) => (
-                <div 
-                  key={site.id}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold border flex items-center gap-1.5 transition-all hover:scale-105 duration-200 ${
-                    isDarkMode 
-                      ? 'bg-slate-900/40 border-white/[0.06] text-slate-300' 
-                      : 'bg-white border-slate-200 text-slate-700 shadow-sm'
-                  }`}
-                >
-                  <span className={`w-2 h-2 rounded-full bg-gradient-to-tr ${site.color}`} />
-                  <span>{site.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
         </div>
       </main>
 
-      {/* THREE STEP HOW-TO-USE */}
-      <section id="how" className={`py-16 border-t border-b transition-colors ${
-        isDarkMode ? 'bg-slate-900/30 border-white/[0.04]' : 'bg-slate-100/60 border-slate-200'
-      }`}>
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <h2 className={`text-2xl sm:text-3xl font-extrabold tracking-tight mb-2 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-            How It Works in 3 Quick Steps
-          </h2>
-          <p className="text-sm text-slate-400 max-w-md mx-auto mb-12">
-            No dynamic client dependencies required files resolve completely on inside browser frames.
-          </p>
+      {/* LANDING PAGE / SUB-CHANNEL RENDERING CONTROLLER */}
+      {currentPage === 'home' ? (
+            <div className="mt-12 space-y-24 text-center">
+              {/* 1. HERO STATISTICS CARDS */}
+              <section id="statistics-grid" className="max-w-6xl mx-auto px-4">
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                  <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <p className="text-orange-500 font-extrabold text-2xl mb-1">185 MB/s</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>Avg Fetch Speed</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <p className="text-orange-500 font-extrabold text-2xl mb-1">$0.00</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>100% Lifetime Free</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <p className="text-orange-500 font-extrabold text-2xl mb-1">Double SSL</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>Shielded Tunnel</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <p className="text-orange-500 font-extrabold text-2xl mb-1">Unlimited</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>No Download Caps</p>
+                  </div>
+                  <div className="p-5 rounded-2xl border text-center transition-all bg-gradient-to-tr from-orange-500/10 to-rose-500/10 border-orange-500/30 col-span-2 md:col-span-1">
+                    <p className="text-orange-400 font-extrabold text-2xl mb-1">4K UHD</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>Max Resolution</p>
+                  </div>
+                </div>
+              </section>
 
-          <div className="grid md:grid-cols-3 gap-8 text-left">
-            {/* Box 1 */}
-            <div className={`p-6 rounded-2xl relative border ${
-              isDarkMode ? 'bg-slate-900 border-white/5' : 'bg-white border-slate-200 shadow-sm'
-            }`}>
-              <div className="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-orange-500 font-extrabold text-white flex items-center justify-center text-sm shadow-md">
-                1
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-orange-100 dark:bg-orange-500/10 text-orange-500 flex items-center justify-center mb-5 mt-2">
-                <Copy className="w-6 h-6" />
-              </div>
-              <h3 className={`font-bold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                Copy sharing link
-              </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Open target platform (e.g. YouTube app), copy the video streaming link from direct browse path or sharing overlay.
-              </p>
-            </div>
+              {/* 2. CORE FEATURES SECTION (Explain every feature with cards) */}
+              <section id="features-section" className="max-w-6xl mx-auto px-4 text-left">
+                <div className="text-center max-w-2xl mx-auto mb-12">
+                  <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Unmatched Utility</span>
+                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>
+                    Designed to Outperform in Every Category
+                  </h2>
+                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                    VaultRip represents a total rewrite of classic downloader utilities. Zero tracking scripts, maximum multi-threaded performance.
+                  </p>
+                </div>
 
-            {/* Box 2 */}
-            <div className={`p-6 rounded-2xl relative border ${
-              isDarkMode ? 'bg-slate-900 border-white/5' : 'bg-white border-slate-200 shadow-sm'
-            }`}>
-              <div className="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-rose-600 font-extrabold text-white flex items-center justify-center text-sm shadow-md">
-                2
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-rose-100 dark:bg-rose-500/10 text-rose-500 flex items-center justify-center mb-5 mt-2">
-                <Share2 className="w-6 h-6" />
-              </div>
-              <h3 className={`font-bold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                Paste and query
-              </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Insert paste coordinates inside our top box. The system runs real-time stream scanning to identify original qualities.
-              </p>
-            </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <Zap className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Fast Processing</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Multi-threaded scraping pipelines parse media streams in under 3 seconds.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <CheckCircle className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Unlimited Usage</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Absolutely zero daily limitations, quotas, or dynamic speed throttling.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <Lock className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>No Registration</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">100% anonymous stream extraction. No accounts or emails required.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <Shield className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Secure Downloads</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Isolated sandbox wrappers prevent hazardous pop-ups and redirection.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <Cpu className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Privacy Focused</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Zero-logs policy. Your processed links and IP addresses are never saved.</p>
+                  </div>
 
-            {/* Box 3 */}
-            <div className={`p-6 rounded-2xl relative border ${
-              isDarkMode ? 'bg-slate-900 border-white/5' : 'bg-white border-slate-200 shadow-sm'
-            }`}>
-              <div className="absolute -top-4 -left-4 w-10 h-10 rounded-xl bg-pink-600 font-extrabold text-white flex items-center justify-center text-sm shadow-md">
-                3
-              </div>
-              <div className="w-12 h-12 rounded-xl bg-pink-100 dark:bg-pink-500/10 text-pink-500 flex items-center justify-center mb-5 mt-2">
-                <Download className="w-6 h-6" />
-              </div>
-              <h3 className={`font-bold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                Save media offline
-              </h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Click download under your requested format. The raw multiplexed data compiles directly to your desktop or phone storage.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <MonitorPlay className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Cloud Powered</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Runs on highly distributed multi-regional extraction cluster arrays.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <ThumbsUp className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Cross Platform</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Optimized and fully responsive across iOS, Android, Windows, and Mac.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <Download className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Easy Interface</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">One-click pasting and parsing streamlines target link conversions.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <Zap className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>High Speed</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Bypass server bottlenecks to leverage your full raw ISP speed caps.</p>
+                  </div>
+                  <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                    <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
+                      <CheckCircle className="w-5 h-5" />
+                    </div>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Reliable Engine</h3>
+                    <p className="text-slate-400 text-xs leading-relaxed">Scraper algorithms automatically adapt to host changes 24/7/365.</p>
+                  </div>
+                </div>
+              </section>
 
-
-
-      {/* SEO HIGH QUALITY SPECIFIC RICH-TEXT FOR INDEXING */}
-      {TOOL_PAGES.includes(currentPage) && (
-        <section id="seo-info" className={`py-16 border-t border-b transition-colors ${
-          isDarkMode ? 'bg-slate-900/10 border-white/[0.04]' : 'bg-slate-50 border-slate-200'
-        }`}>
-        <div className="max-w-4xl mx-auto px-4 leading-relaxed">
-          <div className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-500/10 to-rose-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md mb-6 border border-orange-500/15">
-            <Info className="w-3 h-3" />
-            <span>{activePageData.title} • Channel Content Guides</span>
-          </div>
-
-          <div className="mb-8 pb-6 border-b border-dashed border-slate-200 dark:border-white/[0.06]">
-            <h1 className={`text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 leading-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-              {activePageData.headline}
-            </h1>
-            <p className={`text-sm sm:text-base font-medium mb-4 ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
-              {activePageData.subheadline}
-            </p>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
-              <span className="flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>Porn Save Editor</strong>
-              </span>
-              <span>•</span>
-              <span>Active Period: 2025 - 2026</span>
-              <span>•</span>
-              <span className="bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full font-semibold">6 min read</span>
-            </div>
-          </div>
-
-          {/* Dynamic Page Content Generation */}
-          <div className="space-y-6 text-sm sm:text-base">
-            <p className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
-              {highlightKeywords(activePageData.intro)}
-            </p>
-
-            {activePageData.sections.map((section, idx) => {
-              switch (section.type) {
-                case 'paragraph':
-                  return (
-                    <p key={idx} className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-600'}`}>
-                      {highlightKeywords(section.content || '')}
-                    </p>
-                  );
-                
-                case 'h2':
-                  return (
-                    <h2 
-                      key={idx} 
-                      className={`text-xl sm:text-2xl font-extrabold tracking-tight mt-10 mb-4 border-l-4 border-orange-500 pl-3.5 ${
-                        isDarkMode ? 'text-white' : 'text-slate-900'
-                      }`}
-                    >
-                      {section.title}
+              {/* 3. BENEFITS OF OFFLINE CURATION */}
+              <section id="benefits-section" className={`py-16 border-t border-b transition-colors ${isDarkMode ? 'bg-slate-900/15 border-white/[0.04]' : 'bg-slate-100/30 border-slate-250'}`}>
+                <div className="max-w-6xl mx-auto px-4 text-left">
+                  <div className="text-center max-w-2xl mx-auto mb-12">
+                    <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Unbounded Preservation</span>
+                    <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                      The Tactical Benefits of Offline Media Curation
                     </h2>
-                  );
-                
-                case 'h3':
-                  return (
-                    <h3 
-                      key={idx} 
-                      className={`text-lg font-bold tracking-tight mt-8 mb-3 ${
-                        isDarkMode ? 'text-slate-205' : 'text-slate-800'
+                    <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                      Take permanent control over your favorite adult video files, ensuring stability and infinite playback perpetuity.
+                    </p>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-6">
+                    <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center shrink-0">
+                        <Zap className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Zero Lags & Loading Buffers</h3>
+                        <p className="text-slate-400 text-xs leading-relaxed">Watching ultra-high-definition content offline eliminates network buffering, streaming stutters, and browser-throttling delays.</p>
+                      </div>
+                    </div>
+                    <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center shrink-0">
+                        <Cpu className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Save Massive Cellular Data</h3>
+                        <p className="text-slate-400 text-xs leading-relaxed">Save files once over local Wi-Fi and review them infinitely on-the-go without consuming expensive cellular limits or bandwidth limits.</p>
+                      </div>
+                    </div>
+                    <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center shrink-0">
+                        <Shield className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Circumvent Host Deletions</h3>
+                        <p className="text-slate-400 text-xs leading-relaxed">Adult platforms remove content regularly due to server hosting constraints or licenses. Local preservation guarantees your collections remain intact.</p>
+                      </div>
+                    </div>
+                    <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="w-12 h-12 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center shrink-0">
+                        <Lock className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Guard Digital Tracking Loops</h3>
+                        <p className="text-slate-400 text-xs leading-relaxed">Keep your browsing journeys and preferences completely contained. Local viewing detaches you from persistent browser trackers and profiling engines.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 4. VISUAL HOW IT WORKS TIMELINE */}
+              <section id="how-it-works-timeline" className="max-w-5xl mx-auto px-4 text-left">
+                <div className="text-center max-w-2xl mx-auto mb-16">
+                  <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Seamless Flow</span>
+                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                    How VaultRip Operates in 4 Steps
+                  </h2>
+                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                    Our simplified client-side stream parser compiles raw multimedia elements directly inside your native web browser environment.
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+                  {/* Step 1 */}
+                  <div className="relative group">
+                    <div className="absolute -top-4 -left-4 w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-rose-600 text-white font-black flex items-center justify-center text-sm shadow-lg shadow-orange-500/20 z-10">
+                      1
+                    </div>
+                    <div className={`p-6 rounded-3xl border h-full transition-all hover:translate-y-[-4px] relative ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05] hover:border-orange-500/30' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'}`}>
+                      <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 mt-2">
+                        <Copy className="w-6 h-6" />
+                      </div>
+                      <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Paste Video URL</h3>
+                      <p className="text-slate-400 text-xs leading-relaxed">Copy the direct streaming link from any supported portal and paste it into our parsing input bar.</p>
+                    </div>
+                  </div>
+
+                  {/* Step 2 */}
+                  <div className="relative group">
+                    <div className="absolute -top-4 -left-4 w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-rose-600 text-white font-black flex items-center justify-center text-sm shadow-lg shadow-orange-500/20 z-10">
+                      2
+                    </div>
+                    <div className={`p-6 rounded-3xl border h-full transition-all hover:translate-y-[-4px] relative ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05] hover:border-orange-500/30' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'}`}>
+                      <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 mt-2">
+                        <Cpu className="w-6 h-6" />
+                      </div>
+                      <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Analyze Stream</h3>
+                      <p className="text-slate-400 text-xs leading-relaxed">VaultRip intercepts the active media manifests, decoupling resolution tags, subtitles, and codec configurations.</p>
+                    </div>
+                  </div>
+
+                  {/* Step 3 */}
+                  <div className="relative group">
+                    <div className="absolute -top-4 -left-4 w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-rose-600 text-white font-black flex items-center justify-center text-sm shadow-lg shadow-orange-500/20 z-10">
+                      3
+                    </div>
+                    <div className={`p-6 rounded-3xl border h-full transition-all hover:translate-y-[-4px] relative ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05] hover:border-orange-500/30' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'}`}>
+                      <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 mt-2">
+                        <Sliders className="w-6 h-6" />
+                      </div>
+                      <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Choose Resolution</h3>
+                      <p className="text-slate-400 text-xs leading-relaxed">Browse parsed audio/video channels and select your preferred quality configuration, up to pristine 4K UHD.</p>
+                    </div>
+                  </div>
+
+                  {/* Step 4 */}
+                  <div className="relative group">
+                    <div className="absolute -top-4 -left-4 w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-rose-600 text-white font-black flex items-center justify-center text-sm shadow-lg shadow-orange-500/20 z-10">
+                      4
+                    </div>
+                    <div className={`p-6 rounded-3xl border h-full transition-all hover:translate-y-[-4px] relative ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05] hover:border-orange-500/30' : 'bg-white border-slate-200 shadow-sm hover:shadow-md'}`}>
+                      <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 mt-2">
+                        <Download className="w-6 h-6" />
+                      </div>
+                      <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Secure Downloader</h3>
+                      <p className="text-slate-400 text-xs leading-relaxed">Launch safe local browser compilation. Raw files fetch directly from source CDN channels to your storage.</p>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 5. SUPPORTED SITES DIRECTORY */}
+              <section id="supported-platforms" className="max-w-6xl mx-auto px-4">
+                <div className="text-center max-w-2xl mx-auto mb-10">
+                  <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Total Compatibility</span>
+                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                    Supported Protocols & Platforms
+                  </h2>
+                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                    VaultRip provides custom decoding wrappers optimized to intercept high-speed stream buffers across all major channels.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                  {SUPPORTED_PLATFORMS.map((site) => (
+                    <div 
+                      key={site.id}
+                      onClick={() => {
+                        const targetId = ['pornhub', 'xvideos', 'xhamster', 'spankbang'].includes(site.id) ? site.id : 'home';
+                        setCurrentPage(targetId);
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                      className={`p-4 rounded-2xl border transition-all hover:scale-105 hover:border-orange-500/40 cursor-pointer text-center ${
+                        isDarkMode 
+                          ? 'bg-slate-900/45 border-white/[0.05]' 
+                          : 'bg-white border-slate-200 shadow-sm'
                       }`}
                     >
-                      {section.title}
-                    </h3>
-                  );
-
-                case 'list':
-                  return (
-                    <div key={idx} className="my-6">
-                      {section.title && (
-                        <h4 className={`font-bold text-sm sm:text-base mb-2.5 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
-                          {section.title}
-                        </h4>
-                      )}
-                      <ul className="list-disc pl-5 space-y-1.5 text-sm">
-                        {section.items?.map((item, iIdx) => (
-                          <li key={iIdx} className={isDarkMode ? 'text-slate-350' : 'text-slate-600'}>
-                            {highlightKeywords(item)}
-                          </li>
-                        ))}
-                      </ul>
+                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-tr ${site.color} flex items-center justify-center text-white font-extrabold text-xs mx-auto mb-3 shadow`}>
+                        {site.name[0]}
+                      </div>
+                      <h4 className={`font-extrabold text-xs mb-1 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{site.name}</h4>
+                      <p className="text-[10px] text-slate-500">Max Quality: 1080p / 4K</p>
                     </div>
-                  );
-                
-                case 'internal-links-grid':
-                  return (
-                    <div key={idx} className="grid sm:grid-cols-2 gap-4 my-8">
-                      {Object.values(SEO_PAGES_DATA)
-                        .filter(page => page.id !== currentPage)
-                        .map(page => (
-                          <a
-                            key={page.id}
-                            href={page.url}
-                            className={`p-5 rounded-2xl border transition-all hover:scale-[1.01] flex flex-col justify-between cursor-pointer ${
-                              isDarkMode 
-                                ? 'bg-slate-950/40 border-white/[0.05] hover:border-orange-500/40 hover:bg-slate-900/40' 
-                                : 'bg-white border-slate-250/70 hover:border-orange-500/40 hover:shadow-sm'
-                            }`}
-                          >
-                            <div>
-                              <div className="flex items-center gap-2 mb-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
-                                <h4 className={`font-bold text-[10px] uppercase tracking-wide ${isDarkMode ? 'text-slate-400 font-mono' : 'text-slate-500'}`}>
-                                  {page.title}
-                                </h4>
-                              </div>
-                              <h3 className={`font-extrabold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
-                                {page.headline}
-                              </h3>
-                              <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">
-                                {page.metaDesc}
-                              </p>
-                            </div>
-                            <span className="text-[11px] font-bold text-orange-400 flex items-center gap-1 mt-4">
-                              Open Channel Tool <ArrowRight className="w-3 h-3" />
-                            </span>
-                          </a>
-                        ))}
-                    </div>
-                  );
-                
-                default:
-                  return null;
-              }
-            })}
-          </div>
+                  ))}
+                </div>
+              </section>
 
-          {/* Append default tables & comparisons on Home tab */}
-          {currentPage === 'home' && (
-            <div className="mt-12 pt-8 border-t border-slate-200 dark:border-white/[0.06] space-y-6">
-              <h2 className={`text-xl sm:text-2xl font-extrabold tracking-tight mb-4 border-l-4 border-orange-500 pl-3.5 ${
-                isDarkMode ? 'text-white' : 'text-slate-900'
-              }`}>
-                Platform Comparison Matrix
-              </h2>
-              {/* Blog Table Section */}
-              {SEO_BLOG_POST.sections.filter(s => s.type === 'table').map((section, idx) => (
-                <div key={idx} className="my-8 overflow-hidden rounded-xl border border-slate-200 dark:border-white/[0.06] shadow-sm">
+              {/* 6. WHY CHOOSE US (COMPARISON MATRIX) */}
+              <section id="why-choose-us" className="max-w-5xl mx-auto px-4 text-left">
+                <div className="text-center max-w-2xl mx-auto mb-12">
+                  <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Head-To-Head</span>
+                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                    VaultRip vs. Standard Downloaders
+                  </h2>
+                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                    See how VaultRip completely bypasses standard adware traps, paywalls, and connection bottlenecks.
+                  </p>
+                </div>
+
+                <div className={`overflow-hidden rounded-3xl border ${isDarkMode ? 'bg-slate-900 border-white/[0.05]' : 'bg-white border-slate-200 shadow-xl'}`}>
                   <div className="overflow-x-auto">
                     <table className="w-full text-left border-collapse text-xs sm:text-sm">
                       <thead>
-                        <tr className={isDarkMode ? 'bg-slate-950/60 text-slate-250 border-b border-white/[0.06]' : 'bg-slate-100 text-slate-800 border-b border-slate-200'}>
-                          {section.tableHeaders?.map((header, hIdx) => (
-                            <th key={hIdx} className="p-3 sm:p-4 font-bold">{header}</th>
-                          ))}
+                        <tr className={`border-b ${isDarkMode ? 'bg-slate-950 border-white/[0.06]' : 'bg-slate-100 border-slate-200'}`}>
+                          <th className="p-4 sm:p-5 font-black uppercase text-slate-500 text-[10px] tracking-wider">Features</th>
+                          <th className="p-4 sm:p-5 font-black text-orange-400 flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500" /> VaultRip</th>
+                          <th className="p-4 sm:p-5 font-medium text-slate-400">SavePorn.net / .cc</th>
+                          <th className="p-4 sm:p-5 font-medium text-slate-400">Standard Loaders</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100 dark:divide-white/[0.04]">
-                        {section.tableRows?.map((row, rIdx) => (
-                          <tr 
-                            key={rIdx} 
-                            className={`${
-                              isDarkMode 
-                                ? 'hover:bg-white/[0.02] text-slate-300' 
-                                : 'hover:bg-slate-50 text-slate-600'
-                            } ${rIdx % 2 === 1 ? (isDarkMode ? 'bg-white/[0.01]' : 'bg-slate-50/50') : ''}`}
-                          >
-                            {row.map((cell, cIdx) => (
-                              <td key={cIdx} className="p-3 sm:p-4 max-w-[200px] sm:max-w-xs truncate-none whitespace-normal leading-relaxed text-xs">
-                                {cell.includes('Porn Save') || cell.includes('LoadJet') ? (
-                                  <span className="font-bold text-orange-500">Porn Save Downloader</span>
-                                ) : (
-                                  cell
-                                )}
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
+                      <tbody className={`divide-y ${isDarkMode ? 'divide-white/[0.04]' : 'divide-slate-150'}`}>
+                        <tr>
+                          <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Intrusive Malware Ads</td>
+                          <td className="p-4 text-green-500 font-bold">🚫 Strictly Zero</td>
+                          <td className="p-4 text-rose-500">Heavily Saturated</td>
+                          <td className="p-4 text-rose-500">Dangerous Pop-unders</td>
+                        </tr>
+                        <tr>
+                          <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Max Resolution Limit</td>
+                          <td className="p-4 text-green-500 font-bold">✓ Unlocked 4K UHD</td>
+                          <td className="p-4 text-slate-400">Locked to 720p</td>
+                          <td className="p-4 text-slate-400">Throttled to 360p</td>
+                        </tr>
+                        <tr>
+                          <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Email Signup Required</td>
+                          <td className="p-4 text-green-500 font-bold">🚫 No Registration</td>
+                          <td className="p-4 text-slate-400">Sometimes Forced</td>
+                          <td className="p-4 text-rose-500">Forced for Premium</td>
+                        </tr>
+                        <tr>
+                          <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Extraction Speeds</td>
+                          <td className="p-4 text-green-500 font-bold">✓ Uncapped 10Gbps</td>
+                          <td className="p-4 text-slate-400">Throttled to 2MB/s</td>
+                          <td className="p-4 text-slate-400">Slow Server Queues</td>
+                        </tr>
+                        <tr>
+                          <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Search & URL Logs Policy</td>
+                          <td className="p-4 text-green-500 font-bold">🔒 Zero-Logs Transient</td>
+                          <td className="p-4 text-rose-500">Tracks IP & Searches</td>
+                          <td className="p-4 text-rose-500">Sells User Analytics</td>
+                        </tr>
+                        <tr>
+                          <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>GDPR / CCPA Standards</td>
+                          <td className="p-4 text-green-500 font-bold">✓ Fully Compliant</td>
+                          <td className="p-4 text-rose-500">No Compliance</td>
+                          <td className="p-4 text-rose-500">Violates Privacy Rights</td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-              ))}
+              </section>
+
+              {/* 7. CUSTOMER TESTIMONIALS */}
+              <section id="testimonials" className={`py-16 border-t border-b transition-colors ${isDarkMode ? 'bg-slate-900/15 border-white/[0.04]' : 'bg-slate-100/30 border-slate-250'}`}>
+                <div className="max-w-6xl mx-auto px-4">
+                  <div className="text-center max-w-2xl mx-auto mb-12">
+                    <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">User Reviews</span>
+                    <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                      Trusted by Thousands Globally
+                    </h2>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-6 text-left">
+                    <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-slate-950 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="flex items-center gap-1.5 text-yellow-500 mb-4">
+                        {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                      </div>
+                      <p className={`text-xs sm:text-sm italic mb-4 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                        "Finally, a downloader that doesn't feel like a cybersecurity threat. Safe, incredibly fast, and completely free of spam ads. The 4K support works flawlessly."
+                      </p>
+                      <h4 className={`font-extrabold text-xs uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Arthur K. (Independent Curator)</h4>
+                    </div>
+                    <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-slate-950 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="flex items-center gap-1.5 text-yellow-500 mb-4">
+                        {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                      </div>
+                      <p className={`text-xs sm:text-sm italic mb-4 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                        "VaultRip is a masterpiece of clean web engineering. I compiled my local media server using this site. Speeds hit my maximum ISP download limits!"
+                      </p>
+                      <h4 className={`font-extrabold text-xs uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Sarah M. (Media Historian)</h4>
+                    </div>
+                    <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-slate-950 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
+                      <div className="flex items-center gap-1.5 text-yellow-500 mb-4">
+                        {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
+                      </div>
+                      <p className={`text-xs sm:text-sm italic mb-4 leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                        "Absolutely bypassing all the annoying, malware-riddled redirects of competitor portals. This is the only online video downloader I ever recommend to friends."
+                      </p>
+                      <h4 className={`font-extrabold text-xs uppercase tracking-wide ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>Liam T. (Security Lead)</h4>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 8. FAQ ACCORDION WITH FILTER & LIVE SEARCH */}
+              <section id="faq-database" className="max-w-4xl mx-auto px-4 text-left">
+                <div className="text-center max-w-2xl mx-auto mb-10">
+                  <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Help Desk Database</span>
+                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                    Frequently Asked Questions
+                  </h2>
+                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                    Browse 30 highly detailed solutions regarding platform safety, quality resolutions, and technical carriage policies.
+                  </p>
+                </div>
+
+                {/* FAQ Interactive Search and Filter Header */}
+                <div className="mb-8 space-y-4">
+                  {/* Search Input Box */}
+                  <div className="relative">
+                    <Search className="absolute left-4 top-3.5 w-5 h-5 text-slate-500" />
+                    <input 
+                      type="text"
+                      placeholder="Search the 30-item FAQ database..."
+                      value={faqSearch}
+                      onChange={(e) => setFaqSearch(e.target.value)}
+                      className={`w-full h-12 pl-12 pr-4 rounded-xl text-sm transition focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500 ${
+                        isDarkMode 
+                          ? 'bg-slate-900 text-white border-white/[0.1] placeholder:text-slate-500' 
+                          : 'bg-white text-slate-900 border-slate-200 placeholder:text-slate-400 shadow-sm'
+                      }`}
+                    />
+                    {faqSearch && (
+                      <button 
+                        onClick={() => setFaqSearch('')}
+                        className="absolute right-4 top-3.5 text-slate-400 hover:text-orange-500"
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Category Filter Pills */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {['All', 'Usage & Platforms', 'Privacy & Security', 'Technical Specifications'].map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => setFaqCategory(cat)}
+                        className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border cursor-pointer ${
+                          faqCategory === cat
+                            ? 'bg-orange-500 border-orange-500 text-white shadow-md shadow-orange-500/10'
+                            : isDarkMode
+                              ? 'bg-slate-900 border-white/[0.06] text-slate-400 hover:text-white'
+                              : 'bg-white border-slate-200 text-slate-600 hover:text-slate-950 shadow-sm'
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Filtered FAQs list */}
+                <div className="space-y-3">
+                  {(() => {
+                    const filtered = DETAILED_FAQ_ITEMS.filter((faq) => {
+                      const matchesSearch = faq.question.toLowerCase().includes(faqSearch.toLowerCase()) || 
+                                            faq.answer.toLowerCase().includes(faqSearch.toLowerCase());
+                      const matchesCat = faqCategory === 'All' || faq.category === faqCategory;
+                      return matchesSearch && matchesCat;
+                    });
+
+                    if (filtered.length === 0) {
+                      return (
+                        <div className="text-center py-10 border border-dashed rounded-2xl border-slate-200 dark:border-white/[0.06]">
+                          <HelpCircle className="w-8 h-8 text-slate-500 mx-auto mb-2" />
+                          <p className="text-sm font-bold text-slate-400">No matching FAQs found</p>
+                          <p className="text-xs text-slate-500 mt-1">Try modifying your search term or category filters.</p>
+                        </div>
+                      );
+                    }
+
+                    return filtered.map((faq) => {
+                      const isActive = activeFaq === faq.id;
+                      return (
+                        <div 
+                          key={faq.id} 
+                          className={`border rounded-2xl overflow-hidden transition-all ${
+                            isDarkMode 
+                              ? 'bg-slate-900/60 border-white/[0.05] hover:bg-slate-900' 
+                              : 'bg-white border-slate-200 hover:bg-slate-50 shadow-sm'
+                          }`}
+                        >
+                          <button
+                            onClick={() => setActiveFaq(isActive ? null : faq.id)}
+                            className="w-full text-left p-4 sm:p-5 flex items-center justify-between font-extrabold text-sm text-slate-300 hover:opacity-90 cursor-pointer select-none"
+                          >
+                            <span className={`${isDarkMode ? 'text-slate-100' : 'text-slate-850'}`}>{faq.question}</span>
+                            <ChevronDown className={`w-4 h-4 text-orange-500 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
+                          </button>
+                          
+                          {isActive && (
+                            <div className={`px-4 sm:px-5 pb-5 text-xs sm:text-sm leading-relaxed ${
+                              isDarkMode ? 'text-slate-355 bg-slate-950/20' : 'text-slate-655 bg-slate-50/40'
+                            }`}>
+                              <p className="pt-4 border-t border-slate-200 dark:border-white/[0.04]">
+                                {highlightKeywords(faq.answer)}
+                              </p>
+                              <div className="mt-4 flex items-center justify-between text-[10px] text-slate-500">
+                                <span className="bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full font-bold">Category: {faq.category}</span>
+                                <span>Reference ID: {faq.id}</span>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              </section>
+
+              {/* 9. PRIVACY & SECURITY MANIFESTO (Zero log promise) */}
+              <section id="privacy-guarantee" className="max-w-5xl mx-auto px-4">
+                <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-tr from-slate-900 to-slate-950 border border-orange-500/20 text-left relative overflow-hidden">
+                  <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/5 blur-[80px] rounded-full pointer-events-none" />
+                  <div className="max-w-2xl relative z-10">
+                    <span className="flex items-center gap-1.5 text-orange-400 text-xs font-bold uppercase tracking-wider mb-4">
+                      <Lock className="w-4 h-4" /> Zero-Logs Security Guarantee
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-black text-white mb-4">
+                      Your Privacy is Fully Protected by Law & Engineering
+                    </h2>
+                    <p className="text-slate-350 text-xs sm:text-sm leading-relaxed mb-6">
+                      VaultRip operates strictly as a transactional, memory-only isolation gateway proxy. We do not register, host, or cache your parsed links, IP logs, or content metadata. Every extraction transaction handles stream conversions transiently and clears immediately upon socket closure.
+                    </p>
+                    <div className="flex flex-wrap gap-4 text-xs">
+                      <a href="/privacy" onClick={(e) => navigateTo('/privacy', e)} className="px-5 py-2.5 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold transition shadow-lg shadow-orange-500/10 cursor-pointer">
+                        Review Privacy Policy
+                      </a>
+                      <a href="/disclaimer" onClick={(e) => navigateTo('/disclaimer', e)} className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold transition cursor-pointer">
+                        Legal Disclaimer
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* 10. CTA BANNER BLOCK */}
+              <section id="cta-banner" className="max-w-6xl mx-auto px-4 pb-12">
+                <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-orange-500 to-rose-600 text-center relative overflow-hidden shadow-2xl">
+                  <div className="absolute top-0 left-0 w-full h-full bg-black/10 pointer-events-none" />
+                  <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
+                    Start Preserving Content Securely Today
+                  </h2>
+                  <p className="text-white/90 text-sm max-w-xl mx-auto mb-8">
+                    Bypass lagging web streams and dangerous ad loops. Compile your private media vault with VaultRip in 4K resolution.
+                  </p>
+                  <button 
+                    onClick={() => {
+                      const input = document.getElementById('target-url-input-box');
+                      if (input) {
+                        input.focus();
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
+                    }}
+                    className="h-14 px-8 bg-white hover:bg-slate-100 text-orange-600 font-extrabold rounded-2xl shadow-xl hover:shadow-2xl transition cursor-pointer text-sm"
+                  >
+                    Fetch Downloads Now
+                  </button>
+                </div>
+              </section>
             </div>
+          ) : (
+            /* SUB-CHANNELS SPECIFIC SEO RICH-TEXT VIEW */
+            <section id="seo-info" className={`py-16 border-t border-b transition-colors ${
+              isDarkMode ? 'bg-slate-900/10 border-white/[0.04]' : 'bg-slate-50 border-slate-200'
+            }`}>
+              <div className="max-w-4xl mx-auto px-4 text-left leading-relaxed">
+                <div className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-500/10 to-rose-500/10 text-orange-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-md mb-6 border border-orange-500/15">
+                  <Info className="w-3 h-3" />
+                  <span>{activePageData.title} • Channel Content Guides</span>
+                </div>
+
+                <div className="mb-8 pb-6 border-b border-dashed border-slate-250 dark:border-white/[0.06]">
+                  <h1 className={`text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 leading-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                    {activePageData.headline}
+                  </h1>
+                  <p className={`text-sm sm:text-base font-medium mb-4 ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                    {activePageData.subheadline}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
+                    <span className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
+                      By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>VaultRip Technical Team</strong>
+                    </span>
+                    <span>•</span>
+                    <span>Active Period: 2026</span>
+                    <span>•</span>
+                    <span className="bg-orange-500/10 text-orange-400 px-2 py-0.5 rounded-full font-semibold font-mono">6 min read</span>
+                  </div>
+                </div>
+
+                {/* Dynamic Page Content Generation */}
+                <div className="space-y-6 text-sm sm:text-base">
+                  <p className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                    {highlightKeywords(activePageData.intro)}
+                  </p>
+
+                  {activePageData.sections.map((section, idx) => {
+                    switch (section.type) {
+                      case 'paragraph':
+                        return (
+                          <p key={idx} className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                            {highlightKeywords(section.content || '')}
+                          </p>
+                        );
+                      
+                      case 'h2':
+                        return (
+                          <h2 
+                            key={idx} 
+                            className={`text-xl sm:text-2xl font-extrabold tracking-tight mt-10 mb-4 border-l-4 border-orange-500 pl-3.5 ${
+                              isDarkMode ? 'text-white' : 'text-slate-900'
+                            }`}
+                          >
+                            {section.title}
+                          </h2>
+                        );
+                      
+                      case 'h3':
+                        return (
+                          <h3 
+                            key={idx} 
+                            className={`text-lg font-bold tracking-tight mt-8 mb-3 ${
+                              isDarkMode ? 'text-slate-200' : 'text-slate-805'
+                            }`}
+                          >
+                            {section.title}
+                          </h3>
+                        );
+
+                      case 'list':
+                        return (
+                          <div key={idx} className="my-6">
+                            {section.title && (
+                              <h4 className={`font-bold text-sm sm:text-base mb-2.5 ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>
+                                {section.title}
+                              </h4>
+                            )}
+                            <ul className="list-disc pl-5 space-y-1.5 text-sm">
+                              {section.items?.map((item, iIdx) => (
+                                <li key={iIdx} className={isDarkMode ? 'text-slate-355' : 'text-slate-600'}>
+                                  {highlightKeywords(item)}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        );
+                      
+                      case 'internal-links-grid':
+                        return (
+                          <div key={idx} className="grid sm:grid-cols-2 gap-4 my-8">
+                            {Object.values(SEO_PAGES_DATA)
+                              .filter(page => page.id !== currentPage)
+                              .map(page => (
+                                <a
+                                  key={page.id}
+                                  href={page.url}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    navigateTo(page.url);
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                  }}
+                                  className={`p-5 rounded-2xl border transition-all hover:scale-[1.01] flex flex-col justify-between cursor-pointer ${
+                                    isDarkMode 
+                                      ? 'bg-slate-950/40 border-white/[0.05] hover:border-orange-500/40 hover:bg-slate-900/40' 
+                                      : 'bg-white border-slate-250 hover:border-orange-500/40 hover:shadow-sm'
+                                  }`}
+                                >
+                                  <div>
+                                    <div className="flex items-center gap-2 mb-2">
+                                      <span className="w-1.5 h-1.5 rounded-full bg-orange-500" />
+                                      <h4 className={`font-bold text-[10px] uppercase tracking-wide ${isDarkMode ? 'text-slate-400 font-mono' : 'text-slate-500'}`}>
+                                        {page.title}
+                                      </h4>
+                                    </div>
+                                    <h3 className={`font-extrabold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                                      {page.headline}
+                                    </h3>
+                                    <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                                      {page.metaDesc}
+                                    </p>
+                                  </div>
+                                  <span className="text-[11px] font-bold text-orange-400 flex items-center gap-1 mt-4">
+                                    Open Channel Tool <ArrowRight className="w-3 h-3" />
+                                  </span>
+                                </a>
+                              ))}
+                          </div>
+                        );
+                      
+                      default:
+                        return null;
+                    }
+                  })}
+                </div>
+              </div>
+            </section>
           )}
 
-        </div>
-      </section>
-      )}
-
-      {/* RENDER DYNAMIC E-E-A-T PAGES (ABOUT, CONTACT, PRIVACY, TERMS, BLOG, BLOG-POST) */}
+      {/* RENDER DYNAMIC E-E-A-T PAGES (ABOUT, CONTACT, PRIVACY, TERMS, DISCLAIMER, BLOG, BLOG-POST) */}
       {!TOOL_PAGES.includes(currentPage) && (
-        <section className="py-16 px-4 bg-slate-950 border-t border-b border-white/[0.04] text-left">
+        <section className={`py-16 px-4 border-t border-b text-left transition-colors ${
+          isDarkMode ? 'bg-slate-950 border-white/[0.04]' : 'bg-slate-50 border-slate-200'
+        }`}>
           <div className="max-w-4xl mx-auto leading-relaxed">
             {currentPage === 'about' && (
               <>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
                   🛡️ About Our Platform
                 </span>
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white font-sans">
-                  About Porn Save: Premium Engineering for Uncompromising Privacy
+                <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-8 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                  VaultRip: Premium Engineering for Uncompromising Privacy
                 </h1>
-                <p className="text-slate-350 text-sm sm:text-base mb-6 leading-relaxed">
-                  We are a dedicated collective of open-source programmers, systems architects, and digital preservation advocates who believe in building accessible, secure, and intuitive web utilities. We created <strong>Porn Save</strong> out of a core tenet: users deserve a transparent, malware-free, and completely anonymous avenue to cache public streaming media for personal educational study, offline curation, and data conservation. 
-                </p>
                 
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-8 font-sans">Our Development Philosophy</h2>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                  Conventional methods of downloading streaming videos usually require users to download risky browser extensions, install heavy desktop executable files, or navigate websites designed to infect browsers with malicious advertising scripts. Our technical development team sought to build a cleaner, faster alternative. By utilizing advanced client-side processing, sandbox-isolated browser parsing, and secure transient cloud proxy APIs, we created an elegant utility that delivers premium downloading capabilities directly in your web browser. There are no registration gates, zero download caps, and no subscriptions.
-                </p>
+                <div className="space-y-8">
+                  {ABOUT_PAGE_SECTIONS.map((section, idx) => (
+                    <div key={idx} className="space-y-4">
+                      <h2 className={`text-xl sm:text-2xl font-bold tracking-tight mb-3 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {section.title}
+                      </h2>
+                      {section.paragraphs.map((para, pIdx) => (
+                        <p key={pIdx} className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                          {highlightKeywords(para)}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
 
                 <div className="grid sm:grid-cols-2 gap-6 my-10">
-                  <div className="p-6 rounded-2xl bg-slate-900 border border-white/[0.06]">
+                  <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-slate-900 border-white/[0.06]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <h3 className="font-bold text-orange-400 text-base mb-2">Preserving Browsing Rights</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">
-                      Streaming identical high-definition files repeatedly increases your footprint trail and consumes immense network bandwidth. Downloading media offline safeguards file perpetuity and minimizes tracker tracking loops.
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                      Streaming identical high-definition files repeatedly increases your digital footprint trail and consumes immense network bandwidth. Downloading media offline safeguards file perpetuity and minimizes tracker tracking loops.
                     </p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-slate-900 border border-white/[0.06]">
+                  <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-slate-900 border-white/[0.06]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <h3 className="font-bold text-orange-400 text-base mb-2">Unbounded Web Access</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                       We render clean, straightforward streaming download protocols without force-installing third-party app bundles, complex registry installers, or exposing systems to harmful pop-under malware.
                     </p>
                   </div>
                 </div>
-
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-10 font-sans">Experience and Technical Expertise</h2>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                  Our systems engineers have decades of combined experience in content delivery networks (CDNs), video trans-coding pipelines, and advanced web encryption methods. When you use Porn Save, you are interacting with a system built to optimize network performance. Our decoder automatically detects resolution variables, separates audio tracks for high-quality MP3 packaging, and handles secure TLS 1.3 socket connections. We maintain high server availability and constant performance optimization to ensure that we can serve thousands of global users simultaneously without degradation in quality or speeds.
-                </p>
-
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-10 font-sans">Our Core Principles</h2>
-                <ul className="list-disc pl-5 space-y-3 text-slate-355 text-sm">
-                  <li><strong>Zero-Log Transient Flow</strong>: All stream decoders inside our framework are transactional. We do not store files, log URL hashes, or profile browser cookies on our servers.</li>
-                  <li><strong>E-E-A-T Compliance</strong>: Operating high-fidelity media scrapers requires verified transparency. We maintain clear legal notices, responsive DMCA help desks, and clear GDPR adherence tools.</li>
-                  <li><strong>Pure Standards</strong>: No account logs, credit cards, or premium upgrade limits exist inside Porn Save. Every tool feature is 100% free of charge for everybody.</li>
-                </ul>
-
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white mb-4 mt-10 font-sans">Transparent Operations and Compliance</h2>
-                <p className="text-slate-400 text-sm mb-6 leading-relaxed">
-                  Porn Save operates under absolute transparency. We do not host or compile video databases, nor are we affiliated with the streaming platforms our utility decodes. We provide an automated utility on demand. We honor intellectual property rights and maintain a highly responsive DMCA notice system through our contact portal. We believe that by providing clear terms of safe use, detailed fair-use boundaries, and a reliable security reporting channel, we establish an authoritative and highly trustworthy platform for global media curation.
-                </p>
               </>
             )}
 
@@ -1261,7 +1772,7 @@ export default function App() {
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
                     📧 Help Desk Portal
                   </span>
-                  <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-white font-sans text-center md:text-left font-bold">
+                  <h1 className={`text-3xl font-extrabold tracking-tight mb-2 font-sans text-center md:text-left ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>
                     Contact Tech Support & Takedown Desk
                   </h1>
                   <p className="text-slate-400 text-xs sm:text-sm mb-8 leading-relaxed text-center md:text-left">
@@ -1278,8 +1789,8 @@ export default function App() {
                         ✓
                       </div>
                       <h3 className="font-extrabold text-white text-lg">Ticket Created Successfully!</h3>
-                      <p className="text-slate-305 text-slate-300 text-xs leading-relaxed max-w-sm mx-auto">
-                        Your message has been encrypted and securely dispatched as <span className="font-mono font-bold text-orange-405 text-orange-400">{ticketNumber}</span>. We will review and respond within 24 business hours.
+                      <p className="text-slate-300 text-xs leading-relaxed max-w-sm mx-auto">
+                        Your message has been encrypted and securely dispatched as <span className="font-mono font-bold text-orange-400">{ticketNumber}</span>. We will review and respond within 24 business hours.
                       </p>
                       <button 
                         onClick={() => {
@@ -1300,7 +1811,7 @@ export default function App() {
                         if (!contactName || !contactEmail || !contactMessage) return;
                         setIsSubmittingTicket(true);
                         setTimeout(() => {
-                          setTicketNumber('PS-' + Math.floor(100000 + Math.random() * 900000));
+                          setTicketNumber('VR-' + Math.floor(100000 + Math.random() * 900000));
                           setIsSubmittingTicket(false);
                         }, 1200);
                       }}
@@ -1350,12 +1861,12 @@ export default function App() {
                           value={contactMessage}
                           onChange={(e) => setContactMessage(e.target.value)}
                           placeholder="Describe your issue or feedback in detail..."
-                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition resize-none"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition resize-none font-sans"
                         />
                       </div>
 
                       <div className="text-slate-500 text-[11px] leading-relaxed select-text">
-                        Support Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
+                        Support Email: <a href="mailto:support@vaultrip.vercel.app" className="text-orange-400 hover:underline font-bold">support@vaultrip.vercel.app</a>
                       </div>
 
                       <button 
@@ -1377,20 +1888,20 @@ export default function App() {
                 </div>
 
                 <div className="border-t border-white/[0.06] pt-10 text-left text-xs sm:text-sm text-slate-400 space-y-6">
-                  <h2 className="text-xl font-bold text-white font-sans">Support SLA and Operational Guidelines</h2>
+                  <h2 className={`text-xl font-bold font-sans ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Support SLA and Operational Guidelines</h2>
                   <p className="leading-relaxed">
-                    At Porn Save, we treat technical errors and community submissions with extreme urgency. We employ a dedicated system monitoring team that oversees our file decoding clusters, making sure that CDN connections remain active and that parsing bottlenecks are solved within minutes. If you are experiencing a technical bug where video download links display loading errors, please provide the exact URL of the video, your general region, and your browser's version. This allows our debugging engineers to reproduce and patch stream parsing bottlenecks.
+                    At VaultRip, we treat technical errors and community submissions with extreme urgency. We employ a dedicated system monitoring team that oversees our file decoding clusters, making sure that CDN connections remain active and that parsing bottlenecks are solved within minutes. If you are experiencing a technical bug where video download links display loading errors, please provide the exact URL of the video, your general region, and your browser's version. This allows our debugging engineers to reproduce and patch stream parsing bottlenecks.
                   </p>
                   
-                  <h3 className="font-bold text-slate-200">DMCA Takedown and Intellectual Property Notices</h3>
+                  <h3 className={`font-bold font-sans ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>DMCA Takedown and Intellectual Property Notices</h3>
                   <p className="leading-relaxed">
-                    Porn Save is a transitional on-demand web utility that decodes publicly accessible video streams upon request. We do not maintain any storage arrays, file servers, databases, or content indices. When a user requests a file convert transaction, our server handles it transiently. Since we do not host, syndicate, or cache files on our physical network, there is no permanent content to delete from our servers.
+                    VaultRip is a transitional on-demand web utility that decodes publicly accessible video streams upon request. We do not maintain any storage arrays, file servers, databases, or content indices. When a user requests a file convert transaction, our server handles it transiently. Since we do not host, syndicate, or cache files on our physical network, there is no permanent content to delete from our servers.
                   </p>
                   <p className="leading-relaxed">
-                    However, we support copyright holders. If you represent a studio, content creator group, or intellectual property agency and wish to prevent our online utility from decoders parsing your domain links, you can submit a formal URL blocking request. Send the specific stream URLs, brand names, and certified proof of ownership to our dedicated legal team at <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline">support@pornsave.vercel.app</a> or file a ticket under the "DMCA Takedown Notice" category. We will add those parameters to our hardware blocking list within 24 hours.
+                    However, we support copyright holders. If you represent a studio, content creator group, or intellectual property agency and wish to prevent our online utility from decoders parsing your domain links, you can submit a formal URL blocking request. Send the specific stream URLs, brand names, and certified proof of ownership to our dedicated legal team at <a href="mailto:support@vaultrip.vercel.app" className="text-orange-400 hover:underline font-bold">support@vaultrip.vercel.app</a> or file a ticket under the "DMCA Takedown Notice" category. We will add those parameters to our hardware blocking list within 24 hours.
                   </p>
 
-                  <h3 className="font-bold text-slate-200">Encrypted Communication Protocols</h3>
+                  <h3 className={`font-bold font-sans ${isDarkMode ? 'text-slate-200' : 'text-slate-800'}`}>Encrypted Communication Protocols</h3>
                   <p className="leading-relaxed">
                     All correspondence transmitted through our encrypted support ticketing portal or via email is fully protected by TLS 1.3 socket protocols. We never share user identities, email addresses, or ticket histories with third-party tracking corporations, making sure that your communications are strictly kept inside a private environment.
                   </p>
@@ -1403,46 +1914,25 @@ export default function App() {
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
                   🔒 Safety Guarantee
                 </span>
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white font-sans">
-                  Privacy Policy and Data Protection Manifesto
+                <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                  {PRIVACY_POLICY_EXTENDED.title}
                 </h1>
-                <p className="text-slate-400 text-xs sm:text-sm mb-6 uppercase tracking-wider font-semibold">
-                  Effective Date: June 24, 2026 • Verified Zero Log Policy
+                <p className="text-slate-400 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
+                  {PRIVACY_POLICY_EXTENDED.lastUpdated} • Verified Zero Log Policy
                 </p>
                 
-                <p className="text-slate-350 text-sm sm:text-base mb-6 font-sans">
-                  Porn Save holds absolute user privacy as our foundational, non-negotiable tenet. We do not require account registration, email sign-ups, payment subscriptions, or commercial tracking cookies. We do not track or persist the video links you search, convert, or archive. Your interactions remain entirely local, transient, and strictly confidential.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">1. Transient Data Tunneling (No Network Caching)</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
-                  When processing a download link, our transient extraction proxy acts solely as an intermediary decoding utility. We extract and pipeline raw binary file buffers on-the-fly directly to your browser's local downloading socket. At no point is the media file written, cached, or cloned onto our server hard drives. Our memory registers clear immediately upon the completion of your download socket, ensuring complete digital data containment.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">2. Zero Analytics Profiling and Tracker Elimination</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed">
-                  We do not integrate heavy surveillance trackers, deep browser-fingerprinting scripts, or user behavior profiling tools. Unlike other downloaders that monetize your data by selling browsing trends to marketing agencies, we have constructed Porn Save to operate with zero profiling. Standard localized variables (such as light/dark theme preference and GDPR acceptance checks) are stored strictly on your own device's `localStorage` state, leaving you in complete custody of your metadata.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">3. SSL Shielded Encrypted Traffic Protocols</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Every connection, request, and stream processed on Porn Save is fully wrapped in active TLS 1.3 socket encryption. This robust encryption prevents local internet service providers (ISPs), public Wi-Fi network sniffers, or commercial corporate gateways from intercepting or reading your URL queries. Your browsing journey remains safe from third-party interception, providing an essential layer of digital security.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">4. Compliance with GDPR, CCPA, and CCPA Regulations</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Porn Save is fully engineered to satisfy global privacy frameworks, including the General Data Protection Regulation (GDPR) in the European Union and the California Consumer Privacy Act (CCPA) in the United States. Because our architecture does not collect, record, transmit, or process any Personally Identifiable Information (PII), we do not maintain "user databases" for deletion. If you wish to wipe any localized preferences, you can do so instantly by clearing your browser's application cache.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">5. Client-Side Sandboxing and LocalStorage Usage</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Porn Save implements a secure client-side sandbox inside your web browser. Any video parsing, DOM traversal, and page state rendering happen strictly within your device's memory context. We do not use third-party marketing cookies. Our local storage usage is purely operational, non-persistent, and isolated from external access, ensuring that no corporate entity can track your download habits over time.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">6. Third-Party Content Delivery Networks</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  We use trusted, globally distributed cloud hosting platforms and content delivery networks (CDNs) to serve our website assets. These systems may log basic operational metadata (such as IP addresses and request headers) strictly to prevent denial-of-service (DDoS) attacks and ensure system stability. These operational logs are automated, isolated, and permanently deleted according to industry-standard rotation cycles.
-                </p>
+                <div className="space-y-8">
+                  {PRIVACY_POLICY_EXTENDED.sections.map((section, idx) => (
+                    <div key={idx} className="space-y-3">
+                      <h2 className={`text-lg sm:text-xl font-bold mb-2 border-l-2 border-orange-500 pl-3 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {section.title}
+                      </h2>
+                      <p className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                        {highlightKeywords(section.content)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </>
             )}
 
@@ -1451,42 +1941,52 @@ export default function App() {
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
                   📜 Fair-Use Guidelines
                 </span>
-                <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white font-sans font-bold">
-                  Terms of Service and Safe-Use Agreement
+                <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                  {TERMS_EXTENDED.title}
                 </h1>
-                <p className="text-slate-400 text-xs sm:text-sm mb-6 uppercase tracking-wider font-semibold">
-                  Updated: June 24, 2026 • Code License Notice
+                <p className="text-slate-400 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
+                  {TERMS_EXTENDED.lastUpdated} • Code License Notice
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">1. Non-Commercial Personal Carriage and Fair Use</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Porn Save provides this browser-based toolkit solely for decoding public stream allocations and portrait video loops for local personal fair-use, study, and off-network preservation. The user represents, warrants, and agrees that they will not use this platform to re-syndicate, commercially exploit, redistribute, or pirate copyright protected works. It is the user's sole responsibility to understand their local laws regarding fair-use, content curation, and media ownership before utilizing our parsing engine.
+                <div className="space-y-8">
+                  {TERMS_EXTENDED.sections.map((section, idx) => (
+                    <div key={idx} className="space-y-3">
+                      <h2 className={`text-lg sm:text-xl font-bold mb-2 border-l-2 border-orange-500 pl-3 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {section.title}
+                      </h2>
+                      <p className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                        {highlightKeywords(section.content)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {currentPage === 'disclaimer' && (
+              <>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
+                  ⚠️ Legal Boundary
+                </span>
+                <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                  {DISCLAIMER_EXTENDED.title}
+                </h1>
+                <p className="text-slate-400 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
+                  {DISCLAIMER_EXTENDED.lastUpdated} • Passive Middleware Disclosure
                 </p>
 
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">2. Respect of Intellectual Property and Non-Affiliation Disclosures</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Porn Save operates exclusively as an on-demand protocol interpreter. We do not host, catalog, store, index, or index streaming files on our network servers, nor do we run databases of digital works. We are entirely independent and maintain no affiliation, partnership, or sponsorship with any supported streaming portals or studios mentioned on this platform. All trademarked brand logos, studio names, and media content remain the exclusive property of their respective creators, publishers, and studios.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">3. Automated Bot Abuse, API Constraints, and Scraping Restrictions</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Users must not launch automated scraping scripts, continuous request bots, spiders, or raw server-side queries against Porn Save's frontend endpoints or underlying decoder APIs. Abuse of server bandwidth, network infrastructure overload, or denial-of-service attempts degrades quality for other human users. We reserve the right to deploy automated rate limiters, firewalls, and hardware blocklists to restrict access to any IP address found violating these operational parameters.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">4. Warranty Disclaimers and Operational Limitations of Liability</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  Porn Save is provided on an "as-is" and "as-available" basis without warranties of any kind, whether express, statutory, or implied. We do not guarantee that our stream extractor will be continuously online, free from technical bottlenecks, or capable of decoding every URL indefinitely. Streaming portals frequently change their underlying delivery structures, which may render parts of our tool temporarily non-functional. Porn Save, its contributors, and developers shall not be liable for any damages, data losses, or network costs arising from the use or inability to use this platform.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">5. Indemnification and Prohibited Content Usage</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  By accessing and using this tool, you agree to indemnify and hold harmless Porn Save, its volunteer developers, server providers, and affiliates from and against any claims, losses, liabilities, costs, and legal fees resulting from your misuse of decoded materials. You are strictly forbidden from utilizing this tool to process or download any content that is illegal, non-consensual, or violates child exploitation laws in any jurisdiction. We maintain a zero-tolerance stance toward illegal content extraction.
-                </p>
-
-                <h2 className="text-lg font-bold text-white mb-3 mt-8 border-l-2 border-orange-500 pl-2 font-sans font-title">6. Revisions, Updates, and Platform Continuity</h2>
-                <p className="text-slate-400 text-sm mb-4 leading-relaxed font-sans">
-                  We reserve the right to modify, adapt, or update these Terms of Service at any time without prior individual notification. Any modifications will be made public directly on this page, accompanied by a revised "Updated" date. Continued access and utilization of the Porn Save web application following any structural revisions constitutes your active and binding acceptance of the updated terms. If you do not agree to abide by these clauses, you must cease using our downloader immediately.
-                </p>
+                <div className="space-y-8">
+                  {DISCLAIMER_EXTENDED.sections.map((section, idx) => (
+                    <div key={idx} className="space-y-3">
+                      <h2 className={`text-lg sm:text-xl font-bold mb-2 border-l-2 border-orange-500 pl-3 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                        {section.title}
+                      </h2>
+                      <p className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                        {highlightKeywords(section.content)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </>
             )}
 
