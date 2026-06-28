@@ -113,19 +113,11 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'video' | 'audio'>('video');
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const saved = safeLocalStorage.getItem('isDarkMode');
-    return saved === 'false' ? false : true;
-  });
+  const isDarkMode = false;
 
   useEffect(() => {
-    safeLocalStorage.setItem('isDarkMode', String(isDarkMode));
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDarkMode]);
+    document.documentElement.classList.remove('dark');
+  }, []);
   
   useEffect(() => {
     // Generate JSON-LD Schema
@@ -823,30 +815,17 @@ export default function App() {
           </div>
 
           <nav className="hidden md:flex items-center gap-5 text-sm font-semibold">
-            <a href="/" onClick={(e) => navigateTo('/', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'home' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Home</a>
-            <a href="/hd" onClick={(e) => navigateTo('/hd', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'hd' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>HD 4K</a>
-            <a href="/short" onClick={(e) => navigateTo('/short', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Shorts</a>
-            <a href="/studios" onClick={(e) => navigateTo('/studios', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Studios</a>
-            <a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Categories</a>
-            <a href="/guides" onClick={(e) => navigateTo('/guides', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'guides' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Guides</a>
-            <a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'supported' ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Supported Sites</a>
-            <a href="/blog" onClick={(e) => navigateTo('/blog', e)} className={`pb-1 border-b-2 transition-all ${['blog', 'blog-post'].includes(currentPage) ? 'text-orange-500 border-orange-500' : 'text-slate-400 border-transparent hover:text-orange-500'}`}>Blog</a>
+            <a href="/" onClick={(e) => navigateTo('/', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'home' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Home</a>
+            <a href="/hd" onClick={(e) => navigateTo('/hd', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'hd' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>HD 4K</a>
+            <a href="/short" onClick={(e) => navigateTo('/short', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'short' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Shorts</a>
+            <a href="/studios" onClick={(e) => navigateTo('/studios', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'brazzers' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Studios</a>
+            <a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Categories</a>
+            <a href="/guides" onClick={(e) => navigateTo('/guides', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'guides' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Guides</a>
+            <a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'supported' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Supported Sites</a>
+            <a href="/blog" onClick={(e) => navigateTo('/blog', e)} className={`pb-1 border-b-2 transition-all ${['blog', 'blog-post'].includes(currentPage) ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Blog</a>
           </nav>
 
           <div className="flex items-center gap-3">
-            <button 
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className={`p-2 rounded-xl transition-all border cursor-pointer ${
-                isDarkMode 
-                  ? 'bg-slate-900 border-white/[0.08] text-yellow-400 hover:text-white hover:bg-slate-800' 
-                  : 'bg-slate-200 border-slate-300 text-slate-700 hover:text-slate-950 hover:bg-slate-300 shadow-sm'
-              }`}
-              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-              aria-label="Toggle visual theme"
-              id="theme-toggle-button"
-            >
-              {isDarkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
             <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               <span>High-Speed Fast Seeding</span>
@@ -973,7 +952,7 @@ export default function App() {
             {activePageData.id === 'supported' && <>Supported <span className="bg-gradient-to-r from-orange-400 to-rose-500 bg-clip-text text-transparent">Sites & Protocols</span></>}
           </h1>
 
-          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className={`text-sm sm:text-base ${isDarkMode ? 'text-slate-400' : 'text-slate-700'} max-w-2xl mx-auto mb-10 leading-relaxed`}>
             {activePageData.subheadline}. Convert dynamic streams directly into physical formats. Paste key sharing links below to resolve.
           </p>
 
@@ -993,7 +972,7 @@ export default function App() {
                   className={`w-full h-14 pl-5 pr-12 rounded-2xl text-sm transition focus:outline-none focus:ring-2 focus:ring-orange-500/40 focus:border-orange-500 ${
                     isDarkMode 
                       ? 'bg-slate-950 text-white border-white/[0.12] placeholder:text-slate-500' 
-                      : 'bg-slate-100 text-slate-900 border-slate-200 placeholder:text-slate-400'
+                      : 'bg-slate-100 text-slate-900 border-slate-200 placeholder:text-slate-500'
                   }`}
                   id="target-url-input-box"
                 />
@@ -1215,35 +1194,34 @@ export default function App() {
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <p className="text-orange-500 font-extrabold text-2xl mb-1">185 MB/s</p>
-                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>Avg Fetch Speed</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Avg Fetch Speed</p>
                   </div>
                   <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <p className="text-orange-500 font-extrabold text-2xl mb-1">$0.00</p>
-                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>100% Lifetime Free</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>100% Lifetime Free</p>
                   </div>
                   <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <p className="text-orange-500 font-extrabold text-2xl mb-1">Double SSL</p>
-                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>Shielded Tunnel</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Shielded Tunnel</p>
                   </div>
                   <div className={`p-5 rounded-2xl border text-center transition-all ${isDarkMode ? 'bg-slate-900/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <p className="text-orange-500 font-extrabold text-2xl mb-1">Unlimited</p>
-                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>No Download Caps</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>No Download Caps</p>
                   </div>
                   <div className="p-5 rounded-2xl border text-center transition-all bg-gradient-to-tr from-orange-500/10 to-rose-500/10 border-orange-500/30 col-span-2 md:col-span-1">
                     <p className="text-orange-400 font-extrabold text-2xl mb-1">4K UHD</p>
-                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-750'}`}>Max Resolution</p>
+                    <p className={`text-xs font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Max Resolution</p>
                   </div>
                 </div>
               </section>
 
-              {/* 2. CORE FEATURES SECTION (Explain every feature with cards) */}
-              <section id="features-section" className="max-w-6xl mx-auto px-4 text-left">
+                            <section id="features-section" className="max-w-6xl mx-auto px-4 text-left">
                 <div className="text-center max-w-2xl mx-auto mb-12">
                   <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Unmatched Utility</span>
-                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>
+                  <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
                     Designed to Outperform in Every Category
                   </h2>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                  <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                     Porn Save represents a total rewrite of classic downloader utilities. Zero tracking scripts, maximum multi-threaded performance.
                   </p>
                 </div>
@@ -1253,36 +1231,36 @@ export default function App() {
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <Zap className="w-5 h-5" />
                     </div>
-                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Fast Processing</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Multi-threaded scraping pipelines parse media streams in under 3 seconds.</p>
+                    <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Fast Processing</h3>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Multi-threaded scraping pipelines parse media streams in under 3 seconds.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <CheckCircle className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Unlimited Usage</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Absolutely zero daily limitations, quotas, or dynamic speed throttling.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Absolutely zero daily limitations, quotas, or dynamic speed throttling.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <Lock className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>No Registration</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">100% anonymous stream extraction. No accounts or emails required.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>100% anonymous stream extraction. No accounts or emails required.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <Shield className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Secure Downloads</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Isolated sandbox wrappers prevent hazardous pop-ups and redirection.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Isolated sandbox wrappers prevent hazardous pop-ups and redirection.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <Cpu className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Privacy Focused</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Zero-logs policy. Your processed links and IP addresses are never saved.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Zero-logs policy. Your processed links and IP addresses are never saved.</p>
                   </div>
 
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
@@ -1290,35 +1268,35 @@ export default function App() {
                       <MonitorPlay className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Cloud Powered</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Runs on highly distributed multi-regional extraction cluster arrays.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Runs on highly distributed multi-regional extraction cluster arrays.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <ThumbsUp className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Cross Platform</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Optimized and fully responsive across iOS, Android, Windows, and Mac.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Optimized and fully responsive across iOS, Android, Windows, and Mac.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <Download className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Easy Interface</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">One-click pasting and parsing streamlines target link conversions.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>One-click pasting and parsing streamlines target link conversions.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <Zap className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>High Speed</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Bypass server bottlenecks to leverage your full raw ISP speed caps.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Bypass server bottlenecks to leverage your full raw ISP speed caps.</p>
                   </div>
                   <div className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-900/50 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                     <div className="w-10 h-10 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-4">
                       <CheckCircle className="w-5 h-5" />
                     </div>
                     <h3 className={`font-bold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Reliable Engine</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed">Scraper algorithms automatically adapt to host changes 24/7/365.</p>
+                    <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Scraper algorithms automatically adapt to host changes 24/7/365.</p>
                   </div>
                 </div>
               </section>
@@ -1331,7 +1309,7 @@ export default function App() {
                     <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
                       The Tactical Benefits of Offline Media Curation
                     </h2>
-                    <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                    <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                       Take permanent control over your favorite adult video files, ensuring stability and infinite playback perpetuity.
                     </p>
                   </div>
@@ -1343,7 +1321,7 @@ export default function App() {
                       </div>
                       <div>
                         <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Zero Lags & Loading Buffers</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">Watching ultra-high-definition content offline eliminates network buffering, streaming stutters, and browser-throttling delays.</p>
+                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Watching ultra-high-definition content offline eliminates network buffering, streaming stutters, and browser-throttling delays.</p>
                       </div>
                     </div>
                     <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
@@ -1352,7 +1330,7 @@ export default function App() {
                       </div>
                       <div>
                         <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Save Massive Cellular Data</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">Save files once over local Wi-Fi and review them infinitely on-the-go without consuming expensive cellular limits or bandwidth limits.</p>
+                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Save files once over local Wi-Fi and review them infinitely on-the-go without consuming expensive cellular limits or bandwidth limits.</p>
                       </div>
                     </div>
                     <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
@@ -1361,7 +1339,7 @@ export default function App() {
                       </div>
                       <div>
                         <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Circumvent Host Deletions</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">Adult platforms remove content regularly due to server hosting constraints or licenses. Local preservation guarantees your collections remain intact.</p>
+                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Adult platforms remove content regularly due to server hosting constraints or licenses. Local preservation guarantees your collections remain intact.</p>
                       </div>
                     </div>
                     <div className={`p-6 rounded-2xl border flex gap-4 ${isDarkMode ? 'bg-slate-950/60 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
@@ -1370,7 +1348,7 @@ export default function App() {
                       </div>
                       <div>
                         <h3 className={`font-extrabold text-base mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Guard Digital Tracking Loops</h3>
-                        <p className="text-slate-400 text-xs leading-relaxed">Keep your browsing journeys and preferences completely contained. Local viewing detaches you from persistent browser trackers and profiling engines.</p>
+                        <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Keep your browsing journeys and preferences completely contained. Local viewing detaches you from persistent browser trackers and profiling engines.</p>
                       </div>
                     </div>
                   </div>
@@ -1384,7 +1362,7 @@ export default function App() {
                   <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
                     How Porn Save Operates in 4 Steps
                   </h2>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                  <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                     Our simplified client-side stream parser compiles raw multimedia elements directly inside your native web browser environment.
                   </p>
                 </div>
@@ -1400,7 +1378,7 @@ export default function App() {
                         <Copy className="w-6 h-6" />
                       </div>
                       <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Paste Video URL</h3>
-                      <p className="text-slate-400 text-xs leading-relaxed">Copy the direct streaming link from any supported portal and paste it into our parsing input bar.</p>
+                      <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Copy the direct streaming link from any supported portal and paste it into our parsing input bar.</p>
                     </div>
                   </div>
 
@@ -1413,8 +1391,8 @@ export default function App() {
                       <div className="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-500 flex items-center justify-center mb-6 mt-2">
                         <Cpu className="w-6 h-6" />
                       </div>
-                      <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Analyze Stream</h3>
-                      <p className="text-slate-400 text-xs leading-relaxed">Porn Save intercepts the active media manifests, decoupling resolution tags, subtitles, and codec configurations.</p>
+                      <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>Analyze Stream</h3>
+                      <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Porn Save intercepts the active media manifests, decoupling resolution tags, subtitles, and codec configurations.</p>
                     </div>
                   </div>
 
@@ -1428,7 +1406,7 @@ export default function App() {
                         <Sliders className="w-6 h-6" />
                       </div>
                       <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Choose Resolution</h3>
-                      <p className="text-slate-400 text-xs leading-relaxed">Browse parsed audio/video channels and select your preferred quality configuration, up to pristine 4K UHD.</p>
+                      <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Browse parsed audio/video channels and select your preferred quality configuration, up to pristine 4K UHD.</p>
                     </div>
                   </div>
 
@@ -1442,7 +1420,7 @@ export default function App() {
                         <Download className="w-6 h-6" />
                       </div>
                       <h3 className={`font-extrabold text-base mb-2 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Secure Downloader</h3>
-                      <p className="text-slate-400 text-xs leading-relaxed">Launch safe local browser compilation. Raw files fetch directly from source CDN channels to your storage.</p>
+                      <p className={`text-xs leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>Launch safe local browser compilation. Raw files fetch directly from source CDN channels to your storage.</p>
                     </div>
                   </div>
                 </div>
@@ -1455,7 +1433,7 @@ export default function App() {
                   <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
                     Supported Protocols & Platforms
                   </h2>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                  <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                     Porn Save provides custom decoding wrappers optimized to intercept high-speed stream buffers across all major channels.
                   </p>
                 </div>
@@ -1492,7 +1470,7 @@ export default function App() {
                   <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
                     Porn Save vs. Standard Downloaders
                   </h2>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                  <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                     See how Porn Save completely bypasses standard adware traps, paywalls, and connection bottlenecks.
                   </p>
                 </div>
@@ -1502,10 +1480,10 @@ export default function App() {
                     <table className="w-full text-left border-collapse text-xs sm:text-sm">
                       <thead>
                         <tr className={`border-b ${isDarkMode ? 'bg-slate-950 border-white/[0.06]' : 'bg-slate-100 border-slate-200'}`}>
-                          <th className="p-4 sm:p-5 font-black uppercase text-slate-500 text-[10px] tracking-wider">Features</th>
+                          <th className={`p-4 sm:p-5 font-black uppercase text-[10px] tracking-wider ${isDarkMode ? 'text-slate-500' : 'text-slate-600'}`}>Features</th>
                           <th className="p-4 sm:p-5 font-black text-orange-400 flex items-center gap-1.5"><span className="w-2 h-2 rounded-full bg-green-500" /> Porn Save</th>
-                          <th className="p-4 sm:p-5 font-medium text-slate-400">SavePorn.net / .cc</th>
-                          <th className="p-4 sm:p-5 font-medium text-slate-400">Standard Loaders</th>
+                          <th className={`p-4 sm:p-5 font-medium ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>SavePorn.net / .cc</th>
+                          <th className={`p-4 sm:p-5 font-medium ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>Standard Loaders</th>
                         </tr>
                       </thead>
                       <tbody className={`divide-y ${isDarkMode ? 'divide-white/[0.04]' : 'divide-slate-150'}`}>
@@ -1518,20 +1496,20 @@ export default function App() {
                         <tr>
                           <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Max Resolution Limit</td>
                           <td className="p-4 text-green-500 font-bold">✓ Unlocked 4K UHD</td>
-                          <td className="p-4 text-slate-400">Locked to 720p</td>
-                          <td className="p-4 text-slate-400">Throttled to 360p</td>
+                          <td className={`p-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>Locked to 720p</td>
+                          <td className={`p-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>Throttled to 360p</td>
                         </tr>
                         <tr>
                           <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Email Signup Required</td>
                           <td className="p-4 text-green-500 font-bold">🚫 No Registration</td>
-                          <td className="p-4 text-slate-400">Sometimes Forced</td>
+                          <td className={`p-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>Sometimes Forced</td>
                           <td className="p-4 text-rose-500">Forced for Premium</td>
                         </tr>
                         <tr>
                           <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Extraction Speeds</td>
                           <td className="p-4 text-green-500 font-bold">✓ Uncapped 10Gbps</td>
-                          <td className="p-4 text-slate-400">Throttled to 2MB/s</td>
-                          <td className="p-4 text-slate-400">Slow Server Queues</td>
+                          <td className={`p-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>Throttled to 2MB/s</td>
+                          <td className={`p-4 ${isDarkMode ? 'text-slate-400' : 'text-slate-700'}`}>Slow Server Queues</td>
                         </tr>
                         <tr>
                           <td className={`p-4 font-bold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>Search & URL Logs Policy</td>
@@ -1600,7 +1578,7 @@ export default function App() {
                   <h2 className={`text-3xl font-black mt-1.5 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
                     Frequently Asked Questions
                   </h2>
-                  <p className="text-slate-400 text-xs sm:text-sm mt-2">
+                  <p className={`text-xs sm:text-sm mt-2 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                     Browse 30 highly detailed solutions regarding platform safety, quality resolutions, and technical carriage policies.
                   </p>
                 </div>
@@ -1684,15 +1662,15 @@ export default function App() {
                         >
                           <button
                             onClick={() => setActiveFaq(isActive ? null : faq.id)}
-                            className="w-full text-left p-4 sm:p-5 flex items-center justify-between font-extrabold text-sm text-slate-300 hover:opacity-90 cursor-pointer select-none"
+                            className="w-full text-left p-4 sm:p-5 flex items-center justify-between font-extrabold text-sm text-slate-800 hover:opacity-90 cursor-pointer select-none"
                           >
-                            <span className={`${isDarkMode ? 'text-slate-100' : 'text-slate-850'}`}>{faq.question}</span>
+                            <span className={`${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>{faq.question}</span>
                             <ChevronDown className={`w-4 h-4 text-orange-500 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
                           </button>
                           
                           {isActive && (
                             <div className={`px-4 sm:px-5 pb-5 text-xs sm:text-sm leading-relaxed ${
-                              isDarkMode ? 'text-slate-355 bg-slate-950/20' : 'text-slate-655 bg-slate-50/40'
+                              isDarkMode ? 'text-slate-300 bg-slate-900/20' : 'text-slate-700 bg-slate-50/40'
                             }`}>
                               <p className="pt-4 border-t border-slate-200 dark:border-white/[0.04]">
                                 {highlightKeywords(faq.answer)}
@@ -1776,13 +1754,13 @@ export default function App() {
                   <h1 className={`text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 leading-tight ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                     {activePageData.headline}
                   </h1>
-                  <p className={`text-sm sm:text-base font-medium mb-4 ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                  <p className={`text-sm sm:text-base font-medium mb-4 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                     {activePageData.subheadline}
                   </p>
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
                     <span className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span>
-                      By <strong className={isDarkMode ? 'text-slate-350' : 'text-slate-700'}>Porn Save Technical Team</strong>
+                      By <strong className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>Porn Save Technical Team</strong>
                     </span>
                     <span>•</span>
                     <span>Active Period: 2026</span>
@@ -1793,7 +1771,7 @@ export default function App() {
 
                 {/* Dynamic Page Content Generation */}
                 <div className="space-y-6 text-sm sm:text-base">
-                  <p className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                  <p className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                     {highlightKeywords(activePageData.intro)}
                   </p>
 
@@ -1801,7 +1779,7 @@ export default function App() {
                     switch (section.type) {
                       case 'paragraph':
                         return (
-                          <p key={idx} className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                          <p key={idx} className={`leading-relaxed text-sm sm:text-base ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                             {highlightKeywords(section.content || '')}
                           </p>
                         );
@@ -1823,7 +1801,7 @@ export default function App() {
                           <h3 
                             key={idx} 
                             className={`text-lg font-bold tracking-tight mt-8 mb-3 ${
-                              isDarkMode ? 'text-slate-200' : 'text-slate-805'
+                              isDarkMode ? 'text-slate-200' : 'text-slate-800'
                             }`}
                           >
                             {section.title}
@@ -1840,7 +1818,7 @@ export default function App() {
                             )}
                             <ul className="list-disc pl-5 space-y-1.5 text-sm">
                               {section.items?.map((item, iIdx) => (
-                                <li key={iIdx} className={isDarkMode ? 'text-slate-355' : 'text-slate-600'}>
+                                <li key={iIdx} className={isDarkMode ? 'text-slate-300' : 'text-slate-600'}>
                                   {highlightKeywords(item)}
                                 </li>
                               ))}
@@ -1878,7 +1856,7 @@ export default function App() {
                                     <h3 className={`font-extrabold text-sm mb-1.5 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                                       {page.headline}
                                     </h3>
-                                    <p className="text-slate-400 text-xs line-clamp-2 leading-relaxed">
+                                    <p className={`text-xs line-clamp-2 leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                                       {page.metaDesc}
                                     </p>
                                   </div>
@@ -1921,7 +1899,7 @@ export default function App() {
                         {section.title}
                       </h2>
                       {section.paragraphs.map((para, pIdx) => (
-                        <p key={pIdx} className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-350' : 'text-slate-650'}`}>
+                        <p key={pIdx} className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
                           {highlightKeywords(para)}
                         </p>
                       ))}
@@ -1955,7 +1933,7 @@ export default function App() {
                   <h1 className={`text-3xl font-extrabold tracking-tight mb-2 font-sans text-center md:text-left ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>
                     Contact Tech Support & Takedown Desk
                   </h1>
-                  <p className="text-slate-400 text-xs sm:text-sm mb-8 leading-relaxed text-center md:text-left">
+                  <p className="text-slate-600 text-xs sm:text-sm mb-8 leading-relaxed text-center md:text-left">
                     Facing stream extraction timeouts or want to submit a formal security report? Create an encrypted support ticket below.
                   </p>
 
@@ -1963,14 +1941,14 @@ export default function App() {
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="p-8 rounded-2xl bg-green-500/10 border border-green-500/20 text-center space-y-4 font-sans"
+                      className="p-8 rounded-2xl bg-green-50 border border-green-200 text-center space-y-4 font-sans shadow-sm"
                     >
-                      <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center mx-auto text-2xl font-bold">
+                      <div className="w-16 h-16 rounded-full bg-green-100 text-green-600 flex items-center justify-center mx-auto text-2xl font-bold">
                         ✓
                       </div>
-                      <h3 className="font-extrabold text-white text-lg">Ticket Created Successfully!</h3>
-                      <p className="text-slate-300 text-xs leading-relaxed max-w-sm mx-auto">
-                        Your message has been encrypted and securely dispatched as <span className="font-mono font-bold text-orange-400">{ticketNumber}</span>. We will review and respond within 24 business hours.
+                      <h3 className="font-extrabold text-slate-900 text-lg">Ticket Created Successfully!</h3>
+                      <p className="text-slate-600 text-xs leading-relaxed max-w-sm mx-auto">
+                        Your message has been encrypted and securely dispatched as <span className="font-mono font-bold text-orange-600">{ticketNumber}</span>. We will review and respond within 24 business hours.
                       </p>
                       <button 
                         onClick={() => {
@@ -1979,7 +1957,7 @@ export default function App() {
                           setContactEmail('');
                           setContactMessage('');
                         }}
-                        className="px-5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/15 text-white transition-all cursor-pointer"
+                        className="px-5 py-2 rounded-xl text-xs font-bold bg-slate-200 hover:bg-slate-300 text-slate-800 transition-all cursor-pointer"
                       >
                         Create New Ticket
                       </button>
@@ -1998,33 +1976,33 @@ export default function App() {
                       className="space-y-5"
                     >
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Your Full Name</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 label-title">Your Full Name</label>
                         <input 
                           type="text" 
                           required
                           value={contactName}
                           onChange={(e) => setContactName(e.target.value)}
                           placeholder="Enter your name"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition"
+                          className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 focus:border-orange-500 focus:outline-none text-sm text-slate-900 transition focus:ring-2 focus:ring-orange-500/25 shadow-sm placeholder:text-slate-400"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Email Address</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 label-title">Email Address</label>
                         <input 
                           type="email" 
                           required
                           value={contactEmail}
                           onChange={(e) => setContactEmail(e.target.value)}
                           placeholder="name@example.com"
-                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition"
+                          className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 focus:border-orange-500 focus:outline-none text-sm text-slate-900 transition focus:ring-2 focus:ring-orange-500/25 shadow-sm placeholder:text-slate-400"
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Subject Category</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 label-title">Subject Category</label>
                         <select 
                           value={contactSubject}
                           onChange={(e) => setContactSubject(e.target.value)}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] text-slate-300 focus:border-orange-500 focus:outline-none text-sm transition cursor-pointer"
+                          className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 focus:border-orange-500 focus:outline-none text-sm transition cursor-pointer focus:ring-2 focus:ring-orange-500/25 shadow-sm"
                         >
                           <option>Media decode issue</option>
                           <option>General performance feedback</option>
@@ -2034,14 +2012,14 @@ export default function App() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 label-title">Message / Details</label>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 label-title">Message / Details</label>
                         <textarea 
                           required
                           rows={4}
                           value={contactMessage}
                           onChange={(e) => setContactMessage(e.target.value)}
                           placeholder="Describe your issue or feedback in detail..."
-                          className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/[0.08] focus:border-orange-500 focus:outline-none text-sm text-white transition resize-none font-sans"
+                          className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 focus:border-orange-500 focus:outline-none text-sm text-slate-900 transition resize-none font-sans focus:ring-2 focus:ring-orange-500/25 shadow-sm placeholder:text-slate-400"
                         />
                       </div>
 
@@ -2067,7 +2045,7 @@ export default function App() {
                   )}
                 </div>
 
-                <div className="border-t border-white/[0.06] pt-10 text-left text-xs sm:text-sm text-slate-400 space-y-6">
+                <div className="border-t border-slate-200 pt-10 text-left text-xs sm:text-sm text-slate-700 space-y-6">
                   <h2 className={`text-xl font-bold font-sans ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>Support SLA and Operational Guidelines</h2>
                   <p className="leading-relaxed">
                     At Porn Save, we treat technical errors and community submissions with extreme urgency. We employ a dedicated system monitoring team that oversees our file decoding clusters, making sure that CDN connections remain active and that parsing bottlenecks are solved within minutes. If you are experiencing a technical bug where video download links display loading errors, please provide the exact URL of the video, your general region, and your browser's version. This allows our debugging engineers to reproduce and patch stream parsing bottlenecks.
@@ -2097,7 +2075,7 @@ export default function App() {
                 <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                   {PRIVACY_POLICY_EXTENDED.title}
                 </h1>
-                <p className="text-slate-400 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
+                <p className="text-slate-600 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
                   {PRIVACY_POLICY_EXTENDED.lastUpdated} • Verified Zero Log Policy
                 </p>
                 
@@ -2124,7 +2102,7 @@ export default function App() {
                 <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                   {TERMS_EXTENDED.title}
                 </h1>
-                <p className="text-slate-400 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
+                <p className="text-slate-600 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
                   {TERMS_EXTENDED.lastUpdated} • Code License Notice
                 </p>
 
@@ -2151,7 +2129,7 @@ export default function App() {
                 <h1 className={`text-3xl sm:text-4xl font-extrabold tracking-tight mb-2 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                   {DISCLAIMER_EXTENDED.title}
                 </h1>
-                <p className="text-slate-400 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
+                <p className="text-slate-600 text-xs sm:text-sm mb-8 uppercase tracking-wider font-semibold">
                   {DISCLAIMER_EXTENDED.lastUpdated} • Passive Middleware Disclosure
                 </p>
 
@@ -2175,10 +2153,10 @@ export default function App() {
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20 mb-6 font-mono">
                   📰 Curation Insights & Tutorials
                 </span>
-                <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 text-white font-sans">
+                <h1 className={`text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 font-sans ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                   The Porn Save Resource Blog
                 </h1>
-                <p className="text-slate-400 text-sm sm:text-base mb-10 leading-relaxed">
+                <p className={`text-sm sm:text-base mb-10 leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                   Discover professional guides, technical breakdowns, cybersecurity tips, and media preservation tutorials written by expert compression engineers.
                 </p>
 
@@ -2187,18 +2165,22 @@ export default function App() {
                     <article 
                       key={post.slug} 
                       onClick={() => navigateTo(`/blog/${post.slug}`)}
-                      className="group p-6 rounded-3xl bg-slate-900 border border-white/[0.06] hover:border-orange-500/30 hover:bg-slate-850 transition-all cursor-pointer flex flex-col justify-between"
+                      className={`group p-6 rounded-3xl border transition-all cursor-pointer flex flex-col justify-between ${
+                        isDarkMode 
+                          ? 'bg-slate-950/40 border-white/[0.05] hover:border-orange-500/30 hover:bg-slate-900/40' 
+                          : 'bg-white border-slate-200 hover:border-orange-500/30 hover:bg-slate-50 shadow-sm hover:shadow-md'
+                      }`}
                     >
                       <div>
-                        <div className="flex items-center gap-3 text-xs text-slate-400 mb-4">
+                        <div className={`flex items-center gap-3 text-xs mb-4 ${isDarkMode ? 'text-slate-500' : 'text-slate-500'}`}>
                           <span>{post.date}</span>
                           <span>•</span>
                           <span>{post.readTime}</span>
                         </div>
-                        <h2 className="text-xl font-bold text-white group-hover:text-orange-400 transition-colors mb-3">
+                        <h2 className={`text-xl font-bold group-hover:text-orange-600 transition-colors mb-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                           {post.title}
                         </h2>
-                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                        <p className={`text-sm leading-relaxed mb-6 ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                           {post.excerpt}
                         </p>
                       </div>
@@ -2222,59 +2204,59 @@ export default function App() {
                     ← Back to Resource Blog
                   </button>
 
-                  <div className="mb-8 pb-6 border-b border-white/[0.06]">
+                  <div className={`mb-8 pb-6 border-b ${isDarkMode ? 'border-white/[0.06]' : 'border-slate-200'}`}>
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase bg-orange-500/15 text-orange-400 border border-orange-500/10 mb-4">
                       {post.readTime} • Tutorial Guide
                     </span>
-                    <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight mb-4 text-white leading-tight font-black">
+                    <h1 className={`text-2xl sm:text-4xl font-extrabold tracking-tight mb-4 leading-tight font-black ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                       {post.title}
                     </h1>
-                    <p className="text-slate-300 text-sm sm:text-lg font-medium leading-relaxed mb-4">
+                    <p className={`text-sm sm:text-lg font-medium leading-relaxed mb-4 ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                       {post.subtitle}
                     </p>
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-400">
-                      <span>By <strong>{post.author}</strong></span>
+                    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 text-xs ${isDarkMode ? 'text-slate-400' : 'text-slate-550'}`}>
+                      <span>By <strong className={isDarkMode ? 'text-slate-300' : 'text-slate-700'}>{post.author}</strong></span>
                       <span>•</span>
                       <span>Published: {post.date}</span>
                     </div>
                   </div>
 
-                  <div className="space-y-6 text-sm sm:text-base leading-relaxed text-slate-300">
+                  <div className={`space-y-6 text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
                     {post.sections.map((section, sIdx) => {
                       if (section.type === 'paragraph') {
                         return <p key={sIdx} className="leading-relaxed">{highlightKeywords(section.content || '')}</p>;
                       }
                       if (section.type === 'h2') {
                         return (
-                          <h2 key={sIdx} className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-10 mb-4 border-l-4 border-orange-500 pl-3">
+                          <h2 key={sIdx} className={`text-xl sm:text-2xl font-bold tracking-tight mt-10 mb-4 border-l-4 border-orange-500 pl-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                             {section.title}
                           </h2>
                         );
                       }
                       if (section.type === 'h3') {
                         return (
-                          <h3 key={sIdx} className="text-lg font-semibold text-slate-200 mt-8 mb-3">
+                          <h3 key={sIdx} className={`text-lg font-semibold mt-8 mb-3 ${isDarkMode ? 'text-slate-200' : 'text-slate-850'}`}>
                             {section.title}
                           </h3>
                         );
                       }
                       if (section.type === 'table') {
                         return (
-                          <div key={sIdx} className="my-8 overflow-hidden rounded-xl border border-white/[0.06] shadow-sm">
+                          <div key={sIdx} className={`my-8 overflow-hidden rounded-xl border ${isDarkMode ? 'bg-slate-900/55 border-white/[0.05]' : 'bg-white border-slate-200 shadow-sm'}`}>
                             <div className="overflow-x-auto">
                               <table className="w-full text-left border-collapse text-xs sm:text-sm">
                                 <thead>
-                                  <tr className="bg-slate-950/60 text-slate-200 border-b border-white/[0.06]">
+                                  <tr className={`border-b ${isDarkMode ? 'bg-slate-950 border-white/[0.06] text-slate-200' : 'bg-slate-100 border-slate-200 text-slate-800'}`}>
                                     {section.tableHeaders?.map((header, hIdx) => (
                                       <th key={hIdx} className="p-3 font-bold">{header}</th>
                                     ))}
                                   </tr>
                                 </thead>
-                                <tbody className="divide-y divide-white/[0.04]">
+                                <tbody className={`divide-y ${isDarkMode ? 'divide-white/[0.04]' : 'divide-slate-150'}`}>
                                   {section.tableRows?.map((row, rIdx) => (
-                                    <tr key={rIdx} className="hover:bg-white/[0.01] transition-colors">
+                                    <tr key={rIdx} className={`transition-colors ${isDarkMode ? 'hover:bg-slate-900/20' : 'hover:bg-slate-50/50'}`}>
                                       {row.map((cell, cIdx) => (
-                                        <td key={cIdx} className="p-3 text-slate-450">{cell}</td>
+                                        <td key={cIdx} className={`p-3 ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>{cell}</td>
                                       ))}
                                     </tr>
                                   ))}
@@ -2288,9 +2270,9 @@ export default function App() {
                         return (
                           <div key={sIdx} className="my-8 space-y-4">
                             {section.faqItems?.map((faq, fIdx) => (
-                              <div key={fIdx} className="p-5 rounded-2xl bg-slate-900 border border-white/[0.06]">
-                                <h4 className="font-bold text-white mb-2">{faq.q}</h4>
-                                <p className="text-slate-400 text-sm leading-relaxed">{faq.a}</p>
+                              <div key={fIdx} className={`p-5 rounded-2xl border ${isDarkMode ? 'bg-slate-950/40 border-white/[0.05] shadow-none' : 'bg-slate-50/40 border-slate-200 shadow-sm'}`}>
+                                <h4 className={`font-bold mb-2 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{faq.q}</h4>
+                                <p className={`text-sm leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>{faq.a}</p>
                               </div>
                             ))}
                           </div>
@@ -2335,7 +2317,7 @@ export default function App() {
               <h2 className={`text-2xl sm:text-3xl font-extrabold tracking-tight mb-2 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                 Frequently Asked Questions
               </h2>
-              <p className="text-sm text-slate-400">
+              <p className={`text-sm ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
                 Find instant answers regarding quality resolutions, audio files, and user privacy constraints.
               </p>
             </div>
@@ -2354,15 +2336,15 @@ export default function App() {
                   >
                     <button
                       onClick={() => setActiveFaq(isActive ? null : faq.id)}
-                      className="w-full text-left p-4 sm:p-5 flex items-center justify-between font-bold text-sm text-slate-300 hover:opacity-90 cursor-pointer select-none"
+                      className="w-full text-left p-4 sm:p-5 flex items-center justify-between font-bold text-sm text-slate-800 hover:opacity-90 cursor-pointer select-none"
                     >
-                      <span className={`${isDarkMode ? 'text-slate-100' : 'text-slate-850'}`}>{faq.question}</span>
+                      <span className={`${isDarkMode ? 'text-slate-100' : 'text-slate-900'}`}>{faq.question}</span>
                       <ChevronDown className={`w-4 h-4 text-orange-500 transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {isActive && (
                       <div className={`px-4 sm:px-5 pb-5 text-xs sm:text-sm leading-relaxed ${
-                        isDarkMode ? 'text-slate-400 bg-slate-950/20' : 'text-slate-600 bg-slate-50/40'
+                        isDarkMode ? 'text-slate-400 bg-slate-950/20' : 'text-slate-700 bg-slate-50/40'
                       }`}>
                         <p className="pt-3 border-t border-slate-200 dark:border-white/[0.04]">{faq.answer}</p>
                       </div>
@@ -2389,7 +2371,7 @@ export default function App() {
                 Porn Save Downloader
               </span>
             </div>
-            <p className="text-slate-400 max-w-sm leading-relaxed mb-4 text-xs">
+            <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} max-w-sm leading-relaxed mb-4 text-xs`}>
               Porn Save is a premium open-source online video utility engineered for safe, high-speed, and secure media downloads. Our tool acts as an isolation gateway, giving users total control over their data footprint and digital media custody.
             </p>
           </div>
@@ -2399,13 +2381,13 @@ export default function App() {
               Important Links
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="/" onClick={(e) => navigateTo('/', e)} className="text-slate-400 hover:text-orange-500 transition">Home Downloader</a></li>
-              <li><a href="/hd" onClick={(e) => navigateTo('/hd', e)} className="text-slate-400 hover:text-orange-500 transition">HD 4K Downloader</a></li>
-              <li><a href="/short" onClick={(e) => navigateTo('/short', e)} className="text-slate-400 hover:text-orange-500 transition">Shorts Downloader</a></li>
-              <li><a href="/studios" onClick={(e) => navigateTo('/studios', e)} className="text-slate-400 hover:text-orange-500 transition">Premium Studios</a></li>
-              <li><a href="/categories" onClick={(e) => navigateTo('/categories', e)} className="text-slate-400 hover:text-orange-500 transition">Niche Categories</a></li>
-              <li><a href="/guides" onClick={(e) => navigateTo('/guides', e)} className="text-slate-400 hover:text-orange-500 transition">Downloading Guides</a></li>
-              <li><a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className="text-slate-400 hover:text-orange-500 transition">Supported Sites Directory</a></li>
+              <li><a href="/" onClick={(e) => navigateTo('/', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Home Downloader</a></li>
+              <li><a href="/hd" onClick={(e) => navigateTo('/hd', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>HD 4K Downloader</a></li>
+              <li><a href="/short" onClick={(e) => navigateTo('/short', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Shorts Downloader</a></li>
+              <li><a href="/studios" onClick={(e) => navigateTo('/studios', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Premium Studios</a></li>
+              <li><a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Niche Categories</a></li>
+              <li><a href="/guides" onClick={(e) => navigateTo('/guides', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Downloading Guides</a></li>
+              <li><a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Supported Sites Directory</a></li>
             </ul>
           </div>
 
@@ -2414,10 +2396,10 @@ export default function App() {
               Legal Policies
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><a href="/privacy" onClick={(e) => navigateTo('/privacy', e)} className="text-slate-400 hover:text-orange-500 transition">Privacy Policies</a></li>
-              <li><a href="/terms" onClick={(e) => navigateTo('/terms', e)} className="text-slate-400 hover:text-orange-500 transition">Terms of Service</a></li>
-              <li><a href="/contact" onClick={(e) => navigateTo('/contact', e)} className="text-slate-400 hover:text-orange-500 transition">DMCA Compliance & Contact</a></li>
-              <li><a href="/about" onClick={(e) => navigateTo('/about', e)} className="text-slate-400 hover:text-orange-500 transition">About Our Platform</a></li>
+              <li><a href="/privacy" onClick={(e) => navigateTo('/privacy', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Privacy Policies</a></li>
+              <li><a href="/terms" onClick={(e) => navigateTo('/terms', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>Terms of Service</a></li>
+              <li><a href="/contact" onClick={(e) => navigateTo('/contact', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>DMCA Compliance & Contact</a></li>
+              <li><a href="/about" onClick={(e) => navigateTo('/about', e)} className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} hover:text-orange-500 transition`}>About Our Platform</a></li>
             </ul>
           </div>
 
@@ -2425,10 +2407,10 @@ export default function App() {
             <h4 className={`font-extrabold mb-4 uppercase tracking-widest text-xs ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
               Contact Info
             </h4>
-            <p className="text-slate-400 leading-relaxed mb-3 text-xs">
+            <p className={`${isDarkMode ? 'text-slate-400' : 'text-slate-600'} leading-relaxed mb-3 text-xs`}>
               Need technical assistance, file removal requests, or support? Contact our help desk directly.
             </p>
-            <p className="text-xs font-semibold text-slate-300">
+            <p className={`text-xs font-semibold ${isDarkMode ? 'text-slate-300' : 'text-slate-700'}`}>
               Email: <a href="mailto:support@pornsave.vercel.app" className="text-orange-400 hover:underline font-bold">support@pornsave.vercel.app</a>
             </p>
             <p className="text-[10px] text-slate-500 mt-2">
@@ -2463,7 +2445,7 @@ export default function App() {
               <h4 className={`font-bold text-xs mb-1.5 flex items-center gap-1.5 ${isDarkMode ? 'text-white' : 'text-slate-950'}`}>
                 🛡️ GDPR Cookies & Privacy Notice
               </h4>
-              <p className="text-[11px] text-slate-450 leading-normal">
+              <p className={`text-[11px] ${isDarkMode ? 'text-slate-400' : 'text-slate-600'} leading-normal`}>
                 Porn Save utilizes standard browser cookies to remember theme choices, past download sessions, and coordinate simulated downloads. By accessing our tools, you authorize our cookie policies.
               </p>
             </div>
