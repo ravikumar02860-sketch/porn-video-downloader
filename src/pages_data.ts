@@ -483,7 +483,9 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     keywords: [
       'download adult videos on android without app',
       'save porn videos on android',
-      'android adult video downloader'
+      'android adult video downloader',
+      'download adult videos on android without app 2025',
+      'best porn downloader 2025'
     ],
     headline: 'Download Adult Videos on Android Without Installing an App',
     subheadline: 'How to Safely and Securely Save High-Definition Videos Using Mobile Web Browsers',
@@ -516,7 +518,9 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     keywords: [
       'adult video downloader iOS shortcut',
       'download adult videos on iphone',
-      'save porn videos to iphone photos'
+      'save porn videos to iphone photos',
+      'adult video downloader iOS shortcut 2025',
+      'best porn downloader 2025'
     ],
     headline: 'Download Adult Videos on iPhone & iPad (iOS Guide)',
     subheadline: 'Master iOS Stream Extractions Safely and Save Files directly to your Files App',
