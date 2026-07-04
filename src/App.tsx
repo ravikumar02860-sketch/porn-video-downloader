@@ -46,6 +46,7 @@ import {
   TERMS_EXTENDED, 
   DISCLAIMER_EXTENDED 
 } from './seo_content.ts';
+import AdUnit from './AdUnit.tsx';
 
 function highlightKeywords(text: string) {
   const keywords = [
@@ -834,6 +835,30 @@ export default function App() {
         </div>
       </header>
 
+      {/* LEFT SIDEBAR BANNER (Fixed on widescreen, hidden on mobile) */}
+      <div className="hidden xl:block fixed left-4 top-24 z-30">
+        <div className="sticky top-24 p-2 bg-white/5 border border-white/[0.05] rounded-xl text-center">
+          <p className="text-[9px] uppercase tracking-wider text-slate-500 font-bold mb-1 font-mono">Advertisement</p>
+          <AdUnit id="sidebar-left-ad" keyStr="d69a18b0bc026badd771cad0d041b230" format="iframe" height={300} width={160} />
+        </div>
+      </div>
+
+      {/* RIGHT SIDEBAR BANNER (Fixed on widescreen, hidden on mobile) */}
+      <div className="hidden xl:block fixed right-4 top-24 z-30">
+        <div className="sticky top-24 p-2 bg-white/5 border border-white/[0.05] rounded-xl text-center">
+          <p className="text-[9px] uppercase tracking-wider text-slate-500 font-bold mb-1 font-mono">Advertisement</p>
+          <AdUnit id="sidebar-right-ad" keyStr="d69a18b0bc026badd771cad0d041b230" format="iframe" height={300} width={160} />
+        </div>
+      </div>
+
+      {/* TOP AD BANNER */}
+      <div className="max-w-4xl mx-auto mt-6 px-4 text-center">
+        <p className="text-[9px] uppercase tracking-wider text-slate-500 font-bold mb-1 font-mono">Sponsored Connection</p>
+        <div className="overflow-x-auto flex justify-center">
+          <AdUnit id="top-ad" keyStr="4052f43d605270f5910261d7d8e16b34" format="iframe" height={90} width={728} />
+        </div>
+      </div>
+
       {/* HERO SECTION CONTAINER */}
       <main id="tool-hero" className="relative overflow-hidden pt-12 pb-16 px-4">
         {/* Glow Effects */}
@@ -1026,6 +1051,14 @@ export default function App() {
               </button>
             </div>
 
+            {/* INLINE 468x60 AD BANNER BELOW FORM */}
+            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/[0.04] text-center">
+              <p className="text-[9px] uppercase tracking-wider text-slate-500 font-bold mb-1 font-mono">Sponsored Ad</p>
+              <div className="overflow-x-auto flex justify-center">
+                <AdUnit id="inline-form-ad" keyStr="239633fa172e0e577093d83eabbbddd7" format="iframe" height={60} width={468} />
+              </div>
+            </div>
+
             {/* LOADER SPINNER BLOCK */}
             {isLoading && (
               <div className="py-10 flex flex-col items-center justify-center gap-3">
@@ -1153,6 +1186,14 @@ export default function App() {
                         </div>
                       </div>
                     ))}
+                  </div>
+
+                  {/* AD BANNER DIRECTLY BELOW DOWNLOAD BUTTONS */}
+                  <div className="mt-4 pt-4 border-t border-slate-200 dark:border-white/[0.08] text-center">
+                    <p className="text-[9px] uppercase tracking-wider text-slate-500 font-bold mb-1 font-mono">Premium Direct Partner Ad</p>
+                    <div className="overflow-x-auto flex justify-center">
+                      <AdUnit id="metadata-download-ad" keyStr="239633fa172e0e577093d83eabbbddd7" format="iframe" height={60} width={468} />
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -2356,6 +2397,14 @@ export default function App() {
           </div>
         </section>
       )}
+
+      {/* BOTTOM FOOTER AD BANNER */}
+      <div className="max-w-4xl mx-auto py-6 px-4 text-center border-t border-slate-200 dark:border-white/[0.04]">
+        <p className="text-[9px] uppercase tracking-wider text-slate-500 font-bold mb-1.5 font-mono">Recommended Partner Links</p>
+        <div className="overflow-x-auto flex justify-center">
+          <AdUnit id="bottom-ad" keyStr="4052f43d605270f5910261d7d8e16b34" format="iframe" height={90} width={728} />
+        </div>
+      </div>
 
       {/* FOOTER BLOCK */}
       <footer className={`border-t py-12 px-4 transition-colors ${
