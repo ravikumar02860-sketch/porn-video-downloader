@@ -121,6 +121,27 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.remove('dark');
   }, []);
+
+  // Performance Optimization: Defer loading of heavy third-party ad scripts to avoid blocking the main thread during initial paint.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const adScripts = [
+        "https://endedstrung.com/0c/24/f0/0c24f0a5234aeae996d6b78439f90644.js",
+        "https://endedstrung.com/03/6a/fc/036afccc04470dff4e62d64a739ddf47.js"
+      ];
+      adScripts.forEach(src => {
+        // Prevent duplicate script elements
+        if (!document.querySelector(`script[src="${src}"]`)) {
+          const script = document.createElement('script');
+          script.src = src;
+          script.async = true;
+          document.body.appendChild(script);
+        }
+      });
+    }, 1500); // 1.5 seconds delay allows the react app to fully mount and paint first
+
+    return () => clearTimeout(timer);
+  }, []);
   
   useEffect(() => {
     // Generate JSON-LD Schema
