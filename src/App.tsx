@@ -31,7 +31,9 @@ import {
   Award,
   Star,
   Zap,
-  HelpCircle
+  HelpCircle,
+  Menu,
+  X
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SUPPORTED_PLATFORMS, SEO_FAQS, DEFAULT_FORMATS, getMockMetadata } from './data.ts';
@@ -116,6 +118,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'video' | 'audio'>('video');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isDarkMode = false;
 
   useEffect(() => {
@@ -850,13 +853,96 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20">
+            <span className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
               <span>High-Speed Fast Seeding</span>
             </span>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:text-orange-500 focus:outline-none"
+              aria-label="Toggle navigation menu"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
       </header>
+
+      {/* MOBILE NAV DRAWER */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className={`md:hidden border-b overflow-hidden relative z-40 ${
+              isDarkMode 
+                ? 'bg-slate-950 border-white/[0.06]' 
+                : 'bg-white border-slate-200 shadow-lg'
+            }`}
+          >
+            <div className="px-4 py-4 space-y-2 flex flex-col font-semibold text-sm">
+              <a 
+                href="/" 
+                onClick={(e) => { navigateTo('/', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'home' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                🏠 Home
+              </a>
+              <a 
+                href="/hd" 
+                onClick={(e) => { navigateTo('/hd', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'hd' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                📺 HD 4K Downloader
+              </a>
+              <a 
+                href="/short" 
+                onClick={(e) => { navigateTo('/short', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'short' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                🎥 Shorts Downloader
+              </a>
+              <a 
+                href="/studios" 
+                onClick={(e) => { navigateTo('/studios', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'brazzers' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                ✨ Premium Studios
+              </a>
+              <a 
+                href="/categories" 
+                onClick={(e) => { navigateTo('/categories', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'stepmom' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                🔥 Categories
+              </a>
+              <a 
+                href="/guides" 
+                onClick={(e) => { navigateTo('/guides', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'guides' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                📖 Guides
+              </a>
+              <a 
+                href="/supported-sites" 
+                onClick={(e) => { navigateTo('/supported-sites', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'supported' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                🌐 Supported Sites
+              </a>
+              <a 
+                href="/blog" 
+                onClick={(e) => { navigateTo('/blog', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${['blog', 'blog-post'].includes(currentPage) ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                ✍️ Blog
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* LEFT SIDEBAR BANNER (Fixed on widescreen, hidden on mobile) */}
       <div className="hidden xl:block fixed left-4 top-24 z-30">
@@ -896,7 +982,7 @@ export default function App() {
           </div>
 
           {/* Internal Link/Page Switched Navigation Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-8 max-w-2xl mx-auto">
+          <div className="flex overflow-x-auto whitespace-nowrap md:flex-wrap items-center md:justify-center gap-2 mb-8 max-w-2xl mx-auto scrollbar-none flex-nowrap -mx-4 px-4 md:mx-0 md:px-0 py-1">
             <a 
               href="/"
               onClick={(e) => navigateTo('/', e)}
@@ -1173,36 +1259,39 @@ export default function App() {
                     {DEFAULT_FORMATS.filter(f => f.type === activeTab).map((format) => (
                       <div 
                         key={format.id}
-                        className={`flex items-center justify-between p-3.5 rounded-xl border transition-colors ${
+                        className={`flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl border transition-all ${
                           isDarkMode 
                             ? 'bg-slate-950/60 border-white/[0.05] hover:bg-white/[0.04]' 
                             : 'bg-slate-100/60 border-slate-200 hover:bg-slate-100/90'
                         }`}
                       >
-                        <div className="flex items-center gap-3">
-                          <span className={`px-2 py-1 rounded text-xs font-mono font-bold ${
+                        <div className="flex items-start sm:items-center gap-3">
+                          <span className={`px-2 py-1 rounded text-xs font-mono font-bold shrink-0 mt-0.5 sm:mt-0 ${
                             isDarkMode ? 'bg-slate-900 text-slate-300' : 'bg-slate-200 text-slate-700'
                           }`}>
                             .{format.extension}
                           </span>
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex flex-wrap items-center gap-1.5">
                               <span className={`text-sm font-bold ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>{format.label}</span>
-                              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold bg-white/5 dark:bg-white/5 px-1 rounded">
+                              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold bg-white/5 dark:bg-white/5 px-1 rounded shrink-0">
                                 {format.quality}
                               </span>
                             </div>
-                            <p className="text-[10px] text-slate-500">
+                            <p className="text-[10px] text-slate-500 mt-0.5">
                               Resolution stream: {format.resolution} • Direct cloud link
                             </p>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-4">
-                          <span className="text-xs font-mono font-bold text-slate-400">{format.size}</span>
+                        <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto border-t sm:border-t-0 pt-2.5 sm:pt-0 mt-1.5 sm:mt-0 border-slate-200/60 dark:border-white/[0.05]">
+                          <span className="text-xs font-mono font-bold text-slate-500 sm:text-slate-400 flex items-center gap-1">
+                            <span className="sm:hidden text-[10px] font-sans font-normal text-slate-400 uppercase">Size:</span>
+                            {format.size}
+                          </span>
                           <button 
                             onClick={() => triggerSimulation(format)}
-                            className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-lg shadow-sm cursor-pointer transition-colors"
+                            className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs rounded-lg shadow-sm cursor-pointer transition-colors w-auto sm:w-auto min-h-[38px] flex items-center justify-center"
                           >
                             Stream Direct
                           </button>
