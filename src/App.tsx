@@ -49,6 +49,7 @@ import {
 import AdUnit from './AdUnit.tsx';
 
 function highlightKeywords(text: string) {
+  if (!text) return "";
   const keywords = [
     "pornsave", "porn save", "save porn", "saveporn", "pornsave online", "saveporn free",
     "porn video download", "hd porn video download", "porn videos free download", "xxx hd porn video download", 
@@ -1794,9 +1795,16 @@ export default function App() {
                         <h3 className={`text-lg sm:text-xl font-bold border-l-2 border-orange-500 pl-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
                           {section.title}
                         </h3>
-                        <p className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-                          {highlightKeywords(section.content)}
-                        </p>
+                        {section.subtitle && (
+                          <h4 className={`text-sm font-semibold text-orange-500/90 dark:text-orange-400/90`}>
+                            {section.subtitle}
+                          </h4>
+                        )}
+                        {section.paragraphs && section.paragraphs.map((para, paraIdx) => (
+                          <p key={paraIdx} className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                            {highlightKeywords(para)}
+                          </p>
+                        ))}
                       </div>
                     ))}
                   </div>
