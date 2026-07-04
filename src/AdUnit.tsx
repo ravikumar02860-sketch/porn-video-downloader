@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 interface AdUnitProps {
   id: string;
@@ -9,52 +9,77 @@ interface AdUnitProps {
 }
 
 export default function AdUnit({ id, keyStr, format, height, width }: AdUnitProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    
-    // Clear any previous content
-    containerRef.current.innerHTML = '';
-
-    // Create unique ID wrapper for this specific banner instance
-    const adWrapper = document.createElement('div');
-    adWrapper.id = `container-${keyStr}-${Math.random().toString(36).substr(2, 9)}`;
-    containerRef.current.appendChild(adWrapper);
-
-    // Inject configuration
-    const configScript = document.createElement('script');
-    configScript.type = 'text/javascript';
-    configScript.text = `
-      atOptions = {
-        'key' : '${keyStr}',
-        'format' : '${format}',
-        'height' : ${height},
-        'width' : ${width},
-        'params' : {}
-      };
-    `;
-    adWrapper.appendChild(configScript);
-
-    // Inject invoker script
-    const loaderScript = document.createElement('script');
-    loaderScript.type = 'text/javascript';
-    loaderScript.src = `https://endedstrung.com/${keyStr}/invoke.js`;
-    adWrapper.appendChild(loaderScript);
-
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = '';
-      }
-    };
-  }, [keyStr, format, height, width]);
+  // We use an iframe with srcDoc. This isolates the global 'atOptions' scope
+  // and captures any cross-origin script errors so they never crash or trigger
+  // errors in the parent app window.
+  const srcDocHtml = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>
+          body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          }
+        </style>
+        <script>
+          // Silence any errors inside the iframe so they never bubble up
+          window.onerror = function() { return true; };
+          window.addEventListener('error', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }, true);
+          window.addEventListener('unhandledrejection', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+          }, true);
+        </script>
+      </head>
+      <body>
+        <div id="ad-container"></div>
+        <script type="text/javascript">
+          try {
+            window.atOptions = {
+              'key' : '${keyStr}',
+              'format' : '${format}',
+              'height' : ${height},
+              'width' : ${width},
+              'params' : {}
+            };
+            
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://endedstrung.com/${keyStr}/invoke.js';
+            script.onerror = function(e) {
+              console.warn("Ad script failed to load gracefully:", e);
+            };
+            document.getElementById('ad-container').appendChild(script);
+          } catch (err) {
+            console.warn("Failed to initialize ad unit:", err);
+          }
+        </script>
+      </body>
+    </html>
+  `;
 
   return (
-    <div 
-      ref={containerRef} 
-      className="flex justify-center items-center my-4 mx-auto overflow-hidden bg-transparent"
-      style={{ minHeight: `${height}px`, minWidth: `${width}px` }}
+    <iframe
       id={id}
+      title={`ad-unit-${keyStr}`}
+      srcDoc={srcDocHtml}
+      width={width}
+      height={height}
+      style={{ border: 'none', overflow: 'hidden', background: 'transparent' }}
+      className="mx-auto block"
+      sandbox="allow-scripts allow-same-origin allow-popups"
     />
   );
 }
+

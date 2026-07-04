@@ -1,29 +1,66 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Prevent third-party script/ad block errors from crashing the main app shell -->
+    <script>
+      (function() {
+        var suppressAdErrors = function(e) {
+          var msg = e.message || "";
+          var filename = e.filename || "";
+          if (
+            msg.indexOf("Script error.") > -1 || 
+            filename.indexOf("endedstrung.com") > -1 ||
+            !filename ||
+            filename.indexOf(window.location.host) === -1
+          ) {
+            e.preventDefault();
+            e.stopPropagation();
+            return true;
+          }
+        };
+        window.addEventListener('error', suppressAdErrors, true);
+        window.onerror = function(msg, url) {
+          if (msg === "Script error." || (url && url.indexOf("endedstrung.com") > -1)) {
+            return true;
+          }
+        };
+        window.addEventListener('unhandledrejection', function(e) {
+          var reason = e.reason;
+          if (reason) {
+            var str = reason.stack || reason.message || String(reason);
+            if (str.indexOf("endedstrung.com") > -1) {
+              e.preventDefault();
+              e.stopPropagation();
+              return true;
+            }
+          }
+        }, true);
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="CKY8za9laVnO0ILSUFS0lLYwNyut-vzW6-TnMVL4XsM" />
     
     <!-- Primary Meta Tags -->
-    <title>Porn Save – Free Online Porn Video Downloader | Best Adult Downloader 2025</title>
-    <meta name="title" content="Porn Save – Free Online Porn Video Downloader | Best Adult Downloader 2025" />
-    <meta name="description" content="Porn Save is a secure, fast, and 100% free online porn video downloader. Easily download porn video in HD, 4K, or MP3. Secure video downloads from your favorite platforms now." />
+    <title>Porn Save (PornSave) – Free Online Porn Video Downloader | SavePorn & Save Porn 1080p / 4K</title>
+    <meta name="title" content="Porn Save (PornSave) – Free Online Porn Video Downloader | SavePorn & Save Porn 1080p / 4K" />
+    <meta name="description" content="Porn Save (PornSave) is the ultimate, 100% free online tool to save porn, download porn videos, and convert adult movies in HD 1080p, 4K, or MP3. Use PornSave & SavePorn for anonymous, high-speed adult video downloader access with no registration." />
+    <meta name="keywords" content="pornsave, porn save, save porn, saveporn, pornsave online, saveporn free, best porn downloader 2025, download porn videos, free adult video downloader, porn video downloader, save adult video, extract mp3 from porn, download pornhub, download xvideos, download xhamster" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://pornsave.vercel.app/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://pornsave.vercel.app/" />
-    <meta property="og:title" content="Porn Save – Free Online Porn Video Downloader" />
-    <meta property="og:description" content="Fast, free, and secure online HD video downloader for multi-platform content. Download premium clips in 4K or high quality MP3 instantly." />
+    <meta property="og:title" content="Porn Save (PornSave) – Free Online Porn Video Downloader (SavePorn)" />
+    <meta property="og:description" content="PornSave & SavePorn is the fastest free tool to save porn and download adult videos online. Extract MP4/MP3 from Pornhub, XVideos, xHamster, and more." />
     <meta property="og:image" content="https://pornsave.vercel.app/og-banner.jpg" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://pornsave.vercel.app/" />
-    <meta property="twitter:title" content="Porn Save – Free Online Porn Video Downloader" />
-    <meta property="twitter:description" content="Securely download mobile-optimized parent streams or quality desktop resolutions with absolute user anonymity." />
+    <meta property="twitter:title" content="Porn Save (PornSave) – SavePorn & Save Porn Free" />
+    <meta property="twitter:description" content="PornSave is your premier, zero-install choice to save porn videos and extract MP3 audio files. Completely secure, encrypted, and 100% anonymous." />
     <meta property="twitter:image" content="https://pornsave.vercel.app/og-banner.jpg" />
 
     <!-- Schema Markup (JSON-LD WebApplication, FAQPage, Organization, BreadcrumbList) -->
@@ -31,12 +68,13 @@
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Porn Save Downloader",
+      "name": "Porn Save (PornSave) Downloader",
+      "alternateName": ["SavePorn", "Save Porn", "PornSave Online", "pornsave.vercel.app"],
       "url": "https://pornsave.vercel.app/",
       "applicationCategory": "MultimediaApplication",
       "operatingSystem": "All",
       "browserRequirements": "Requires JavaScript. Requires HTML5.",
-      "description": "Securely downloads publicly available video loops and clips. Supports clean MP4 resolutions (1080p, 720p, 480p) and MP3 audio compilations.",
+      "description": "Securely downloads publicly available video loops and clips. Supports clean MP4 resolutions (1080p, 720p, 480p) and MP3 audio compilations on PornSave, Porn Save, SavePorn, and Save Porn.",
       "offers": {
         "@type": "Offer",
         "price": "0.00",
@@ -48,7 +86,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Organization",
-      "name": "Porn Save",
+      "name": "Porn Save (PornSave)",
       "url": "https://pornsave.vercel.app/",
       "logo": "https://pornsave.vercel.app/favicon.ico",
       "contactPoint": {

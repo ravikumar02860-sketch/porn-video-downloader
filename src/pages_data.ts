@@ -21,8 +21,8 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'home',
     url: '/',
     title: 'Home',
-    metaTitle: 'VaultRip – Premium Online Adult Video Downloader | Free Video Downloader 2025',
-    metaDesc: 'VaultRip is a secure, fast, and 100% free online porn video downloader. Easily download porn videos in HD, 4K, or MP3 from Pornhub, XVideos, xHamster, and 50+ platforms.',
+    metaTitle: 'PornSave – Premium Online Adult Video Downloader | Free Video Downloader 2025',
+    metaDesc: 'PornSave (Porn Save) is a secure, fast, and 100% free online porn video downloader. Easily download porn videos in HD, 4K, or MP3 from Pornhub, XVideos, xHamster, and 50+ platforms for free porn save operations.',
     keywords: [
       'porn video download',
       'porn videos free download',
@@ -33,9 +33,9 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       'easy download porn videos',
       'porn videos download in full hd'
     ],
-    headline: 'VaultRip: The Ultimate Free Online Adult Video Downloader',
+    headline: 'PornSave: The Ultimate Free Online Adult Video Downloader',
     subheadline: 'Secure, Anonymous, and Blazing Fast MP4/MP3 Extraction for Private Curation',
-    intro: 'VaultRip is an advanced, high-speed online media utility engineered to secure high-resolution adult streams and video clips into local disk storage within seconds. Paste your target raw address link, click download, and grab clean files directly with zero background ads, mandatory registration, or adware installation. Built by senior network compression advocates, our service bridges the gap between massive public video repositories and secure offline personal storage.',
+    intro: 'PornSave (Porn Save) is an advanced, high-speed online media utility engineered to secure high-resolution adult streams and video clips into local disk storage within seconds. Paste your target raw address link, click download, and grab clean files directly with zero background ads, mandatory registration, or adware installation. Built by senior network compression advocates, our service bridges the gap between massive public video repositories and secure offline personal storage.',
     sections: [
       {
         type: 'h2',
@@ -43,7 +43,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Streaming video repeatedly on public adult networks introduces serious risks. Not only does it consume immense amounts of cellular bandwidth, but standard adult tube portals are often laden with invasive tracking networks, dynamic profiling systems, and malicious pop-under scripts. VaultRip acts as an isolation barrier. By inputting public video URLs into our system, you extract raw MP4 files directly from the stream host. The extraction process is performed server-side or via sandbox scripts, meaning your personal computer never establishes direct connections with hazardous third-party adware databases. It is the premier tool for secure, high-definition curation.'
+        content: 'Streaming video repeatedly on public adult networks introduces serious risks. Not only does it consume immense amounts of cellular bandwidth, but standard adult tube portals are often laden with invasive tracking networks, dynamic profiling systems, and malicious pop-under scripts. PornSave (Porn Save) acts as an isolation barrier. By inputting public video URLs into our system, you extract raw MP4 files directly from the stream host. The extraction process is performed server-side or via sandbox scripts, meaning your personal computer never establishes direct connections with hazardous third-party adware databases. It is the premier tool for secure, high-definition curation.'
       },
       {
         type: 'paragraph',
@@ -90,7 +90,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'In the digital age, adult video browsing is one of the most heavily tracked activities online. Advertising giants construct detailed profiles of user preferences, local time zones, and hardware setups. VaultRip operates on a strict Zero-Log strategy. We do not register user accounts, and we do not maintain historical logs of parsed URLs. When you complete a download session, all transactional data is immediately flushed from our memory buffers.'
+        content: 'In the digital age, adult video browsing is one of the most heavily tracked activities online. Advertising giants construct detailed profiles of user preferences, local time zones, and hardware setups. PornSave operates on a strict Zero-Log strategy. We do not register user accounts, and we do not maintain historical logs of parsed URLs. When you complete a download session, all transactional data is immediately flushed from our memory buffers.'
       },
       {
         type: 'paragraph',
@@ -129,7 +129,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
         type: 'list',
         title: 'Common Answers to Technical Queries:',
         items: [
-          'Is VaultRip 100% free? Yes, there are no premium packages, restricted functions, or daily limits. Every tool feature is open to everyone.',
+          'Is PornSave 100% free? Yes, there are no premium packages, restricted functions, or daily limits. Every tool feature is open to everyone.',
           'How do I download on an iPhone? Open our site in Safari on iOS. Paste your link, tap download, and Safari\'s native download manager will handle the rest, saving the file to your Files folder.',
           'Can I convert videos to high quality MP3 tracks? Yes, our parser detects the sound layers and lets you grab crystal-clear MP3 audio files with ease.',
           'Why does a download link fail? Failures usually occur if the source video has been marked private, deleted from the parent server, or has country-specific licensing restrictions. Check that the source URL is fully public in a normal browser tab and try again.'
@@ -148,7 +148,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'hd',
     url: '/hd',
     title: 'HD Power Downloader',
-    metaTitle: 'HD Porn Video Downloader – Ultra HD 1080p & 4K | VaultRip',
+    metaTitle: 'HD Porn Video Downloader – Ultra HD 1080p & 4K | PornSave',
     metaDesc: 'Download pristine adult movies in 1080p, 4K, and UHD quality. Easily execute xxx hd porn video download with high-bitrate offline files.',
     keywords: [
       'hd porn video download',
@@ -182,7 +182,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'The VaultRip parser employs state-of-the-art media splitting algorithms. Traditional download systems struggle to process 4K video because modern stream hosts store high-resolution audio and video tracks separately (adaptive streaming). A standard downloader only grabs the video layer, leaving the output completely mute. Our advanced backend decodes the multiplex parameters, merges the video and high-bitrate audio layers on-the-fly, and delivers a fully combined high-fidelity MP4 file straight to your local directory. It is the absolute pinnacle of high-definition download technologies.'
+        content: 'The PornSave (Porn Save) parser employs state-of-the-art media splitting algorithms. Traditional download systems struggle to process 4K video because modern stream hosts store high-resolution audio and video tracks separately (adaptive streaming). A standard downloader only grabs the video layer, leaving the output completely mute. Our advanced backend decodes the multiplex parameters, merges the video and high-bitrate audio layers on-the-fly, and delivers a fully combined high-fidelity MP4 file straight to your local directory. It is the absolute pinnacle of high-definition download technologies.'
       },
       {
         type: 'list',
@@ -214,7 +214,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'short',
     url: '/short',
     title: 'Shorts Downloader',
-    metaTitle: 'Porn Short Video Downloader – Fast Portrait Loop Saver | VaultRip',
+    metaTitle: 'Porn Short Video Downloader – Fast Portrait Loop Saver | PornSave',
     metaDesc: 'Download viral short porn loops, portrait stories, and mobile-optimized adult reels. Enjoy fast download short porn videos for quick views.',
     keywords: [
       'porn short video download',
@@ -259,7 +259,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'pornhub',
     url: '/download-pornhub-videos',
     title: 'Pornhub Downloader',
-    metaTitle: 'Pornhub Video Downloader – Save Pornhub Videos Free to MP4 | VaultRip',
+    metaTitle: 'Pornhub Video Downloader – Save Pornhub Videos Free to MP4 | PornSave',
     metaDesc: 'The ultimate Pornhub video downloader. Download Pornhub videos in 1080p, 720p, or convert to MP3 instantly. Fast, safe, secure, and fully anonymous.',
     keywords: [
       'download pornhub video',
@@ -269,15 +269,15 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     ],
     headline: 'Free Online Pornhub Video Downloader',
     subheadline: 'Extract Original Quality MP4 Video Clips Natively in High Definition',
-    intro: 'VaultRip provides the absolute fastest, most stable online pornhub video downloader tool. This utility parses the Pornhub stream wrapper directly, delivering pristine, high-speed direct links to save content in standard MP4 formats ranging from data-saving 360p up to pristine 1080p and 4K Ultra HD.',
+    intro: 'PornSave (Porn Save) provides the absolute fastest, most stable online pornhub video downloader tool. This utility parses the Pornhub stream wrapper directly, delivering pristine, high-speed direct links to save content in standard MP4 formats ranging from data-saving 360p up to pristine 1080p and 4K Ultra HD.',
     sections: [
       {
         type: 'h2',
-        title: 'Why VaultRip is the Best Pornhub Downloader Online'
+        title: 'Why PornSave is the Best Pornhub Downloader Online'
       },
       {
         type: 'paragraph',
-        content: 'Pornhub is the undisputed giant of adult streaming entertainment. However, streaming high-definition files over public or cellular connections can consume several gigabytes of data and result in annoying buffering lags. Standard downloading plugins fail on Pornhub due to their proprietary video-splitting technology. VaultRip overcomes this block easily, merging video and audio streams seamlessly on-the-fly and outputting a complete, ready-to-play file straight to your local directory.'
+        content: 'Pornhub is the undisputed giant of adult streaming entertainment. However, streaming high-definition files over public or cellular connections can consume several gigabytes of data and result in annoying buffering lags. Standard downloading plugins fail on Pornhub due to their proprietary video-splitting technology. PornSave overcomes this block easily, merging video and audio streams seamlessly on-the-fly and outputting a complete, ready-to-play file straight to your local directory.'
       },
       {
         type: 'h2',
@@ -293,7 +293,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'xvideos',
     url: '/download-xvideos',
     title: 'Xvideos Downloader',
-    metaTitle: 'Xvideos Video Downloader – Extract XVideos to MP4/MP3 | VaultRip',
+    metaTitle: 'Xvideos Video Downloader – Extract XVideos to MP4/MP3 | PornSave',
     metaDesc: 'Free and fast XVideos downloader. Save videos from XVideos in high-bitrate 1080p HD, 720p, or convert to MP3 audio easily. No ads, no registrations.',
     keywords: [
       'download xvideos',
@@ -302,7 +302,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     ],
     headline: 'Fast Online XVideos Video Downloader',
     subheadline: 'Secure Raw MP4 Files Directly From XVideos Cloud Servers',
-    intro: 'VaultRip XVideos Downloader is engineered to deliver maximum transfer rates. It intercepts the XVideos media distribution protocols, giving you direct links to download files in crystal-clear high quality with zero redirects, malware, or account registration requirements.',
+    intro: 'PornSave XVideos Downloader is engineered to deliver maximum transfer rates. It intercepts the XVideos media distribution protocols, giving you direct links to download files in crystal-clear high quality with zero redirects, malware, or account registration requirements.',
     sections: [
       {
         type: 'h2',
@@ -310,7 +310,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Mainstream adult portals like XVideos are heavily packed with intrusive adware, redirect popups, and tracking cookies. Attempting to watch videos directly online constantly exposes your browser to potential tracking. By utilizing VaultRip as a secure gateway, you can parse any XVideos URL and extract the raw, unwatermarked video file to watch offline, completely ad-free and shielded.'
+        content: 'Mainstream adult portals like XVideos are heavily packed with intrusive adware, redirect popups, and tracking cookies. Attempting to watch videos directly online constantly exposes your browser to potential tracking. By utilizing PornSave as a secure gateway, you can parse any XVideos URL and extract the raw, unwatermarked video file to watch offline, completely ad-free and shielded.'
       },
       {
         type: 'h2',
@@ -326,7 +326,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'xhamster',
     url: '/xhamster-downloader',
     title: 'xHamster Downloader',
-    metaTitle: 'xHamster Video Downloader – Download xHamster Free Online | VaultRip',
+    metaTitle: 'xHamster Video Downloader – Download xHamster Free Online | PornSave',
     metaDesc: 'Free online xHamster downloader. Extract high quality xHamster videos to MP4 and MP3 files. Works on Android, iPhone, and PC with absolute privacy.',
     keywords: [
       'xhamster downloader',
@@ -334,7 +334,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     ],
     headline: 'High-Speed xHamster Video Downloader',
     subheadline: 'Download and Preserve xHamster Clips Locally for Safe Off-Grid Curation',
-    intro: 'VaultRip provides the ultimate online utility for xHamster downloads. It decodes the platform\'s HLS playlist wrappers, compiling separated segments into a solid, high-compatibility MP4 file that can be played natively on any desktop, tablet, or smartphone device.',
+    intro: 'PornSave provides the ultimate online utility for xHamster downloads. It decodes the platform\'s HLS playlist wrappers, compiling separated segments into a solid, high-compatibility MP4 file that can be played natively on any desktop, tablet, or smartphone device.',
     sections: [
       {
         type: 'h2',
@@ -342,7 +342,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Streaming video from xHamster frequently results in dynamic resolution downgrades, especially on slow home connections or when traveling. VaultRip ensures you secure the absolute highest resolution available, downloading files at the full speed of your network interface. There are no restrictions, files size limits, or premium blockades on our tools.'
+        content: 'Streaming video from xHamster frequently results in dynamic resolution downgrades, especially on slow home connections or when traveling. PornSave ensures you secure the absolute highest resolution available, downloading files at the full speed of your network interface. There are no restrictions, files size limits, or premium blockades on our tools.'
       },
       {
         type: 'h2',
@@ -358,8 +358,8 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'spankbang',
     url: '/spankbang-downloader',
     title: 'SpankBang Downloader',
-    metaTitle: 'SpankBang Video Downloader – Free Online Adult Downloader | VaultRip',
-    metaDesc: 'Save SpankBang videos in 4K, 1080p HD, and MP3. VaultRip SpankBang downloader is safe, secure, fast, and does not require registration.',
+    metaTitle: 'SpankBang Video Downloader – Free Online Adult Downloader | PornSave',
+    metaDesc: 'Save SpankBang videos in 4K, 1080p HD, and MP3. PornSave SpankBang downloader is safe, secure, fast, and does not require registration.',
     keywords: [
       'spankbang downloader',
       'download spankbang videos'
@@ -374,7 +374,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Most free online downloaders struggle with SpankBang because the site serves audio and video tracks separately (DASH streams). This results in downloaded files being completely silent. VaultRip is equipped with advanced multiplexing algorithms that compile and synchronize audio-visual layers on-the-fly, delivering a complete, high-fidelity MP4 file with crisp, synchronized sound.'
+        content: 'Most free online downloaders struggle with SpankBang because the site serves audio and video tracks separately (DASH streams). This results in downloaded files being completely silent. PornSave is equipped with advanced multiplexing algorithms that compile and synchronize audio-visual layers on-the-fly, delivering a complete, high-fidelity MP4 file with crisp, synchronized sound.'
       }
     ]
   },
@@ -382,7 +382,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'redtube',
     url: '/redtube-downloader',
     title: 'RedTube Downloader',
-    metaTitle: 'RedTube Video Downloader – Save RedTube Videos to MP4 | VaultRip',
+    metaTitle: 'RedTube Video Downloader – Save RedTube Videos to MP4 | PornSave',
     metaDesc: 'Download RedTube videos for free online. Clear, unwatermarked MP4 downloads from RedTube in 1080p, 720p, or MP3. Secure and ad-free extraction.',
     keywords: [
       'redtube downloader',
@@ -398,7 +398,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'VaultRip provides complete digital custody of your favorite content. Our RedTube parser works seamlessly on desktop systems and mobile phones alike. By storing your favorite clips locally, you protect your library from deletion, regional locks, or sudden platform server downtime.'
+        content: 'PornSave provides complete digital custody of your favorite content. Our RedTube parser works seamlessly on desktop systems and mobile phones alike. By storing your favorite clips locally, you protect your library from deletion, regional locks, or sudden platform server downtime.'
       }
     ]
   },
@@ -406,7 +406,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'youporn',
     url: '/youporn-downloader',
     title: 'YouPorn Downloader',
-    metaTitle: 'YouPorn Video Downloader – Save YouPorn Free Online | VaultRip',
+    metaTitle: 'YouPorn Video Downloader – Save YouPorn Free Online | PornSave',
     metaDesc: 'Download YouPorn videos in HD 1080p, 720p, and MP3. Free online YouPorn downloader with no registration, no watermarks, and high speed.',
     keywords: [
       'youporn downloader',
@@ -414,7 +414,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     ],
     headline: 'Free YouPorn Video Downloader Tool',
     subheadline: 'The Safe Gateway to Offline YouPorn Curation',
-    intro: 'VaultRip YouPorn Downloader acts as a secure, ad-blocking shield. It isolates YouPorn stream endpoints, enabling you to extract high-bitrate video clips directly, protecting your hardware from dangerous adult-site browser popups and invasive trackers.',
+    intro: 'PornSave YouPorn Downloader acts as a secure, ad-blocking shield. It isolates YouPorn stream endpoints, enabling you to extract high-bitrate video clips directly, protecting your hardware from dangerous adult-site browser popups and invasive trackers.',
     sections: [
       {
         type: 'h2',
@@ -430,7 +430,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'tube8',
     url: '/tube8-downloader',
     title: 'Tube8 Downloader',
-    metaTitle: 'Tube8 Video Downloader – Download Tube8 Clips Free | VaultRip',
+    metaTitle: 'Tube8 Video Downloader – Download Tube8 Clips Free | PornSave',
     metaDesc: 'Download Tube8 videos online in MP4 format. Extract high quality Tube8 clips and trailers easily with our secure, zero-log adult downloader tool.',
     keywords: [
       'tube8 downloader',
@@ -438,7 +438,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     ],
     headline: 'High-Bitrate Tube8 Video Downloader',
     subheadline: 'Save Lightweight and High-Quality MP4 Adult Reels Instantly',
-    intro: 'VaultRip is fully compatible with the Tube8 streaming directory. By entering any public Tube8 page link, our parser isolates the raw video files and generates direct download paths for quick, unthrottled transfers to your local storage device.',
+    intro: 'PornSave is fully compatible with the Tube8 streaming directory. By entering any public Tube8 page link, our parser isolates the raw video files and generates direct download paths for quick, unthrottled transfers to your local storage device.',
     sections: [
       {
         type: 'h2',
@@ -446,7 +446,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Tube8 videos are highly optimized for mobile devices, offering space-efficient file sizes. VaultRip allows you to download these lightweight MP4 clips in seconds, preserving your device\'s local storage and cellular data boundaries while maintaining impressive quality.'
+        content: 'Tube8 videos are highly optimized for mobile devices, offering space-efficient file sizes. PornSave allows you to download these lightweight MP4 clips in seconds, preserving your device\'s local storage and cellular data boundaries while maintaining impressive quality.'
       }
     ]
   },
@@ -454,7 +454,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'eporner',
     url: '/eporner-downloader',
     title: 'Eporner Downloader',
-    metaTitle: 'Eporner Video Downloader – Save Eporner Videos in 4K | VaultRip',
+    metaTitle: 'Eporner Video Downloader – Save Eporner Videos in 4K | PornSave',
     metaDesc: 'Download Eporner videos in high-bitrate 1080p HD, 4K, or MP3 audio. Fast, free online Eporner downloader with zero limits and absolute privacy.',
     keywords: [
       'eporner downloader',
@@ -470,7 +470,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'While other downloaders scale down Eporner links to 480p, VaultRip fetches the absolute maximum resolution available, including stunning 1080p and 4K Ultra HD. Our zero-log strategy guarantees that your search parameters and downloaded files remain strictly private and confidential.'
+        content: 'While other downloaders scale down Eporner links to 480p, PornSave fetches the absolute maximum resolution available, including stunning 1080p and 4K Ultra HD. Our zero-log strategy guarantees that your search parameters and downloaded files remain strictly private and confidential.'
       }
     ]
   },
@@ -478,7 +478,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'android',
     url: '/download-adult-videos-android',
     title: 'Android Guide',
-    metaTitle: 'Download Adult Videos on Android Without App (Free Guide) | VaultRip',
+    metaTitle: 'Download Adult Videos on Android Without App (Free Guide) | PornSave',
     metaDesc: 'Learn how to download porn videos on Android without installing risky APK files. Use standard mobile browsers to save adult videos in HD safely.',
     keywords: [
       'download adult videos on android without app',
@@ -497,7 +497,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Unlike safe app-store utilities, raw Android APKs distributed on adult platforms are unvetted. Security audits show that many contain background trojans, telemetry trackers, and ad-injectors. By using VaultRip directly within your native browser, you completely eliminate these security threats while achieving maximum download speeds.'
+        content: 'Unlike safe app-store utilities, raw Android APKs distributed on adult platforms are unvetted. Security audits show that many contain background trojans, telemetry trackers, and ad-injectors. By using PornSave directly within your native browser, you completely eliminate these security threats while achieving maximum download speeds.'
       },
       {
         type: 'h2',
@@ -505,7 +505,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: '1. Launch Google Chrome or Samsung Internet on your Android device.\n2. Browse to any compatible adult platform and copy the video URL from the search bar or share button.\n3. Head to VaultRip, paste the link into our secure input field, and tap search.\n4. Scroll to your desired format (1080p MP4 is highly recommended for high-end phone screens), and tap download.\n5. The file will download natively, saving directly to your phone\'s Downloads folder.'
+        content: '1. Launch Google Chrome or Samsung Internet on your Android device.\n2. Browse to any compatible adult platform and copy the video URL from the search bar or share button.\n3. Head to PornSave, paste the link into our secure input field, and tap search.\n4. Scroll to your desired format (1080p MP4 is highly recommended for high-end phone screens), and tap download.\n5. The file will download natively, saving directly to your phone\'s Downloads folder.'
       }
     ]
   },
@@ -513,7 +513,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'iphone',
     url: '/download-adult-videos-iphone',
     title: 'iPhone Guide',
-    metaTitle: 'Adult Video Downloader iOS Shortcut & iPhone Guide | VaultRip',
+    metaTitle: 'Adult Video Downloader iOS Shortcut & iPhone Guide | PornSave',
     metaDesc: 'Discover the easiest way to download adult videos on iPhone and iPad. Learn how to use Safari to save high-definition porn videos offline safely.',
     keywords: [
       'adult video downloader iOS shortcut',
@@ -532,7 +532,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'You do not need jailbreaks or paid software. 1. Copy the video link from your preferred adult platform. 2. Open VaultRip in Apple Safari. 3. Paste the URL, and click search. 4. Tap the download link next to your resolution of choice. 5. Safari will present a prompt asking: "Do you want to download this file?" Tap "Download." 6. Track progress in Safari\'s top-right download circle. Once finished, open the Files app to access your uncompressed MP4 video offline.'
+        content: 'You do not need jailbreaks or paid software. 1. Copy the video link from your preferred adult platform. 2. Open PornSave in Apple Safari. 3. Paste the URL, and click search. 4. Tap the download link next to your resolution of choice. 5. Safari will present a prompt asking: "Do you want to download this file?" Tap "Download." 6. Track progress in Safari\'s top-right download circle. Once finished, open the Files app to access your uncompressed MP4 video offline.'
       },
       {
         type: 'h2',
@@ -548,7 +548,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'pc',
     url: '/download-adult-videos-pc',
     title: 'PC Guide',
-    metaTitle: 'Best Adult Downloader for PC – Windows, Mac & Linux | VaultRip',
+    metaTitle: 'Best Adult Downloader for PC – Windows, Mac & Linux | PornSave',
     metaDesc: 'The ultimate guide to adult video downloading on desktop. Learn how to save uncompressed 4K and 1080p adult videos to your computer at maximum speed.',
     keywords: [
       'download adult videos on pc',
@@ -565,7 +565,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'paragraph',
-        content: 'Many users are tempted to install desktop programs to download adult videos. However, these programs frequently package adware, telemetry scripts, or cryptocurrency miners that degrade computer performance. VaultRip offers a 100% web-based solution. It requires zero installation, runs entirely in sandboxed memory, and utilizes unthrottled cloud servers to deliver your files at the maximum speed of your internet bandwidth.'
+        content: 'Many users are tempted to install desktop programs to download adult videos. However, these programs frequently package adware, telemetry scripts, or cryptocurrency miners that degrade computer performance. PornSave offers a 100% web-based solution. It requires zero installation, runs entirely in sandboxed memory, and utilizes unthrottled cloud servers to deliver your files at the maximum speed of your internet bandwidth.'
       },
       {
         type: 'h2',
@@ -581,7 +581,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'mp4',
     url: '/download-adult-video-mp4',
     title: 'MP4 Format Guide',
-    metaTitle: 'Download Adult Video MP4 – Universal File Compatibility | VaultRip',
+    metaTitle: 'Download Adult Video MP4 – Universal File Compatibility | PornSave',
     metaDesc: 'Learn why MP4 is the undisputed standard container for adult video archiving. Download high-compatibility, uncompressed MP4 adult clips easily.',
     keywords: [
       'download adult video mp4',
@@ -602,11 +602,11 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'h2',
-        title: 'How VaultRip Ensures Lossless MP4 Conversions'
+        title: 'How PornSave Ensures Lossless MP4 Conversions'
       },
       {
         type: 'paragraph',
-        content: 'Many streaming sites deliver video and audio tracks in separate files (dynamic streaming) to optimize their web bandwidth. Standard downloaders will only capture a silent video. VaultRip\'s advanced cloud decoder solves this by automatically multiplexing (combining) the raw video and high-bitrate audio layers on-the-fly, packaging them into a single, high-fidelity MP4 file ready for immediate playback.'
+        content: 'Many streaming sites deliver video and audio tracks in separate files (dynamic streaming) to optimize their web bandwidth. Standard downloaders will only capture a silent video. PornSave\'s advanced cloud decoder solves this by automatically multiplexing (combining) the raw video and high-bitrate audio layers on-the-fly, packaging them into a single, high-fidelity MP4 file ready for immediate playback.'
       }
     ]
   },
@@ -614,7 +614,7 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'hd1080p',
     url: '/download-adult-video-1080p',
     title: '1080p Quality Guide',
-    metaTitle: 'Download Adult Video 1080p HD & 4K UHD Guide | VaultRip',
+    metaTitle: 'Download Adult Video 1080p HD & 4K UHD Guide | PornSave',
     metaDesc: 'Upgrade your adult video library to true 1080p Full HD and 4K Ultra HD. Learn how to extract original-quality high-bitrate streaming files.',
     keywords: [
       'download adult video 1080p',
@@ -635,11 +635,11 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       },
       {
         type: 'h2',
-        title: 'VaultRip\'s High-Resolution Extraction Protocol'
+        title: 'PornSave\'s High-Resolution Extraction Protocol'
       },
       {
         type: 'paragraph',
-        content: 'VaultRip establishes direct handshakes with the underlying content delivery networks (CDNs) of compatible adult platforms. This allows our tool to locate and isolate the original, high-bitrate master files uploaded by publishers, bypassing the compression layers and watermark injectors used by other free download utilities. This guarantees your downloads remain absolutely pristine and true to the source.'
+        content: 'PornSave establishes direct handshakes with the underlying content delivery networks (CDNs) of compatible adult platforms. This allows our tool to locate and isolate the original, high-bitrate master files uploaded by publishers, bypassing the compression layers and watermark injectors used by other free download utilities. This guarantees your downloads remain absolutely pristine and true to the source.'
       }
     ]
   }

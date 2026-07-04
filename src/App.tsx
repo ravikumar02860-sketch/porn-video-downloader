@@ -50,6 +50,7 @@ import AdUnit from './AdUnit.tsx';
 
 function highlightKeywords(text: string) {
   const keywords = [
+    "pornsave", "porn save", "save porn", "saveporn", "pornsave online", "saveporn free",
     "porn video download", "hd porn video download", "porn videos free download", "xxx hd porn video download", 
     "best porn videos download", "porn short video download", "new hd porn video download", "brazzers porn video download", 
     "stepmom porn video download", "latest porn videos download", "desi porn video download", "4k porn video download", 
@@ -1777,6 +1778,28 @@ export default function App() {
                   >
                     Fetch Downloads Now
                   </button>
+                </div>
+              </section>
+
+              {/* 11. DEEP SEO RESOURCE LIBRARY & DECODING PROTOCOLS */}
+              <section id="seo-resource-library" className="max-w-5xl mx-auto px-4 pb-16 text-left">
+                <div className="border-t border-slate-200 dark:border-white/[0.04] pt-12">
+                  <span className="text-orange-500 font-bold uppercase tracking-wider text-xs">Knowledge Base</span>
+                  <h2 className={`text-2xl sm:text-3xl font-black mt-1.5 mb-8 ${isDarkMode ? 'text-white' : 'text-slate-955'}`}>
+                    Professional Guides & Decoupling Systems
+                  </h2>
+                  <div className="space-y-8">
+                    {HOMEPAGE_EXTENDED_SECTIONS.map((section, idx) => (
+                      <div key={idx} className="space-y-3">
+                        <h3 className={`text-lg sm:text-xl font-bold border-l-2 border-orange-500 pl-3 ${isDarkMode ? 'text-white' : 'text-slate-900'}`}>
+                          {section.title}
+                        </h3>
+                        <p className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                          {highlightKeywords(section.content)}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </section>
             </div>
