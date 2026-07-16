@@ -326,31 +326,36 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
     id: 'xhamster',
     url: '/xhamster-downloader',
     title: 'xHamster Downloader',
-    metaTitle: 'xHamster Video Downloader – Download xHamster Free Online | PornSave',
-    metaDesc: 'Free online xHamster downloader. Extract high quality xHamster videos to MP4 and MP3 files. Works on Android, iPhone, and PC with absolute privacy.',
+    metaTitle: 'xHamster Video Downloader – Save xHarmster Free Online | PornSave',
+    metaDesc: 'Free online xHamster / xHarmster downloader. Extract high quality xHamster45, xharmster46, and xharmster.desi videos to MP4 and MP3. Safe, fast, and anonymous.',
     keywords: [
       'xhamster downloader',
-      'download xhamster videos'
+      'download xhamster videos',
+      'xharmster',
+      'Xharmster45',
+      'xharmster46',
+      'xharmster.desi',
+      'xhamster.desi'
     ],
-    headline: 'High-Speed xHamster Video Downloader',
+    headline: 'High-Speed xHamster & xHarmster Video Downloader',
     subheadline: 'Download and Preserve xHamster Clips Locally for Safe Off-Grid Curation',
-    intro: 'PornSave provides the ultimate online utility for xHamster downloads. It decodes the platform\'s HLS playlist wrappers, compiling separated segments into a solid, high-compatibility MP4 file that can be played natively on any desktop, tablet, or smartphone device.',
+    intro: 'PornSave provides the ultimate online utility for xHamster and xHarmster downloads. It decodes the platform\'s HLS playlist wrappers, compiling separated segments into a solid, high-compatibility MP4 file that can be played natively on any desktop, tablet, or smartphone device.',
     sections: [
       {
         type: 'h2',
-        title: 'Bypass Streaming Limitations on xHamster'
+        title: 'Bypass Streaming Limitations & Mirror Blocks'
       },
       {
         type: 'paragraph',
-        content: 'Streaming video from xHamster frequently results in dynamic resolution downgrades, especially on slow home connections or when traveling. PornSave ensures you secure the absolute highest resolution available, downloading files at the full speed of your network interface. There are no restrictions, files size limits, or premium blockades on our tools.'
+        content: 'Streaming video from xHamster and its various popular mirrors frequently results in dynamic resolution downgrades. For users seeking access through custom proxies and alternative domain mirrors like Xharmster45, xharmster46, xhamster.desi, or xharmster.desi, PornSave supports seamless fetching from all these dynamic streaming layers. We ensure you secure the absolute highest resolution available, downloading files at the full speed of your network interface. There are no restrictions, files size limits, or premium blockades on our tools.'
       },
       {
         type: 'h2',
-        title: 'Three Easy Steps to Save xHamster Content'
+        title: 'Three Easy Steps to Save xHamster & xHarmster Content'
       },
       {
         type: 'paragraph',
-        content: 'Copy the web link of your target xHamster video. Paste it into our downloader form, and click search. Once our analyzer compiles the stream details, select your preferred quality format and save the clip locally in seconds.'
+        content: 'Copy the web link of your target xHamster or xHarmster video from any active portal including xharmster46, Xharmster45, or xharmster.desi. Paste it into our downloader form, and click search. Once our analyzer compiles the stream details, select your preferred quality format (such as 1080p MP4 or high quality MP3) and save the clip locally in seconds.'
       }
     ]
   },
@@ -640,6 +645,60 @@ export const SEO_PAGES_DATA: Record<string, SEOPage> = {
       {
         type: 'paragraph',
         content: 'PornSave establishes direct handshakes with the underlying content delivery networks (CDNs) of compatible adult platforms. This allows our tool to locate and isolate the original, high-bitrate master files uploaded by publishers, bypassing the compression layers and watermark injectors used by other free download utilities. This guarantees your downloads remain absolutely pristine and true to the source.'
+      }
+    ]
+  },
+  desi: {
+    id: 'desi',
+    url: '/desi-video-downloader',
+    title: 'Desi Downloader',
+    metaTitle: 'Desi Video Downloader – Save Desi Bhabhi & DesiHub Videos | PornSave',
+    metaDesc: 'Download Desi bhabhi videos, Ullu webseries, and DesiHub clips for free online. Save DesiBP, AuntyMaza, and DesiTailes leaks in HD MP4 with no limits.',
+    keywords: [
+      'desihub',
+      'desibp',
+      'auntymaza',
+      'desi bhabhi',
+      'ullu webseries',
+      'desitailes',
+      'fsiblog',
+      'fsiblog2',
+      'porn videos'
+    ],
+    headline: 'Free Desi Adult Video Downloader Online',
+    subheadline: 'Extract High-Quality Desi Bhabhi Videos, Webseries & Leaks Securely',
+    intro: 'PornSave offers a specialized Desi adult video downloader tool optimized to parse and save popular Indian/Desi adult streaming media. From viral local leaks to premium web series, extract raw MP4 files at blazing speeds with complete anonymity.',
+    sections: [
+      {
+        type: 'h2',
+        title: 'Save Popular Desi Video Streams Natively'
+      },
+      {
+        type: 'paragraph',
+        content: 'Indian adult entertainment has exploded in popularity, driven by fan-favorites like Ullu webseries, Hotshots, and premium local networks. Sites like desihub, desibp, desitailes, and auntymaza host massive directories of trending amateur clips, trending reels, and desi bhabhi video productions. However, these localized platforms are heavily loaded with intrusive advertisements, misleading download prompts, and background tracking scripts. PornSave serves as a secure shield, allowing you to bypass these ad-heavy interfaces and download your desired files directly and cleanly.'
+      },
+      {
+        type: 'h2',
+        title: 'Supported Indian Adult Networks & Leak Blogs'
+      },
+      {
+        type: 'paragraph',
+        content: 'Our parser is constantly updated to support files shared on leak forums, storage servers, and popular video blogs. Whether you are extracting streaming clips from fsiblog, fsiblog2, desitailes, desihub, or desibp, our utility connects directly to the media servers to retrieve the highest available definition. Enjoy your offline media library with 100% security, high-bitrate audio-visual sync, and zero background trackers.'
+      },
+      {
+        type: 'h2',
+        title: 'Step-by-Step Desi Bhabhi Video Downloading'
+      },
+      {
+        type: 'paragraph',
+        content: '1. Open your browser and navigate to any video page on desihub, desibp, desitailes, or auntymaza containing your favorite desi bhabhi content or Ullu webseries.\n2. Copy the full link from your browser\'s address bar.\n3. Head to PornSave, paste the copied link into the URL input field on top, and tap search.\n4. Select your preferred resolution (such as 1080p HD or high-quality MP3 audio extractions) and click download.\n5. The raw file will download natively, saving directly to your local device storage.'
+      },
+      {
+        type: 'h2',
+        title: 'Explore Our Complete Core Routing Network'
+      },
+      {
+        type: 'internal-links-grid'
       }
     ]
   }

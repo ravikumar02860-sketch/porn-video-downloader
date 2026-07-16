@@ -64,7 +64,8 @@ function highlightKeywords(text: string) {
     "download south indian porn videos", "hd hindi porn video download", "aletta ocean porn video download", 
     "dani daniels hd porn video download", "download 4k porn videos", "easy download porn videos", "indian xxx porn video download", 
     "massage porn video download", "nadia ali porn video download", "porn video download video", "porn video song download", 
-    "porn videos download in full hd"
+    "porn videos download in full hd", "xharmster", "Xharmster45", "xharmster46", "xharmster.desi", "desihub", 
+    "desibp", "auntymaza", "desi bhabhi", "ullu webseries", "desitailes", "fsiblog", "fsiblog2", "pornhub", "porn videos"
   ];
   
   const sortedKeywords = [...keywords].sort((a, b) => b.length - a.length);
@@ -210,7 +211,7 @@ export default function App() {
   const TOOL_PAGES = [
     'home', 'hd', 'short', 'brazzers', 'stepmom', 'guides', 'supported',
     'pornhub', 'xvideos', 'xhamster', 'spankbang', 'redtube', 'youporn', 'tube8', 'eporner',
-    'android', 'iphone', 'pc', 'mp4', 'hd1080p'
+    'android', 'iphone', 'pc', 'mp4', 'hd1080p', 'desi'
   ];
 
   const navigateTo = (path: string, e?: React.MouseEvent) => {
@@ -404,8 +405,14 @@ export default function App() {
       } else if (pathClean === 'xhamster-downloader') {
         setCurrentPage('xhamster');
         updateMetaTags(
-          "xHamster Video Downloader – Download xHamster Free Online | Porn Save",
-          "Convert and save xHamster videos to your local disk easily. No installations required, fully mobile compatible, supporting 1080p, 720p, and MP3 formats."
+          "xHamster Video Downloader – Save xHarmster Free Online | Porn Save",
+          "Free online xHamster / xHarmster downloader. Extract high quality xHamster45, xharmster46, and xharmster.desi videos to MP4 and MP3. Safe, fast, and anonymous."
+        );
+      } else if (pathClean === 'desi-video-downloader' || pageParam === 'desi' || hash === '#desi') {
+        setCurrentPage('desi');
+        updateMetaTags(
+          "Desi Video Downloader – Save Desi Bhabhi & DesiHub Videos | Porn Save",
+          "Download Desi bhabhi videos, Ullu webseries, and DesiHub clips for free online. Save DesiBP, AuntyMaza, and DesiTailes leaks in HD MP4 with no limits."
         );
       } else if (pathClean === 'spankbang-downloader') {
         setCurrentPage('spankbang');
@@ -849,6 +856,7 @@ export default function App() {
             <a href="/categories" onClick={(e) => navigateTo('/categories', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'stepmom' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Categories</a>
             <a href="/guides" onClick={(e) => navigateTo('/guides', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'guides' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Guides</a>
             <a href="/supported-sites" onClick={(e) => navigateTo('/supported-sites', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'supported' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Supported Sites</a>
+            <a href="/desi-video-downloader" onClick={(e) => navigateTo('/desi-video-downloader', e)} className={`pb-1 border-b-2 transition-all ${currentPage === 'desi' ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>🇮🇳 Desi Downloader</a>
             <a href="/blog" onClick={(e) => navigateTo('/blog', e)} className={`pb-1 border-b-2 transition-all ${['blog', 'blog-post'].includes(currentPage) ? 'text-orange-500 border-orange-500' : `${isDarkMode ? 'text-slate-400' : 'text-black'} border-transparent hover:text-orange-500`}`}>Blog</a>
           </nav>
 
@@ -931,6 +939,13 @@ export default function App() {
                 className={`px-3 py-2 rounded-xl transition ${currentPage === 'supported' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
               >
                 🌐 Supported Sites
+              </a>
+              <a 
+                href="/desi-video-downloader" 
+                onClick={(e) => { navigateTo('/desi-video-downloader', e); setIsMobileMenuOpen(false); }} 
+                className={`px-3 py-2 rounded-xl transition ${currentPage === 'desi' ? 'bg-orange-500 text-white font-bold' : `${isDarkMode ? 'text-slate-300 hover:bg-white/5' : 'text-slate-700 hover:bg-slate-100'}`}`}
+              >
+                🇮🇳 Desi Downloader
               </a>
               <a 
                 href="/blog" 
@@ -1073,6 +1088,19 @@ export default function App() {
               }`}
             >
               🌐 Supported Sites
+            </a>
+            <a 
+              href="/desi-video-downloader"
+              onClick={(e) => navigateTo('/desi-video-downloader', e)}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide transition border ${
+                currentPage === 'desi' 
+                  ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/10 font-bold' 
+                  : isDarkMode 
+                    ? 'bg-slate-900 text-slate-350 border-white/[0.06] hover:bg-slate-850 hover:text-white' 
+                    : 'bg-white text-slate-650 border-slate-200 hover:bg-slate-50'
+              }`}
+            >
+              🇮🇳 Desi Downloader
             </a>
           </div>
 
